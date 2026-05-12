@@ -1,0 +1,16 @@
+{
+  "name": "@ui/style",
+  "version": "1.0.0",
+  "main": "tailwind.config.js",
+  "private": true,
+  "scripts": {
+    "generate:tokens": "node scripts/generate-tokens.js",
+    "dev": "npm run generate:tokens && tailwindcss -i ./src/style.css -o ./dist/style.css --watch",
+    "build": "npm run generate:tokens && tailwindcss -i ./src/style.css -o ./dist/style.css --minify"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.14",
+    "tailwindcss": "3.4"
+  }
+}
