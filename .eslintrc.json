@@ -1,0 +1,29 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    /* ✨ HTML/컴포넌트 템플릿 들여쓰기 2칸 강제 */
+    "vue/html-indent": ["error", 2],
+
+    /* ✨ 속성 줄바꿈 자유도 보장 (Prettier처럼 강제하지 않음) */
+    "vue/max-attributes-per-line": "off",
+
+    /* ✨ 태그 안의 텍스트 한 줄/여러 줄 자유도 보장 */
+    "vue/singleline-html-element-content-newline": "off",
+    "vue/multiline-html-element-content-newline": "off",
+    
+    /* 닫는 괄호(>) 위치 강제 해제 */
+    "vue/html-closing-bracket-newline": "off"
+  }
+}

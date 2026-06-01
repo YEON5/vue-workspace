@@ -1,5 +1,5 @@
 {
-  /* 기존 설정 유지 */
+  /* SCSS 컴파일 설정 */
   "liveSassCompile.settings.formats": [
     {
       "format": "expanded",
@@ -17,42 +17,46 @@
     "code-basic/**/*.scss",
     "code-basic/**/*.sass"
   ],
+
+  /* VS Code 기본 포맷팅 및 라이브 서버 설정 */
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "liveServer.settings.port": 5502,
+
+  /* Tailwind CSS 설정 */
   "tailwindCSS.rootFontSize": 10,
-
-  /* 1. 에디터 탭 및 공백 설정 (Prettier와 동기화) */
-  "editor.tabSize": 2,
-  "editor.insertSpaces": true,
-
-  /* 2. 저장 시 자동 수정 동작 */
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.fixAll.stylelint": "explicit",
-    "source.organizeImports": "explicit"
-  },
-
-  /* 3. Tailwind CSS 자동완성 강화 */
   "editor.quickSuggestions": {
     "strings": true
   },
   "tailwindCSS.emmetCompletions": true,
 
-  /* 4. Vue 환경 Emmet 지원 */
+  /* 에디터 탭 및 Emmet 설정 */
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
   "emmet.includeLanguages": {
     "vue-html": "html",
     "vue": "html"
   },
 
-  /* 👇 추가된 설정: Vue 및 React에서 줄바꿈 보존 및 들여쓰기(Tab 2) 자동 정렬 */
+  /* 🔥 핵심: Vue 파일은 포맷터를 끄고 ESLint 자동 고침에 맡김 */
   "[vue]": {
-    "editor.defaultFormatter": "Vue.volar"
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
   },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+
+  /* 저장 시 ESLint 및 Stylelint 자동 교정 */
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit",
+    "source.organizeImports": "explicit"
   },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  }
+  
+  /* ESLint가 검사할 파일 확장자 지정 */
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ]
 }
