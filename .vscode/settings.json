@@ -1,5 +1,47 @@
 {
-  /* SCSS 컴파일 설정 */
+  /* 에디터 기본 공백 및 포맷팅 설정 */
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  /* Vue 파일 전용 포맷팅 예외 처리 (ESLint에 위임) */
+  "[vue]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  },
+
+  /* 저장 시 자동 수정 (Auto-fix) 동작 */
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+
+  /* ESLint 상세 설정 (Flat Config & 모노레포 지원) */
+  "eslint.useFlatConfig": true,
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "eslint.quiet": true, // 노란색 경고(warn) 밑줄 화면에서 숨기기
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
+
+  /* Tailwind CSS 및 Emmet 자동완성 설정 */
+  "tailwindCSS.rootFontSize": 10,
+  "tailwindCSS.emmetCompletions": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "vue": "html"
+  },
+
+  /* SCSS 라이브 컴파일 설정 */
   "liveSassCompile.settings.formats": [
     {
       "format": "expanded",
@@ -18,45 +60,6 @@
     "code-basic/**/*.sass"
   ],
 
-  /* VS Code 기본 포맷팅 및 라이브 서버 설정 */
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "liveServer.settings.port": 5502,
-
-  /* Tailwind CSS 설정 */
-  "tailwindCSS.rootFontSize": 10,
-  "editor.quickSuggestions": {
-    "strings": true
-  },
-  "tailwindCSS.emmetCompletions": true,
-
-  /* 에디터 탭 및 Emmet 설정 */
-  "editor.tabSize": 2,
-  "editor.insertSpaces": true,
-  "emmet.includeLanguages": {
-    "vue-html": "html",
-    "vue": "html"
-  },
-
-  /* 🔥 핵심: Vue 파일은 포맷터를 끄고 ESLint 자동 고침에 맡김 */
-  "[vue]": {
-    "editor.defaultFormatter": null,
-    "editor.formatOnSave": false
-  },
-
-  /* 저장 시 ESLint 및 Stylelint 자동 교정 */
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.fixAll.stylelint": "explicit",
-    "source.organizeImports": "explicit"
-  },
-  
-  /* ESLint가 검사할 파일 확장자 지정 */
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "vue"
-  ]
+  /* 라이브 서버 설정 */
+  "liveServer.settings.port": 5502
 }
