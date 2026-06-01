@@ -14,6 +14,7 @@
     {
       "files": "*.vue",
       "options": {
+        "printWidth": 100,
         "singleAttributePerLine": false
       }
     },
