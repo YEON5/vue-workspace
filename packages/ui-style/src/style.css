@@ -5,6 +5,16 @@
 @tailwind utilities;
 
 @layer base {
+   html {
+    font-size: 62.5%;
+  }
+  
+  body {
+    font-family: "Pretendard", sans-serif;
+    font-size: var(--text-md);
+    color: var(--gray-black);
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;

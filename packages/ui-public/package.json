@@ -1,0 +1,8 @@
+{
+  "name": "@ui/public",
+  "version": "1.0.0",
+  "private": true,
+  "exports": {
+    "./fonts.css": "./fonts/fonts.css"
+  }
+}
