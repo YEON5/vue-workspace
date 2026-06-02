@@ -46,18 +46,18 @@
     {
       "format": "expanded",
       "extensionName": ".css",
-      "savePath": "~/../css/"
+      "savePath": "~/../css"
     }
   ],
   "liveSassCompile.settings.generateMap": false,
   "liveSassCompile.settings.excludeList": [
-    "**/node_modules/**",
-    ".vscode/**",
-    "code-vite-ts/**"
+    "/**/node_modules/**",
+    "/.vscode/**",
+    "/code-vite-ts/**"
   ],
   "liveSassCompile.settings.includeItems": [
-    "code-basic/**/*.scss",
-    "code-basic/**/*.sass"
+    "/code-basic/**/*.scss",
+    "/code-basic/**/*.sass"
   ],
 
   /* 라이브 서버 설정 */
