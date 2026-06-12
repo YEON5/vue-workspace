@@ -3,10 +3,10 @@
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen bg-background text-foreground pt-[env(safe-area-inset-top)]">
+  <div class="flex flex-col min-h-dvh bg-background text-foreground">
     <slot name="header" />
 
-    <main class="flex flex-col flex-1 w-full relative">
+    <main class="flex flex-col flex-1 w-full">
       <slot />
     </main>
 

@@ -14,11 +14,13 @@ defineEmits<{
 <template>
   <header
     :class="[
-      'sticky top-0 z-50 w-full transition-colors duration-200',
+      'sticky top-0 z-50 flex-none w-full transition-colors duration-200',
+      'h-[5.4rem] pt-[env(safe-area-inset-top)]',
       transparent ? 'bg-transparent' : 'bg-background border-b border-border',
     ]"
   >
-    <div class="flex items-center justify-between h-14 px-4">
+    <div class="flex items-center justify-between h-full px-4">
+      <!-- left area -->
       <div class="flex items-center flex-1">
         <button 
           v-if="showBackButton"
@@ -33,18 +35,21 @@ defineEmits<{
         <slot v-else name="left" />
       </div>
 
+      <!-- title -->
       <div class="flex-shrink-0 text-lg font-medium text-foreground">
         <slot name="title">
           {{ title }}
         </slot>
       </div>
 
+      <!-- right area -->
       <div class="flex items-center justify-end flex-1">
         <slot name="right" />
       </div>
     </div>
   </header>
 </template>
+
 
 
 

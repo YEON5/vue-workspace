@@ -1,22 +1,36 @@
 <script setup lang="ts">
-  interface Props {
-    as?: string;
-    class?: string;
-  }
+import { cn } from '@/utils/cn';
+import { computed } from 'vue';
 
-  const props = withDefaults(defineProps<Props>(), {
-    as: 'div',
-  });
+
+interface Props {
+  as?: string;
+  class?: string;
+  padded?: boolean; // 상하 패딩 (기본 on, 결과화면 등 예외시 off)
+  centered?: boolean; // 세로 중앙 정렬 (결과화면)
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  as: 'div',
+  padded: true,
+  centered: false,
+});
+
+const classes = computed(() => 
+  cn(
+    // 모바일, 데스크탑에 대응하는 기본 반응형 패딩 및 중앙 정렬
+    'flex flex-col flex-1 w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl',
+    props.padded && 'py-8',
+    props.centered && 'items-center justify-center',
+    props.class,
+  )
+);
 </script>
 
 <template>
   <component
     :is="props.as"
-    :class="[
-      // 모바일, 데스크탑에 대응하는 기본 반응형 패딩 및 중앙 정렬
-      'w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl',
-      props.class,
-    ]"
+    :class="classes"
   >
     <slot />
   </component>
