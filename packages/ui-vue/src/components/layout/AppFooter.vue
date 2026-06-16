@@ -1,11 +1,11 @@
 <script setup lang="ts">
-interface Props {
-  hiddenFooter?: boolean;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  hiddenFooter: false,
-});
+// interface Props {
+//   hiddenFooter?: boolean;
+// }
+// // 기본값
+// const props = withDefaults(defineProps<Props>(), {
+//   hiddenFooter: false,
+// });
 </script>
 
 <template>

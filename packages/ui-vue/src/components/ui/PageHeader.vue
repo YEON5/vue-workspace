@@ -8,7 +8,7 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 pb-8">
+  <div class="flex flex-col gap-2 pb-10">
     <h2 class="text-2xl font-bold">
       <slot name="title">{{ title }}</slot>
     </h2>

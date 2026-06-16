@@ -3,6 +3,7 @@ import AppFooter from '@/components/layout/AppFooter.vue';
 import AppHeader from '@/components/layout/AppHeader.vue';
 import AppLayout from '@/components/layout/AppLayout.vue';
 import Container from '@/components/ui/Container.vue';
+import Divider from '@/components/ui/Divider.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import Section from '@/components/ui/Section.vue';
 import StickyFooter from '@/components/ui/StickyFooter.vue';
@@ -32,18 +33,41 @@ import StickyFooter from '@/components/ui/StickyFooter.vue';
   <!-- 일반 페이지 -->
   <AppLayout>
     <template #header>
-      <AppHeader title="페이지 타이틀" show-back-button @back="router.back()" />
+      <AppHeader title="페이지 타이틀" />
+      <!-- <AppHeader title="페이지 타이틀" show-back-button @back="router.back()" /> -->
     </template>
 
     <Container>
       <PageHeader title="섹션 타이틀" description="부제목 텍스트" />
 
       <Section>
-      <!-- 컨텐츠 -->
+        <p>내용1</p>
       </Section>
 
-      <Section divider>
-      <!-- 구분선 있는 섹션 -->
+      <Section>
+        <p>내용2</p>
+      </Section>
+
+      <Section as="div">
+        <p>내용 div</p>
+      </Section>
+
+      <Divider class="h-[1px] bg-[#000000] my-2" />
+      
+      <Section as="article">
+        <p>내용 article</p>
+      </Section>
+
+      <Divider full class="h-2 bg-[#000000] my-8" />
+
+      <Section>
+        <p>내용3</p>
+      </Section>
+
+      <Divider full class="h-2 bg-[#FF5733] my-8" />
+
+      <Section>
+        <p>내용4</p>
       </Section>
     </Container>
 
