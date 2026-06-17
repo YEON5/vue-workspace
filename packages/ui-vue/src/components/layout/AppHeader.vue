@@ -15,7 +15,7 @@ defineEmits<{
   <header
     :class="[
       'sticky top-0 z-50 flex-none w-full transition-colors duration-200',
-      'h-[5.4px] pt-[env(safe-area-inset-top)]',
+      'h-[54px] pt-[env(safe-area-inset-top)]',
       transparent ? 'bg-transparent' : 'bg-background border-b border-border',
     ]"
   >

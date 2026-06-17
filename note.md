@@ -172,12 +172,15 @@ npm install
 
 의존성 설치가 완료되면 워크스페이스 루트에서 각 하위 패키지의 스크립트를 독립적으로 혹은 병렬로 실행할 수 있습니다.
 
-* **스타일 패키지 개발 및 감시(Watch):**
+* **concurrently 라이브러리 적용함:**
+  # root 에서 서버 실행 명령어
   ```bash
-  npm run dev --workspace=@ui/style
+  npm run dev
+  npm run dev -w packages/ui-vue
   ```
 
-* **Vue 애플리케이션 구동:**
+  # root 에서 css 빌드 명령어
   ```bash
-  npm run dev --workspace=@ui/vue
+  npm run build
+  npm run build -w packages/ui-style
   ```

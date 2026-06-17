@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "dev": "concurrently -n style,vue -c blue,green \"npm run dev -w @ui/style\" \"npm run dev -w @ui/vue\"",
-    "build": "npm run build -w @ui/style && npm run build -w @ui/vue"
+    "build": "npm run build -w @ui/style"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
