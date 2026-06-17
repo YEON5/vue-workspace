@@ -1,10 +1,10 @@
 const fs = require("fs");
 const path = require("path");
-
+ 
 const INPUT = path.resolve(__dirname, "../src/tokens/design-tokens.json");
 const OUTPUT_JS = path.resolve(__dirname, "../src/design-tokens.js");
 const OUTPUT_CSS = path.resolve(__dirname, "../src/design-tokens.css");
-
+ 
 const tokens = JSON.parse(fs.readFileSync(INPUT, "utf-8"));
 
 // ─────────────────────────────────────────────────────────────────────
@@ -33,16 +33,26 @@ function cleanKey(group, rawKey) {
     .replace(/^bg-/, "")
     .replace(new RegExp(`^${group}-`), "");
 }
-
+ 
+/**
+ * px 단위는 /10 으로 rem 변환, 이미 rem이면 그대로 반환
+ */
+function toRem(value) {
+  if (typeof value !== "string") return value;
+  if (value.endsWith("rem")) return value;
+  if (value.endsWith("px")) return `${parseFloat(value) / 10}rem`;
+  return value;
+}
+ 
 const colors = {};
 const borderRadius = {};
 const spacing = {};
 const fontSize = {};
 let cssVariables = ":root {\n";
-
+ 
 // ── Colors ──────────────────────────────────────────────────────────
 const colorGroups = tokens?.color?.color ?? {};
-
+ 
 for (const [group, entries] of Object.entries(colorGroups)) {
   const groupKey = PREFIX ? `${PREFIX}-${group}` : group;
   colors[groupKey] = {};
@@ -54,10 +64,10 @@ for (const [group, entries] of Object.entries(colorGroups)) {
     }
   }
 }
-
+ 
 // ── Border Radius ────────────────────────────────────────────────────
 const radiusEntries = tokens?.["responsive-value-set"]?.radius ?? {};
-
+ 
 for (const [rawKey, token] of Object.entries(radiusEntries)) {
   if (token.type === "dimension" && token.value) {
     const clean = rawKey.replace(/^radius-/, "");
@@ -66,10 +76,10 @@ for (const [rawKey, token] of Object.entries(radiusEntries)) {
     cssVariables += `  --${PREFIX_DASH}radius-${clean}: ${token.value};\n`;
   }
 }
-
+ 
 // ── Spacing ──────────────────────────────────────────────────────────
 const spacingEntries = tokens?.["responsive-value-set"]?.spacing ?? {};
-
+ 
 for (const [rawKey, token] of Object.entries(spacingEntries)) {
   if (token.type === "dimension" && token.value) {
     const clean = rawKey.replace(/^spacing-/, "");
@@ -78,37 +88,35 @@ for (const [rawKey, token] of Object.entries(spacingEntries)) {
     cssVariables += `  --${PREFIX_DASH}spacing-${clean}: ${token.value};\n`;
   }
 }
-
+ 
 // ── Font Size ─────────────────────────────────────────────────────────
 const valueSet = tokens?.["responsive-value-set"] ?? {};
-
+ 
 for (const [rawKey, token] of Object.entries(valueSet)) {
   if (rawKey.startsWith("text-") && token.type === "text" && token.value) {
-    const remValue = `${parseFloat(token.value) / 10}rem`;
-    const cleanText = rawKey.replace(/^text-/, ""); 
-    
+    const remValue = toRem(token.value);
+    const cleanText = rawKey.replace(/^text-/, "");
     const fontKey = PREFIX ? `${PREFIX}-${cleanText}` : cleanText;
-    fontSize[fontKey] = remValue; 
-    
-    // rawKey는 이미 "text-4xl" 형태이므로 PREFIX_DASH만 앞에 붙임
+    fontSize[fontKey] = remValue;
     cssVariables += `  --${PREFIX_DASH}${rawKey}: ${remValue};\n`;
   }
 }
 cssVariables += "}\n";
-
+ 
 // ── Output JS ─────────────────────────────────────────────────────────
 const outputJs = `// Auto-generated from design-tokens.json — do not edit manually
 // Run: npm run generate:tokens
 module.exports = ${JSON.stringify({ colors, borderRadius, spacing, fontSize }, null, 2)};
 `;
-
+ 
 fs.writeFileSync(OUTPUT_JS, outputJs);
 console.log("✓ design-tokens.js generated");
-
+ 
 // ── Output CSS ────────────────────────────────────────────────────────
 const outputCss = `/* Auto-generated from design-tokens.json — do not edit manually */
 /* Run: npm run generate:tokens */
 ${cssVariables}`;
-
+ 
 fs.writeFileSync(OUTPUT_CSS, outputCss);
 console.log("✓ design-tokens.css generated");
+ 

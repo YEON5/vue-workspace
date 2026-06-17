@@ -67,10 +67,21 @@
 }
 
 @layer base {
-  * {
+   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  :root {
+    /* Container 모바일/태블릿 좌우 여백 (기존 px-6 크기) */
+    --layout-px: 2rem; 
+  }
+  @media (min-width: 1024px) {
+    :root {
+      /* Container 데스크탑 좌우 여백 (기존 px-8 크기) */
+      --layout-px: 2.4rem; 
+    }
   }
 }

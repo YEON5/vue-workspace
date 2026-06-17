@@ -1,12 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 const tokenValue = require("./src/design-tokens");
-
-// PREFIX_DASH를 가져옵니다.
-const { PREFIX_DASH } = require("./src/tokens-config");
+const { PREFIX, PREFIX_DASH } = require("./src/tokens-config");
 
 module.exports = {
-  // PREFIX_DASH는 내부적으로 하이픈을 포함하거나 빈 문자열입니다.
-  safelist: [
+  // PREFIX가 있을 때만 safelist 적용
+  // PREFIX가 빈 문자열이면 ^bg- 처럼 모든 Tailwind 기본 클래스까지 포함되어 번들이 불필요하게 커짐
+  safelist: PREFIX ? [
     { pattern: new RegExp(`^bg-${PREFIX_DASH}`) },
     { pattern: new RegExp(`^text-${PREFIX_DASH}`) },
     { pattern: new RegExp(`^border-${PREFIX_DASH}`) },
@@ -26,30 +25,32 @@ module.exports = {
     { pattern: new RegExp(`^ml-${PREFIX_DASH}`) },
     { pattern: new RegExp(`^mr-${PREFIX_DASH}`) },
     { pattern: new RegExp(`^gap-${PREFIX_DASH}`) },
-  ],
+  ] : [],
 
   content: [
-    // 1. Next.js App (react-docs)
-    "../../apps/react-docs/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "../../apps/react-docs/components/**/*.{js,ts,jsx,tsx,mdx}",
+    // @ui/style 자체 소스
+    "./src/**/*.{js,ts,jsx,tsx,vue}",
 
-    // 2. Nuxt App (vue-docs)
-    "../../apps/vue-docs/app/**/*.{js,ts,jsx,tsx,vue}",
-    "../../apps/vue-docs/layouts/**/*.{js,ts,jsx,tsx,vue}",
-    "../../apps/vue-docs/pages/**/*.{js,ts,jsx,tsx,vue}",
-
-    // 3. React UI Components
-    "../../packages/ui-react/src/**/*.{js,ts,jsx,tsx}",
-    "../../packages/ui-react/index.html",
-
-    // 4. Vue UI Components
+    // Vue UI 컴포넌트 (패키지 추가 시 아래에 경로 추가)
     "../../packages/ui-vue/src/**/*.{js,ts,jsx,tsx,vue}",
     "../../packages/ui-vue/index.html",
+
+    // Next.js App (react-docs)
+    // "../../apps/react-docs/app/**/*.{js,ts,jsx,tsx,mdx}",
+    // "../../apps/react-docs/components/**/*.{js,ts,jsx,tsx,mdx}",
+
+    // Nuxt App (vue-docs)
+    // "../../apps/vue-docs/app/**/*.{js,ts,jsx,tsx,vue}",
+    // "../../apps/vue-docs/layouts/**/*.{js,ts,jsx,tsx,vue}",
+    // "../../apps/vue-docs/pages/**/*.{js,ts,jsx,tsx,vue}",
+
+    // React UI Components
+    // "../../packages/ui-react/src/**/*.{js,ts,jsx,tsx}",
+    // "../../packages/ui-react/index.html",
   ],
 
   theme: {
     extend: {
-      // 기존 시맨틱 컬러 설정을 hsl()에서 rgb()로 업데이트 완료
       colors: {
         border: "rgb(var(--border))",
         input: "rgb(var(--input))",
@@ -84,11 +85,9 @@ module.exports = {
           DEFAULT: "rgb(var(--card))",
           foreground: "rgb(var(--card-foreground))",
         },
-        // tokenValue 디자인 토큰 컬러 (design-tokens.js에서 자동 주입)
         ...tokenValue.colors,
       },
 
-      // 기존 시맨틱 radius + tokenValue radius
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -96,11 +95,9 @@ module.exports = {
         ...tokenValue.borderRadius,
       },
 
-      // tokenValue spacing / fontSize
       spacing: tokenValue.spacing,
       fontSize: tokenValue.fontSize,
 
-      // Accordion 애니메이션 (Radix UI accordion-content height 애니메이션)
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

@@ -11,7 +11,17 @@ src/
 
 
 ### root 에서 서버 실행 명령어
+npm run dev
 npm run dev -w packages/ui-vue
 
 ### root 에서 css 빌드 명령어
+npm run build
 npm run build -w packages/ui-style
+
+
+### concurrently 라이브러리 적용함
+* root 에서 서버 실행 명령어
+npm run dev
+
+* root 에서 css 빌드 명령어
+npm run build
