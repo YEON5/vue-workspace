@@ -62,13 +62,13 @@
   --spacing-11: 6rem;
   --spacing-12: 7.2rem;
   --spacing-13: 8rem;
-  --text-4xl: 3.6rem;
-  --text-2xl: 2.4rem;
-  --text-xl: 2rem;
-  --text-xxs: 1.2rem;
-  --text-sm: 1.4rem;
-  --text-xs: 1.3rem;
-  --text-3xl: 3rem;
-  --text-lg: 1.8rem;
-  --text-md: 1.6rem;
+  --text-4xl: 36;
+  --text-2xl: 24;
+  --text-xl: 20;
+  --text-xxs: 12;
+  --text-sm: 14;
+  --text-xs: 13;
+  --text-3xl: 30;
+  --text-lg: 18;
+  --text-md: 16;
 }
