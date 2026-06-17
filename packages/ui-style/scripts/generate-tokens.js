@@ -14,7 +14,7 @@ const tokens = JSON.parse(fs.readFileSync(INPUT, "utf-8"));
 // 현재: "pds"  →  bg-pds-mint-500, text-pds-xl, rounded-pds-md ...
 // 변경 예시: "ds" →  bg-ds-mint-500, text-ds-xl, rounded-ds-md ...
 // ─────────────────────────────────────────────────────────────────────
-const { PREFIX, PREFIX_DASH } = require("../src/tokens-config");
+const { PREFIX, PREFIX_DASH, UNIT } = require("../src/tokens-config");
 
 /**
  * 그룹명·공통 접두사(color-, bg-)를 제거해 깔끔한 키를 추출합니다.
@@ -27,23 +27,36 @@ const { PREFIX, PREFIX_DASH } = require("../src/tokens-config");
  *   banner+ "color-bg-green" → "green"
  *   states+ "dark-100-50"    → "dark-100-50"
  */
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // 정규식 특수문자 무력화
+}
 function cleanKey(group, rawKey) {
+  const safeGroup = escapeRegExp(group); // 안전한 문자열로 변환
   return rawKey
     .replace(/^color-/, "")
     .replace(/^bg-/, "")
-    .replace(new RegExp(`^${group}-`), "");
+    .replace(new RegExp(`^${safeGroup}-`), ""); // 변환된 safeGroup 적용
 }
  
 /**
  * px 단위는 /10 으로 rem 변환, 이미 rem이면 그대로 반환
  */
-function toRem(value) {
+function convertUnit(value) {
   if (typeof value !== "string") return value;
-  if (value.endsWith("rem")) return value;
-  if (value.endsWith("px")) return `${parseFloat(value) / 10}rem`;
+  if (UNIT === "rem") {
+    if (value.endsWith("rem")) return value;
+    if (value.endsWith("px")) return `${parseFloat(value) / 10}rem`;
+    if (!isNaN(Number(value))) return `${parseFloat(value) / 10}rem`;
+  }
+  if (UNIT === "px") {
+    if (value.endsWith("px")) return value;
+    if (value.endsWith("rem")) return `${parseFloat(value) * 10}px`;
+    if (!isNaN(Number(value))) return `${value}px`;
+  }
   return value;
 }
  
+
 const colors = {};
 const borderRadius = {};
 const spacing = {};
@@ -72,8 +85,9 @@ for (const [rawKey, token] of Object.entries(radiusEntries)) {
   if (token.type === "dimension" && token.value) {
     const clean = rawKey.replace(/^radius-/, "");
     const radiusKey = PREFIX ? `${PREFIX}-${clean}` : clean;
-    borderRadius[radiusKey] = token.value;
-    cssVariables += `  --${PREFIX_DASH}radius-${clean}: ${token.value};\n`;
+    const convertedValue = convertUnit(token.value);
+    borderRadius[radiusKey] = convertedValue;
+    cssVariables += `  --${PREFIX_DASH}radius-${clean}: ${convertedValue};\n`;
   }
 }
  
@@ -84,8 +98,9 @@ for (const [rawKey, token] of Object.entries(spacingEntries)) {
   if (token.type === "dimension" && token.value) {
     const clean = rawKey.replace(/^spacing-/, "");
     const spacingKey = PREFIX ? `${PREFIX}-${clean}` : clean;
-    spacing[spacingKey] = token.value;
-    cssVariables += `  --${PREFIX_DASH}spacing-${clean}: ${token.value};\n`;
+    const convertedValue = convertUnit(token.value);
+    spacing[spacingKey] = convertedValue;
+    cssVariables += `  --${PREFIX_DASH}spacing-${clean}: ${convertedValue};\n`;
   }
 }
  
@@ -94,7 +109,7 @@ const valueSet = tokens?.["responsive-value-set"] ?? {};
  
 for (const [rawKey, token] of Object.entries(valueSet)) {
   if (rawKey.startsWith("text-") && token.type === "text" && token.value) {
-    const remValue = toRem(token.value);
+    const remValue = convertUnit(token.value);
     const cleanText = rawKey.replace(/^text-/, "");
     const fontKey = PREFIX ? `${PREFIX}-${cleanText}` : cleanText;
     fontSize[fontKey] = remValue;

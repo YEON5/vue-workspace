@@ -15,7 +15,7 @@ defineEmits<{
   <header
     :class="[
       'sticky top-0 z-50 flex-none w-full transition-colors duration-200',
-      'h-[5.4rem] pt-[env(safe-area-inset-top)]',
+      'h-[5.4px] pt-[env(safe-area-inset-top)]',
       transparent ? 'bg-transparent' : 'bg-background border-b border-border',
     ]"
   >
@@ -52,17 +52,13 @@ defineEmits<{
 
 
 
-
-<!-- Nuxt 환경
-definePageMeta({ header: { contentTitle: '키오스크 찾기' } })
-
+<!-- Nuxt 환경 header 설정
 definePageMeta({ header: { isView: false } })
-
 definePageMeta({ header: { mainType: '키오스크 찾기', rightBtn: { icon: IMy, click: () => {} } } })
-
+definePageMeta({ header: { contentTitle: '키오스크 찾기' } })
 definePageMeta({ layout: 'web', webheader: { mainType: '키오스크 찾기', rightBtn: { icon: IMy, click: () => {} } } })
 
-
+// 오른쪽 아이콘 버튼 배열 처리
 definePageMeta({ 
     header: { mainType: '키오스크 찾기',
     rightBtn: [

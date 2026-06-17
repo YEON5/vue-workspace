@@ -5,17 +5,22 @@ import { computed } from 'vue';
 interface Props {
   class?: string;
   full?: boolean;
+  type?: 'thin' | 'base' | 'bold';
 }
 
 // const props = defineProps<Props>();
 const props = withDefaults(defineProps<Props>(), {
   full: false,
+  type: 'base',
 });
 
 const classes = computed(() =>
   cn(
-    'h-px bg-border shrink-0',
-    props.full && 'block -mx-6 lg:-mx-8 w-[calc(100%+3rem)] lg:w-[calc(100%+4rem)]',
+    'bg-gray-900 shrink-0',
+    props.full ? 'block w-auto -mx-[var(--layout-px)]' : 'w-full',
+    props.type === 'thin' && 'h-px my-5',
+    props.type === 'base' && 'h-1 my-7',
+    props.type === 'bold' && 'h-3 my-9',
     props.class,
   )
 )

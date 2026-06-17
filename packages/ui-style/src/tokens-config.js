@@ -10,4 +10,9 @@ const PREFIX = ""; // 문자열 필요시 원하는 문자열 넣기
 // PREFIX가 있으면 "pds-", 없으면 "" (빈 문자열) 반환
 const PREFIX_DASH = PREFIX ? `${PREFIX}-` : "";
 
-module.exports = { PREFIX, PREFIX_DASH };
+// "rem" | "px"
+// rem: html { font-size: 62.5% } 설정 필요
+// px: html { font-size: 62.5% } 제거
+const UNIT = "px";
+
+module.exports = { PREFIX, PREFIX_DASH, UNIT };

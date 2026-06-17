@@ -52,22 +52,28 @@ import StickyFooter from '@/components/ui/StickyFooter.vue';
         <p>내용 div</p>
       </Section>
 
-      <Divider class="h-[1px] bg-[#000000] my-2" />
+      <Divider type="thin" />
       
       <Section as="article">
         <p>내용 article</p>
       </Section>
 
-      <Divider full class="h-2 bg-[#000000] my-8" />
+      <Divider full type="base" />
 
       <Section>
         <p>내용3</p>
       </Section>
 
-      <Divider full class="h-2 bg-[#FF5733] my-8" />
+      <Divider full type="bold" />
 
       <Section>
         <p>내용4</p>
+      </Section>
+
+      <Divider class="my-[33px] bg-red-500" />
+
+      <Section>
+        <p>내용5</p>
       </Section>
     </Container>
 

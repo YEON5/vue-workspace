@@ -28,6 +28,6 @@ const classes = computed(() =>
 
 <style scoped>
 .ui-section + .ui-section {
-  margin-top: 4rem;
+  margin-top: 40px;
 }
 </style>
