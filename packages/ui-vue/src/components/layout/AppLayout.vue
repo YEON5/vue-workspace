@@ -1,12 +1,21 @@
 <script setup lang="ts">
-  // components/layout/AppLayout.vue
+import AppHeader from '@/components/layout/AppHeader.vue';
+import { useHeaderState } from '@/composables/useHeaderState';
+
+// header props
+const { isVisible, title, leftBtn, rightBtn } = useHeaderState();
 </script>
 
 <template>
   <div class="flex flex-col min-h-dvh bg-background text-foreground">
-    <slot name="header" />
-
-    <main class="flex flex-col flex-1 w-full">
+    <AppHeader 
+      v-if="isVisible"
+      :title="title"
+      :left-btn="leftBtn"
+      :right-btn="rightBtn" 
+    />
+    
+    <main class="flex-1">
       <slot />
     </main>
 

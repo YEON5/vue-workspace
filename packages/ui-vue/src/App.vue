@@ -1,41 +1,31 @@
 <script setup lang="ts">
+import { ILeftArrow, IMenu, IMy } from '#components';
 import AppFooter from '@/components/layout/AppFooter.vue';
-import AppHeader from '@/components/layout/AppHeader.vue';
 import AppLayout from '@/components/layout/AppLayout.vue';
 import Container from '@/components/ui/Container.vue';
 import Divider from '@/components/ui/Divider.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import Section from '@/components/ui/Section.vue';
 import StickyFooter from '@/components/ui/StickyFooter.vue';
+import { useHeaderState } from '@/composables/useHeaderState';
+
+
+// header 
+const { setHeader } = useHeaderState();
+setHeader({
+  // isVisible: false, // heder 미노출
+  title: "페이지 타이틀",
+  leftBtn: { icon: ILeftArrow, label: '뒤로가기', action: () => alert('뒤로가기 클릭') },
+  rightBtn: [
+    { icon: IMy, label: '마이페이지', action: () => console.log('마이 클릭') },
+    { icon: IMenu, label: '정보 보기', action: () => console.log('정보 클릭') }
+  ]
+});
 </script>
 
 <template>
-  <!-- <AppLayout>
-    <template #header>
-      <AppHeader title="Header" />
-    </template>
-
-    <Container>
-      <h1>여기가 진짜 본문 내용입니다.</h1>
-      <p>Container가 양옆 여백을 예쁘게 잡아줍니다.</p>
-    </Container>
-
-    <Container as="section" class="py-8">
-      <h1>여기가 진짜 본문 내용입니다.</h1>
-      <p>Container가 양옆 여백을 예쁘게 잡아줍니다.</p>
-    </Container>
-
-    <template #footer>
-      <AppFooter />
-    </template>
-  </AppLayout> -->
-
   <!-- 일반 페이지 -->
   <AppLayout>
-    <template #header>
-      <AppHeader title="페이지 타이틀" show-back-btn menu-btn search-btn />
-      <!-- <AppHeader title="페이지 타이틀" show-back-button @back="router.back()" /> -->
-    </template>
 
     <Container>
       <PageHeader title="섹션 타이틀" description="부제목 텍스트" />

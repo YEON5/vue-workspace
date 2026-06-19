@@ -1,21 +1,25 @@
 <script setup lang="ts">
-import { ILeftArrow, IMenu, ISearch } from '#components';
+import type { Component } from 'vue';
+
+export interface HeaderBtn {
+  icon: Component;
+  action: () => void;
+  label: string; // 접근성
+}
 
 interface Props {
   title?: string;
-  showBackBtn?: boolean;
-  menuBtn?: boolean;
-  myBtn?: boolean;
-  searchBtn?: boolean;
   transparent?: boolean;
+  leftBtn?: HeaderBtn | HeaderBtn[];
+  rightBtn?: HeaderBtn | HeaderBtn[];
 }
 
-defineProps<Props>();
-defineEmits<{
-  (e: 'back'): void;
-  (e: 'menu'): void;
-  (e: 'setting'): void;
-}>();
+const props = defineProps<Props>();
+const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
+  if (!btns) return [];
+  return Array.isArray(btns) ? btns : [btns];
+};
+
 </script>
 
 <template>
@@ -29,14 +33,17 @@ defineEmits<{
     <div class="flex items-center justify-between h-full px-4">
       <!-- left area -->
       <div class="flex items-center flex-1">
-        <button 
-          v-if="showBackBtn"
-          class="p-2 -ml-2"
-          aria-label="뒤로 가기"
-          @click="$emit('back')"
-        >
-          <ILeftArrow class="size-[32px]" />
-        </button>
+        <template v-if="leftBtn">
+          <button
+            v-for="(btn, index) in normalizeBtn(leftBtn)"
+            :key="index"
+            class="p-2 -ml-2"
+            :aria-label="btn.label"
+            @click="btn.action"
+          >
+            <component :is="btn.icon" class="size-[24px]" />
+          </button>
+        </template>
         <slot v-else name="left" />
       </div>
 
@@ -49,22 +56,17 @@ defineEmits<{
 
       <!-- right area -->
       <div class="flex items-center justify-end flex-1 gap-3">
-        <button 
-          v-if="searchBtn"
-          class="p-2 -ml-2"
-          aria-label="my 메뉴 열기"
-          @click="$emit('setting')"
-        >
-          <ISearch class="size-[24px]" />
-        </button>
-        <button 
-          v-if="menuBtn"
-          class="p-2 -ml-2"
-          aria-label="메뉴 열기"
-          @click="$emit('menu')"
-        >
-          <IMenu class="size-[24px]" />
-        </button>
+        <template v-if="rightBtn">
+          <button
+            v-for="(btn, index) in normalizeBtn(rightBtn)"
+            :key="index"
+            class="p-2 -ml-2"
+            :aria-label="btn.label"
+            @click="btn.action"
+          >
+            <component :is="btn.icon" class="size-[24px]" />
+          </button>
+        </template>
         <slot v-else name="right" />
       </div>
     </div>
