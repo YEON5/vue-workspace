@@ -36,6 +36,8 @@ vue-workspace/
         ├── vite.config.ts       # 모노레포 HMR 핫릴로드 최적화 설정
         ├── tsconfig.json
         └── src/
+            ├── assets/
+            │   └── icons        # svg 아이콘 이미지
             ├── components/      # Button, Divider, Container 등 공통 UI 컴포넌트 (cn/tailwind-merge 활용)
             └── utils/
                 └── cn.ts        # 클래스명 병합 유틸리티 (Tailwind Variants)
@@ -178,10 +180,9 @@ export default defineConfig({
 npm install
 ```
 
-**2. 전체 모노레포 동시 실행 (마법의 명령어 ✨)**
+**2. 전체 모노레포 동시 실행**
 ```bash
 npm run dev
-npm run dev -w packages/ui-vue (개별 build)
 ```
 > 터미널 하나에서 `chokidar`의 토큰 감시, Tailwind CSS 빌드, Vite 화면 렌더링이 색상별로 구분되어 동시에 실행됩니다. 소스 코드를 수정하면 새로고침 없이 0.1초 만에 화면에 즉각 반영됩니다.
 

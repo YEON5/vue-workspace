@@ -1,13 +1,35 @@
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
+import path from 'path'
 import { defineConfig } from 'vite'
+import svgLoader from 'vite-svg-loader'
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    svgLoader({
+      defaultImport: 'component', // SVG를 기본적으로 Vue 컴포넌트로 취급
+      svgoConfig: {
+        plugins: [
+          {
+            name: 'preset-default',
+            params: { overrides: { removeViewBox: false } }
+          },
+          // Tailwind 색상(text-white 등)이 적용되도록
+          {
+            name: 'convertColors',
+            params: { currentColor: true }
+          },
+          'removeDimensions'
+        ]
+      }
+    })
+  ],
   resolve: {
     alias: {
       // '@' 기호를 'src' 폴더의 절대 경로로 매핑합니다.
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '#components': path.resolve(__dirname, './src/components')
     }
   },
   server: {

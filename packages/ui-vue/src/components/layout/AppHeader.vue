@@ -1,13 +1,20 @@
 <script setup lang="ts">
+import { ILeftArrow, IMenu, ISearch } from '#components';
+
 interface Props {
   title?: string;
-  showBackButton?: boolean;
+  showBackBtn?: boolean;
+  menuBtn?: boolean;
+  myBtn?: boolean;
+  searchBtn?: boolean;
   transparent?: boolean;
 }
 
 defineProps<Props>();
 defineEmits<{
   (e: 'back'): void;
+  (e: 'menu'): void;
+  (e: 'setting'): void;
 }>();
 </script>
 
@@ -23,14 +30,12 @@ defineEmits<{
       <!-- left area -->
       <div class="flex items-center flex-1">
         <button 
-          v-if="showBackButton"
-          class="p-2 -ml-2 text-foreground"
+          v-if="showBackBtn"
+          class="p-2 -ml-2"
           aria-label="뒤로 가기"
           @click="$emit('back')"
         >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
+          <ILeftArrow class="size-[32px]" />
         </button>
         <slot v-else name="left" />
       </div>
@@ -43,8 +48,24 @@ defineEmits<{
       </div>
 
       <!-- right area -->
-      <div class="flex items-center justify-end flex-1">
-        <slot name="right" />
+      <div class="flex items-center justify-end flex-1 gap-3">
+        <button 
+          v-if="searchBtn"
+          class="p-2 -ml-2"
+          aria-label="my 메뉴 열기"
+          @click="$emit('setting')"
+        >
+          <ISearch class="size-[24px]" />
+        </button>
+        <button 
+          v-if="menuBtn"
+          class="p-2 -ml-2"
+          aria-label="메뉴 열기"
+          @click="$emit('menu')"
+        >
+          <IMenu class="size-[24px]" />
+        </button>
+        <slot v-else name="right" />
       </div>
     </div>
   </header>

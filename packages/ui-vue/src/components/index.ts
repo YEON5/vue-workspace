@@ -1,3 +1,6 @@
+// 아이콘은 생성된 파일에서 통째로 끌어옴
+export * from './generated-icons';
+
 // layout
 export { default as AppFooter } from './layout/AppFooter.vue';
 export { default as AppHeader } from './layout/AppHeader.vue';

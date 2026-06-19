@@ -33,7 +33,7 @@ import StickyFooter from '@/components/ui/StickyFooter.vue';
   <!-- 일반 페이지 -->
   <AppLayout>
     <template #header>
-      <AppHeader title="페이지 타이틀" />
+      <AppHeader title="페이지 타이틀" show-back-btn menu-btn search-btn />
       <!-- <AppHeader title="페이지 타이틀" show-back-button @back="router.back()" /> -->
     </template>
 

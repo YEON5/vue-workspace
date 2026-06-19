@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit",
+    "dev": "concurrently \"node scripts/watch-icons.js\" \"vite\"",
+    "build": "node scripts/generate-icons.js && vue-tsc --noEmit",
+    "generate:icons": "node scripts/generate-icons.js",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -18,10 +19,13 @@
     "@vitejs/plugin-vue": "^5.0.0",
     "@vue/tsconfig": "^0.9.1",
     "autoprefixer": "^10.4.0",
+    "chokidar": "^5.0.0",
+    "concurrently": "^10.0.3",
     "postcss": "^8.4.0",
     "tailwindcss": "3.4",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
+    "vite-svg-loader": "^5.1.1",
     "vue-tsc": "^2.0.0"
   }
 }
