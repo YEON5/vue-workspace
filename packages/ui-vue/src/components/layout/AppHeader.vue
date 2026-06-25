@@ -5,6 +5,7 @@ export interface HeaderBtn {
   icon: Component;
   action: () => void;
   label: string; // 접근성
+  iconClass?: string
 }
 
 interface Props {
@@ -41,7 +42,11 @@ const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
             :aria-label="btn.label"
             @click="btn.action"
           >
-            <component :is="btn.icon" class="size-[24px]" />
+            <component 
+              :is="btn.icon" 
+              class="size-[24px]" 
+              :class="btn.iconClass"
+            />
           </button>
         </template>
         <slot v-else name="left" />
@@ -64,7 +69,11 @@ const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
             :aria-label="btn.label"
             @click="btn.action"
           >
-            <component :is="btn.icon" class="size-[24px]" />
+            <component
+              :is="btn.icon"
+              class="size-[24px]" 
+              :class="btn.iconClass"
+            />
           </button>
         </template>
         <slot v-else name="right" />

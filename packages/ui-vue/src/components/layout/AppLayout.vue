@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import AppHeader from '@/components/layout/AppHeader.vue';
-import { useHeaderState } from '@/composables/useHeaderState';
+import { isVisible, leftBtn, rightBtn, title } from '@/composables/useHeaderState'; // header props
 
-// header props
-const { isVisible, title, leftBtn, rightBtn } = useHeaderState();
 </script>
 
 <template>

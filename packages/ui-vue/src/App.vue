@@ -7,28 +7,28 @@ import Divider from '@/components/ui/Divider.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import Section from '@/components/ui/Section.vue';
 import StickyFooter from '@/components/ui/StickyFooter.vue';
-import { useHeaderState } from '@/composables/useHeaderState';
+import { setHeader } from '@/composables/useHeaderState';
 
 
-// header 
-const { setHeader } = useHeaderState();
+// header (heder 미노출 : isVisible: false)
 setHeader({
-  // isVisible: false, // heder 미노출
-  title: "페이지 타이틀",
+  // isVisible: false,
+  title: "Header 타이틀",
   leftBtn: { icon: ILeftArrow, label: '뒤로가기', action: () => alert('뒤로가기 클릭') },
   rightBtn: [
-    { icon: IMy, label: '마이페이지', action: () => console.log('마이 클릭') },
+    { icon: IMy, iconClass: 'text-gray-600', label: '마이페이지', action: () => console.log('마이 클릭') },
     { icon: IMenu, label: '정보 보기', action: () => console.log('정보 클릭') }
   ]
 });
 </script>
 
 <template>
-  <!-- 일반 페이지 -->
   <AppLayout>
-
     <Container>
-      <PageHeader title="섹션 타이틀" description="부제목 텍스트" />
+      <PageHeader
+        title="섹션 타이틀"
+        description="부제목 텍스트" 
+      />
 
       <Section>
         <p>내용1</p>
