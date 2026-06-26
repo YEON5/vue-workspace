@@ -4,10 +4,12 @@ import AppFooter from '@/components/layout/AppFooter.vue';
 import AppLayout from '@/components/layout/AppLayout.vue';
 import Container from '@/components/ui/Container.vue';
 import Divider from '@/components/ui/Divider.vue';
+import OutsetBox from '@/components/ui/OutsetBox.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import Section from '@/components/ui/Section.vue';
 import StickyFooter from '@/components/ui/StickyFooter.vue';
 import { setHeader } from '@/composables/useHeaderState';
+
 
 
 // header (heder 미노출 : isVisible: false)
@@ -27,10 +29,12 @@ setHeader({
     <Container>
       <PageHeader
         title="섹션 타이틀"
-        description="부제목 텍스트" 
+        sub-desc="부제목 텍스트" 
+        bottom-spacing="none"
       />
+      <Divider full type="bold" />
 
-      <Section>
+      <Section class="pb-6">
         <p>내용1</p>
       </Section>
 
@@ -54,8 +58,6 @@ setHeader({
         <p>내용3</p>
       </Section>
 
-      <Divider full type="bold" />
-
       <Section>
         <p>내용4</p>
       </Section>
@@ -65,6 +67,13 @@ setHeader({
       <Section>
         <p>내용5</p>
       </Section>
+
+      <OutsetBox class="mt-6">
+        <Section>
+          <div class="bg-gray-100">음수마진박스</div>
+        </Section>
+      </OutsetBox>
+
     </Container>
 
     <StickyFooter>

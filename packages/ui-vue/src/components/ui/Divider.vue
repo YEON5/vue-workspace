@@ -16,11 +16,11 @@ const props = withDefaults(defineProps<Props>(), {
 
 const classes = computed(() =>
   cn(
-    'bg-gray-900 shrink-0',
+    'bg-gray-300 shrink-0',
     props.full ? 'block w-auto -mx-[var(--layout-px)]' : 'w-full',
     props.type === 'thin' && 'h-px my-5',
     props.type === 'base' && 'h-1 my-7',
-    props.type === 'bold' && 'h-3 my-9',
+    props.type === 'bold' && 'h-2 my-9',
     props.class,
   )
 )
