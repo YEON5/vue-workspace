@@ -12,14 +12,17 @@ import { setHeader } from '@/composables/useHeaderState';
 
 
 
-// header (heder 미노출 : isVisible: false)
+// header 
+// (heder 미노출 : isVisible: false | heder 타이틀 왼쪽 정렬 : align: 'left' | header bg 불투명 : transparent: true)
 setHeader({
   // isVisible: false,
+  // align: 'left',
+  // transparent: true,
   title: "Header 타이틀",
   leftBtn: { icon: ILeftArrow, label: '뒤로가기', action: () => alert('뒤로가기 클릭') },
   rightBtn: [
-    { icon: IMy, iconClass: 'text-gray-600', label: '마이페이지', action: () => console.log('마이 클릭') },
-    { icon: IMenu, label: '정보 보기', action: () => console.log('정보 클릭') }
+    { icon: IMy, iconClass: 'text-red-500', label: '마이페이지', action: () => console.log('마이페이지 클릭') },
+    { icon: IMenu, label: '전체메뉴 보기', action: () => console.log('전체메뉴 클릭') }
   ]
 });
 </script>
@@ -42,8 +45,14 @@ setHeader({
         <p>내용2</p>
       </Section>
 
-      <Section as="div">
-        <p>내용 div</p>
+      <Section>
+        <div class="flex items-center justify-start flex-1 gap-3">
+          <p>내용 div1</p>
+          <Divider direction="vertical" />
+          <p>내용 div2</p>
+          <Divider direction="vertical" />
+          <p>내용 div3</p>
+        </div>
       </Section>
 
       <Divider type="thin" />
@@ -52,7 +61,7 @@ setHeader({
         <p>내용 article</p>
       </Section>
 
-      <Divider full type="base" />
+      <Divider full />
 
       <Section>
         <p>내용3</p>

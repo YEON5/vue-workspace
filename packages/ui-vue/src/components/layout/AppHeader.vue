@@ -2,20 +2,23 @@
 import type { Component } from 'vue';
 
 export interface HeaderBtn {
-  icon: Component;
+  icon: Component | object | any;
   action: () => void;
   label: string; // 접근성
   iconClass?: string
 }
 
 interface Props {
-  title?: string;
+  align?: 'left' | 'center'; // title 정렬
   transparent?: boolean;
+  title?: string;
   leftBtn?: HeaderBtn | HeaderBtn[];
   rightBtn?: HeaderBtn | HeaderBtn[];
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  align: 'center',
+});
 const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
   if (!btns) return [];
   return Array.isArray(btns) ? btns : [btns];
@@ -31,9 +34,12 @@ const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
       transparent ? 'bg-transparent' : 'bg-background border-b border-border',
     ]"
   >
-    <div class="flex items-center justify-between h-full px-4">
+    <div class="relative flex items-center h-full px-4 gap-2">
       <!-- left area -->
-      <div class="flex items-center flex-1">
+      <div
+        class="flex items-center"
+        :class="align === 'center' ? 'flex-1 min-w-0' : 'flex-none'"      
+      >
         <template v-if="leftBtn">
           <button
             v-for="(btn, index) in normalizeBtn(leftBtn)"
@@ -51,21 +57,29 @@ const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
         </template>
         <slot v-else name="left" />
       </div>
-
-      <!-- title -->
-      <div class="flex-shrink-0 text-lg font-medium text-foreground">
-        <slot name="title">
-          {{ title }}
-        </slot>
+      
+      <!-- title area -->
+      <div
+        :class="[
+          'text-lg font-medium text-foreground truncate',
+          align === 'center'
+            ? 'absolute z-50 inset-x-0 mx-auto text-center px-[80px] pointer-events-none'
+            : 'flex-1 min-w-0 text-left',
+        ]"
+      >
+        <slot name="title">{{ title }}</slot>
       </div>
 
       <!-- right area -->
-      <div class="flex items-center justify-end flex-1 gap-3">
+      <div 
+        class="flex items-center justify-end gap-3"
+        :class="align === 'center' ? 'flex-1 min-w-0' : 'flex-none'"
+      >
         <template v-if="rightBtn">
           <button
             v-for="(btn, index) in normalizeBtn(rightBtn)"
             :key="index"
-            class="p-2 -ml-2"
+            class="p-2 -mr-2"
             :aria-label="btn.label"
             @click="btn.action"
           >

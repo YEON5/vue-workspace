@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const classes = computed(() =>
   cn(
-    'ui-section flex flex-col relative w-full',
+    'ui-section relative w-full',
     props.class,
   )
 )
