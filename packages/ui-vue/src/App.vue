@@ -2,14 +2,14 @@
 import { ILeftArrow, IMenu, IMy } from '#components';
 import AppFooter from '@/components/layout/AppFooter.vue';
 import AppLayout from '@/components/layout/AppLayout.vue';
+import BottomSticky from '@/components/ui/BottomSticky.vue';
 import Container from '@/components/ui/Container.vue';
 import Divider from '@/components/ui/Divider.vue';
+import Flex from '@/components/ui/Flex.vue';
 import OutsetBox from '@/components/ui/OutsetBox.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import Section from '@/components/ui/Section.vue';
-import StickyFooter from '@/components/ui/StickyFooter.vue';
 import { setHeader } from '@/composables/useHeaderState';
-
 
 
 // header 
@@ -32,7 +32,7 @@ setHeader({
     <Container>
       <PageHeader
         title="섹션 타이틀"
-        sub-desc="부제목 텍스트" 
+        sub-description="부제목 텍스트" 
         bottom-spacing="none"
       />
       <Divider full type="bold" />
@@ -46,13 +46,17 @@ setHeader({
       </Section>
 
       <Section>
-        <div class="flex items-center justify-start flex-1 gap-3">
+        <Flex wrap align="center" justify="start" gap="3">
           <p>내용 div1</p>
           <Divider direction="vertical" />
           <p>내용 div2</p>
           <Divider direction="vertical" />
           <p>내용 div3</p>
-        </div>
+          <Divider direction="vertical" />
+          <p>내용 div4</p>
+          <Divider direction="vertical" />
+          <p>내용 div5</p>
+        </Flex>
       </Section>
 
       <Divider type="thin" />
@@ -78,34 +82,69 @@ setHeader({
       </Section>
 
       <OutsetBox class="mt-6">
-        <Section>
-          <div class="bg-gray-100">음수마진박스</div>
+        <Section class="bg-gray-100">
+          <div>음수마진박스</div>
         </Section>
       </OutsetBox>
 
     </Container>
 
-    <StickyFooter>
+    <BottomSticky>
       <button class="w-full ...">확인</button>
-    </StickyFooter>
+    </BottomSticky>
 
     <template #footer>
       <AppFooter />
     </template>
   </AppLayout>
 
-  <!-- 결과 페이지 (세로 중앙 정렬) -->
   <!-- <AppLayout>
-    <Container :padded="false" centered>
-      <div class="flex flex-col items-center gap-4 text-center">
-        <i>✅</i>
-        <h2>완료되었습니다</h2>
-        <p>처리 결과를 확인해주세요.</p>
-      </div>
+    <!-- 목록 페이지 안 
+    <Container>
+      <PageHeader title="주문 내역" />
+      <EmptyState
+        v-if="orders.length === 0"
+        :icon="ISearch"
+        title="주문 내역이 없습니다"
+        description="아직 주문하신 상품이 없어요"
+      >
+        <template #action>
+          <button class="px-4 py-2 bg-primary text-white rounded-lg">쇼핑하러 가기</button>
+        </template>
+      </EmptyState>
+      <OrderList v-else :items="orders" />
     </Container>
 
-    <StickyFooter>
+    <!-- 작은 카드 안 
+    <Card>
+      <EmptyState size="sm" title="댓글이 없습니다" />
+    </Card>
+  </AppLayout> -->
+
+  <!-- 결과 페이지 (세로 중앙 정렬) -->
+  <!-- <AppLayout>
+    <ResultView
+      :icon="ICheckCircle"
+      title="완료되었습니다"
+      description="처리 결과를 확인해주세요."
+    >
+      <template #banner>
+        <img src="/promo-banner.png" class="w-full rounded-lg mb-6" />
+      </template>
+
+      <template #action>
+        <button class="text-primary underline">영수증 보기</button>
+      </template>
+
+      <template #extra>
+        <div class="mt-8 p-4 bg-muted rounded-lg text-sm text-muted-foreground">
+          문의사항은 고객센터로 연락주세요.
+        </div>
+      </template>
+    </ResultView>
+
+    <BottomSticky>
       <button class="w-full ...">확인</button>
-    </StickyFooter>
+    </BottomSticky>
   </AppLayout> -->
 </template>

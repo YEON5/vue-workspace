@@ -9,7 +9,6 @@ interface Props {
   direction?: 'horizontal' | 'vertical';
 }
 
-// const props = defineProps<Props>();
 const props = withDefaults(defineProps<Props>(), {
   full: false,
   type: 'base',

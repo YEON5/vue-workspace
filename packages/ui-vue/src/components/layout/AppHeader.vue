@@ -43,7 +43,7 @@ const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
         <template v-if="leftBtn">
           <button
             v-for="(btn, index) in normalizeBtn(leftBtn)"
-            :key="index"
+            :key="btn.label ?? index"
             class="p-2 -ml-2"
             :aria-label="btn.label"
             @click="btn.action"
@@ -78,7 +78,7 @@ const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
         <template v-if="rightBtn">
           <button
             v-for="(btn, index) in normalizeBtn(rightBtn)"
-            :key="index"
+            :key="btn.label ?? index"
             class="p-2 -mr-2"
             :aria-label="btn.label"
             @click="btn.action"

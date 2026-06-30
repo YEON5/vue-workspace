@@ -1,8 +1,8 @@
 <script setup lang="ts">
 interface Props {
   title: string;
-  subDesc?: string;
-  desc?: string;
+  subDescription?: string;
+  description?: string;
   bottomSpacing?: 'none' | 'sm' | 'md' | 'lg'
 }
 
@@ -12,8 +12,8 @@ const props = withDefaults(defineProps<Props>(), {
 const spacingClass = {
   none: 'pb-0',
   sm: 'pb-6',
-  md: 'pb-10',
-  lg: 'pb-11'
+  md: 'pb-8',
+  lg: 'pb-10'
 }[props.bottomSpacing];
 </script>
 
@@ -22,20 +22,20 @@ const spacingClass = {
     class="flex flex-col"
     :class="[
       spacingClass,
-      subDesc? 'gap-2' : 'gap-3',
+      subDescription? 'gap-2' : 'gap-3',
     ]"
   >
     <h2 class="text-2xl font-bold">
       <slot name="title">{{ title }}</slot>
     </h2>
-    <template v-if="subDesc || $slots.subDesc">
+    <template v-if="subDescription || $slots.subDescription">
       <p class="text-md text-muted-foreground">
-        <slot name="subDesc">{{ subDesc }}</slot>
+        <slot name="subDescription">{{ subDescription }}</slot>
       </p>
     </template>
-    <template v-if="desc || $slots.desc">
+    <template v-if="description || $slots.description">
       <p class="text-sm text-muted-foreground">
-        <slot name="desc">{{ desc }}</slot>
+        <slot name="description">{{ description }}</slot>
       </p>
     </template>
   </div>

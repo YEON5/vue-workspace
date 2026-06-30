@@ -3,10 +3,15 @@ import { cn } from '@/utils/cn';
 import { computed } from 'vue';
 
 interface Props {
+  as?: string;
   class?: string;
 }
 
-const props = defineProps<Props>();
+// 기본값
+const props = withDefaults(defineProps<Props>(), {
+  as: 'div',
+});
+
 const classes = computed(() =>
   cn(
     'relative -mx-[var(--layout-px)]',
@@ -17,7 +22,13 @@ const classes = computed(() =>
 </script>
 
 <template>
-  <div :class="classes">
+  <component :is="as" :class="classes">
     <slot />
-  </div>
+  </component>
 </template>
+
+<style scoped>
+:deep(.ui-section) {
+  padding: 0 var(--layout-px);
+}
+</style>

@@ -1,12 +1,22 @@
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 import path from 'path'
+import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import svgLoader from 'vite-svg-loader'
 
 export default defineConfig({
   plugins: [
     vue(),
+    // 컴포넌트 자동 임포트 설정 추가
+    Components({
+      dirs: [
+        'src/components/ui',
+        'src/components/layout'
+      ],
+      dts: true, // components.d.ts 자동 생성
+      deep: true,
+    }),
     svgLoader({
       defaultImport: 'component', // SVG를 기본적으로 Vue 컴포넌트로 취급
       svgoConfig: {

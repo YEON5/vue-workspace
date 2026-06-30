@@ -5,8 +5,8 @@ export const isVisible = ref(true);
 export const align = ref<'left' | 'center'>('center');
 export const transparent = ref(false); // 기본값 불투명
 export const title = ref('');
-export const leftBtn = shallowRef<HeaderBtn | HeaderBtn[]>([]);
-export const rightBtn = shallowRef<HeaderBtn | HeaderBtn[]>([]);
+export const leftBtn = shallowRef<HeaderBtn | HeaderBtn[] | undefined>(undefined);
+export const rightBtn = shallowRef<HeaderBtn | HeaderBtn[] | undefined>(undefined);
 
 export const setHeader = (options: { 
   isVisible?: boolean;
@@ -20,6 +20,6 @@ export const setHeader = (options: {
   align.value = options.align ?? 'center';
   transparent.value = options.transparent ?? false;
   title.value = options.title || '';
-  leftBtn.value = options.leftBtn || [];
-  rightBtn.value = options.rightBtn || [];
+  leftBtn.value = options.leftBtn;
+  rightBtn.value = options.rightBtn;
 };
