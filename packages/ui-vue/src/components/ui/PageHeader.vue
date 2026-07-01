@@ -18,6 +18,7 @@ const spacingClass = {
 </script>
 
 <template>
+  <!-- PageHeader -->
   <div 
     class="flex flex-col"
     :class="[
@@ -39,4 +40,5 @@ const spacingClass = {
       </p>
     </template>
   </div>
+  <!-- //PageHeader -->
 </template>

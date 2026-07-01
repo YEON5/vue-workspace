@@ -1,21 +1,14 @@
 <script setup lang="ts">
-import { ILeftArrow, IMenu, IMy } from '#components';
-import AppFooter from '@/components/layout/AppFooter.vue';
+import { IConfirmCheck, ILeftArrow, IMenu, IMy } from '#components';
 import AppLayout from '@/components/layout/AppLayout.vue';
 import BottomSticky from '@/components/ui/BottomSticky.vue';
-import Container from '@/components/ui/Container.vue';
-import Divider from '@/components/ui/Divider.vue';
-import Flex from '@/components/ui/Flex.vue';
-import OutsetBox from '@/components/ui/OutsetBox.vue';
-import PageHeader from '@/components/ui/PageHeader.vue';
-import Section from '@/components/ui/Section.vue';
 import { setHeader } from '@/composables/useHeaderState';
 
 
 // header 
 // (heder 미노출 : isVisible: false | heder 타이틀 왼쪽 정렬 : align: 'left' | header bg 불투명 : transparent: true)
 setHeader({
-  // isVisible: false,
+  isVisible: false,
   // align: 'left',
   // transparent: true,
   title: "Header 타이틀",
@@ -28,7 +21,7 @@ setHeader({
 </script>
 
 <template>
-  <AppLayout>
+  <!-- <AppLayout>
     <Container>
       <PageHeader
         title="섹션 타이틀"
@@ -96,7 +89,7 @@ setHeader({
     <template #footer>
       <AppFooter />
     </template>
-  </AppLayout>
+  </AppLayout> -->
 
   <!-- <AppLayout>
     <!-- 목록 페이지 안 
@@ -122,29 +115,38 @@ setHeader({
   </AppLayout> -->
 
   <!-- 결과 페이지 (세로 중앙 정렬) -->
-  <!-- <AppLayout>
+  <AppLayout>
     <ResultView
-      :icon="ICheckCircle"
+      :icon="IConfirmCheck"
       title="완료되었습니다"
       description="처리 결과를 확인해주세요."
     >
-      <template #banner>
-        <img src="/promo-banner.png" class="w-full rounded-lg mb-6" />
-      </template>
-
+      
       <template #action>
-        <button class="text-primary underline">영수증 보기</button>
+        <Flex
+          align="center"
+          gap="3"
+        >
+          <button class="text-primary underline">영수증 보기</button>
+          <Divider direction="vertical" />
+          <button class="text-primary underline">영수증 보기</button>
+        </Flex>
       </template>
 
       <template #extra>
-        <div class="mt-8 p-4 bg-muted rounded-lg text-sm text-muted-foreground">
+        <div class="p-4 bg-muted rounded-lg text-sm text-muted-foreground">
           문의사항은 고객센터로 연락주세요.
         </div>
       </template>
+      
+      <!-- <template #banner>
+        <img src="/promo-banner.png" class="w-full rounded-lg mb-6">
+      </template> -->
     </ResultView>
 
     <BottomSticky>
       <button class="w-full ...">확인</button>
     </BottomSticky>
-  </AppLayout> -->
+  </AppLayout>
+  <!-- //결과 페이지 (세로 중앙 정렬) -->
 </template>

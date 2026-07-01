@@ -13,13 +13,14 @@ defineProps<Props>();
 </script>
 
 <template>
-  <Container :padded="false" centered>
+  <Container :padded="false" class="items-center pt-[180px]">
+    <!-- <Container :padded="false" centered> -->
     <div class="flex flex-col items-center gap-4 text-center">
       <slot name="icon">
         <component
           :is="icon"
           v-if="icon"
-          class="size-[48px]"
+          class="size-[80px]"
           :class="iconClass"
         />
       </slot>
@@ -37,10 +38,16 @@ defineProps<Props>();
     </div>
 
     <!-- 완료 문구 아래 추가 요소 (배너, 안내 박스 등) -->
-    <div v-if="$slots.action" class="mt-2">
+    <div v-if="$slots.action" class="mt-6">
       <slot name="action" />
     </div>
 
-    <slot name="extra" />
+    <div v-if="$slots.extra" class="mt-10">
+      <slot name="extra" />
+    </div>
+
+    <div v-if="$slots.banner" class="w-full mt-6">
+      <slot name="banner" />
+    </div>
   </Container>
 </template>

@@ -18,7 +18,7 @@ export default defineConfig({
       deep: true,
     }),
     svgLoader({
-      defaultImport: 'component', // SVG를 기본적으로 Vue 컴포넌트로 취급
+      defaultImport: 'component', // SVG를 기본적으로 Vue 컴포넌트로
       svgoConfig: {
         plugins: [
           {
@@ -28,7 +28,7 @@ export default defineConfig({
           // Tailwind 색상(text-white 등)이 적용되도록
           {
             name: 'convertColors',
-            params: { currentColor: true }
+            params: { currentColor: true },
           },
           'removeDimensions'
         ]

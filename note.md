@@ -16,6 +16,11 @@ vue-workspace/
 │
 └── packages/
     │
+    ├── ui-public/               # 이미지, 폰트 패키지
+    │   ├── fonts/               
+    │   ├── images/              
+    │   └── package.json
+    │
     ├── ui-style/                # 🎨 디자인 시스템 토큰 및 공통 CSS 패키지
     │   ├── package.json
     │   ├── tailwind.config.js   # Tailwind 설정 (디자인 토큰 동적 생성 및 주입)
@@ -35,10 +40,14 @@ vue-workspace/
         ├── package.json         # @ui/style을 로컬 심볼릭 링크로 참조
         ├── vite.config.ts       # 모노레포 HMR 핫릴로드 최적화 설정
         ├── tsconfig.json
+        ├── scripts/
+        │   ├── generate-icons.js # svg 아이콘 자동화 components
+        │   └── watch-icons.js    # 아이콘 감지
         └── src/
             ├── assets/
             │   └── icons        # svg 아이콘 이미지
             ├── components/      # Button, Divider, Container 등 공통 UI 컴포넌트 (cn/tailwind-merge 활용)
+            ├── composables/     # Typescript 
             └── utils/
                 └── cn.ts        # 클래스명 병합 유틸리티 (Tailwind Variants)
 ```

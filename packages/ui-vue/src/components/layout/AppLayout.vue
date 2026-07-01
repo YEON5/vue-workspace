@@ -14,10 +14,11 @@ import { align, isVisible, leftBtn, rightBtn, title, transparent } from '@/compo
       :left-btn="leftBtn"
       :right-btn="rightBtn" 
     />
-    
-    <main class="flex-1">
+    <!-- main -->
+    <main class="flex flex-col flex-1">
       <slot />
     </main>
+    <!-- //main -->
 
     <slot name="footer" />
   </div>
