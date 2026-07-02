@@ -6,6 +6,9 @@ import { defineConfig } from 'vite'
 import svgLoader from 'vite-svg-loader'
 
 export default defineConfig({
+  // Vite가 정적 자산(Public)을 찾는 기본 폴더를 모노레포 공통 폴더로 변경
+  publicDir: path.resolve(__dirname, '../../packages/ui-public'),
+
   plugins: [
     vue(),
     // 컴포넌트 자동 임포트 설정 추가
@@ -39,7 +42,7 @@ export default defineConfig({
     alias: {
       // '@' 기호를 'src' 폴더의 절대 경로로 매핑합니다.
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '#components': path.resolve(__dirname, './src/components')
+      '#components': path.resolve(__dirname, './src/components'),
     }
   },
   server: {

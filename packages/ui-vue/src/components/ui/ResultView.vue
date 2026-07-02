@@ -13,7 +13,7 @@ defineProps<Props>();
 </script>
 
 <template>
-  <Container :padded="false" class="items-center pt-[180px]">
+  <Container :padded="false" class="items-center pt-[100px]">
     <!-- <Container :padded="false" centered> -->
     <div class="flex flex-col items-center gap-4 text-center">
       <slot name="icon">

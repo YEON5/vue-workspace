@@ -4,6 +4,11 @@ import AppLayout from '@/components/layout/AppLayout.vue';
 import BottomSticky from '@/components/ui/BottomSticky.vue';
 import { setHeader } from '@/composables/useHeaderState';
 
+// const emit = defineEmits(['click', 'update']);
+const handleBannerClick = () => {
+  // emit('click');
+  console.log('click');
+}
 
 // header 
 // (heder 미노출 : isVisible: false | heder 타이틀 왼쪽 정렬 : align: 'left' | header bg 불투명 : transparent: true)
@@ -127,9 +132,9 @@ setHeader({
           align="center"
           gap="3"
         >
-          <button class="text-primary underline">영수증 보기</button>
+          <button type="button" class="text-primary underline">영수증 보기</button>
           <Divider direction="vertical" />
-          <button class="text-primary underline">영수증 보기</button>
+          <button type="button" class="text-primary underline">영수증 보기</button>
         </Flex>
       </template>
 
@@ -139,9 +144,14 @@ setHeader({
         </div>
       </template>
       
-      <!-- <template #banner>
-        <img src="/promo-banner.png" class="w-full rounded-lg mb-6">
-      </template> -->
+      <template #banner>
+        <button
+          type="button"
+          @click="handleBannerClick"
+        >
+          <img src="/images/temp-banner.webp">
+        </button>
+      </template>
     </ResultView>
 
     <BottomSticky>
