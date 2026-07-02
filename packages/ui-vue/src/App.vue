@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { IConfirmCheck, ILeftArrow, IMenu, IMy } from '#components';
+import { ILeftArrow, IMenu, IMy } from '#components';
 import AppLayout from '@/components/layout/AppLayout.vue';
 import BottomSticky from '@/components/ui/BottomSticky.vue';
 import { setHeader } from '@/composables/useHeaderState';
 
+// ResultView(완료/실패)
 // const emit = defineEmits(['click', 'update']);
 const handleBannerClick = () => {
   // emit('click');
@@ -121,8 +122,8 @@ setHeader({
 
   <!-- 결과 페이지 (세로 중앙 정렬) -->
   <AppLayout>
+    <!-- lottie 대신 svg 아이콘으로 들어가는 경우 : :icon="IConfirmCheck" -->
     <ResultView
-      :icon="IConfirmCheck"
       title="완료되었습니다"
       description="처리 결과를 확인해주세요."
     >
@@ -139,7 +140,7 @@ setHeader({
       </template>
 
       <template #extra>
-        <div class="p-4 bg-muted rounded-lg text-sm text-muted-foreground">
+        <div class="p-4 bg-muted rounded-lg text-sm text-muted-foreground text-center">
           문의사항은 고객센터로 연락주세요.
         </div>
       </template>

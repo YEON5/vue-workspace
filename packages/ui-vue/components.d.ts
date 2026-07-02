@@ -20,6 +20,7 @@ declare module 'vue' {
     Divider: typeof import('./src/components/ui/Divider.vue')['default']
     EmptyState: typeof import('./src/components/ui/EmptyState.vue')['default']
     Flex: typeof import('./src/components/ui/Flex.vue')['default']
+    Lottie: typeof import('./src/components/ui/Lottie.vue')['default']
     OutsetBox: typeof import('./src/components/ui/OutsetBox.vue')['default']
     PageHeader: typeof import('./src/components/ui/PageHeader.vue')['default']
     ResultView: typeof import('./src/components/ui/ResultView.vue')['default']
