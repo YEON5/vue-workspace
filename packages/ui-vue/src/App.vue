@@ -27,7 +27,7 @@ setHeader({
 </script>
 
 <template>
-  <!-- <AppLayout>
+  <AppLayout>
     <Container>
       <PageHeader
         title="섹션 타이틀"
@@ -95,35 +95,11 @@ setHeader({
     <template #footer>
       <AppFooter />
     </template>
-  </AppLayout> -->
 
-  <!-- <AppLayout>
-    <!-- 목록 페이지 안 
-    <Container>
-      <PageHeader title="주문 내역" />
-      <EmptyState
-        v-if="orders.length === 0"
-        :icon="ISearch"
-        title="주문 내역이 없습니다"
-        description="아직 주문하신 상품이 없어요"
-      >
-        <template #action>
-          <button class="px-4 py-2 bg-primary text-white rounded-lg">쇼핑하러 가기</button>
-        </template>
-      </EmptyState>
-      <OrderList v-else :items="orders" />
-    </Container>
 
-    <!-- 작은 카드 안 
-    <Card>
-      <EmptyState size="sm" title="댓글이 없습니다" />
-    </Card>
-  </AppLayout> -->
-
-  <!-- 결과 페이지 (세로 중앙 정렬) -->
-  <AppLayout>
+    <!-- 결과 페이지 : Container로 감쌀 필요 없음 -->
     <!-- lottie 대신 svg 아이콘으로 들어가는 경우 : :icon="IConfirmCheck" -->
-    <ResultView
+    <!-- <ResultView
       title="완료되었습니다"
       description="처리 결과를 확인해주세요."
     >
@@ -157,7 +133,7 @@ setHeader({
 
     <BottomSticky>
       <button class="w-full ...">확인</button>
-    </BottomSticky>
+    </BottomSticky> -->
+    <!-- //결과 페이지 : Container로 감쌀 필요 없음 -->
   </AppLayout>
-  <!-- //결과 페이지 (세로 중앙 정렬) -->
 </template>
