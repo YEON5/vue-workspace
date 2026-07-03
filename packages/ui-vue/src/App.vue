@@ -2,19 +2,20 @@
 import { ILeftArrow, IMenu, IMy } from '#components';
 import AppLayout from '@/components/layout/AppLayout.vue';
 import BottomSticky from '@/components/ui/BottomSticky.vue';
+import PageHeader from '@/components/ui/PageHeader.vue';
 import { setHeader } from '@/composables/useHeaderState';
 
 // ResultView(완료/실패)
 // const emit = defineEmits(['click', 'update']);
-const handleBannerClick = () => {
-  // emit('click');
-  console.log('click');
-}
+// const handleBannerClick = () => {
+//   // emit('click');
+//   console.log('click');
+// }
 
 // header 
-// (heder 미노출 : isVisible: false | heder 타이틀 왼쪽 정렬 : align: 'left' | header bg 불투명 : transparent: true)
+// (heder 미노출 : isVisible: true/false | heder 타이틀 왼쪽 정렬 : align: 'left' | header bg 불투명 : transparent: true)
 setHeader({
-  isVisible: false,
+  isVisible: true,
   // align: 'left',
   // transparent: true,
   title: "Header 타이틀",
@@ -30,10 +31,23 @@ setHeader({
   <AppLayout>
     <Container>
       <PageHeader
-        title="섹션 타이틀"
-        sub-description="부제목 텍스트" 
+        title="본문페이지 <span class='text-mint-700'>타이틀</span> 텍스트"
+        description="본문페이지 설명 텍스트 입니다.<br>줄바꿈도 가능해요" 
         bottom-spacing="none"
       />
+
+      <!-- <PageHeader
+        bottom-spacing="none"
+      >
+        <template #title>
+          본문페이지 <span class="text-mint-700">타이틀</span> 텍스트
+        </template>
+        <template #description>
+          본문페이지 설명 텍스트 입니다.<br>
+          줄바꿈도 됩니다.
+        </template>
+      </PageHeader> -->
+
       <Divider full type="bold" />
 
       <Section class="pb-6">
