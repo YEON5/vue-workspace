@@ -2,7 +2,7 @@
 import type { Component } from 'vue';
 
 export interface HeaderBtn {
-  icon: Component | object | any;
+  icon: Component | object | any; // 페이지안에 setHeader svg 타입충돌 막기 위해 any 추가
   action: () => void;
   label: string; // 접근성
   iconClass?: string
