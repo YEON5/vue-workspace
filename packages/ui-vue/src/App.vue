@@ -33,11 +33,11 @@ setHeader({
       <PageHeader
         title="본문페이지 <span class='text-mint-700'>타이틀</span> 텍스트"
         description="본문페이지 설명 텍스트 입니다.<br>줄바꿈도 가능해요" 
-        bottom-spacing="none"
+        pb="6"
       />
 
+      <!-- 다국어 또는 admin 등록 시 template으로 -->
       <!-- <PageHeader
-        bottom-spacing="none"
       >
         <template #title>
           본문페이지 <span class="text-mint-700">타이틀</span> 텍스트
@@ -50,7 +50,7 @@ setHeader({
 
       <Divider full type="bold" />
 
-      <Section class="pb-6">
+      <Section pb="6">
         <p>내용1</p>
       </Section>
 
@@ -94,7 +94,7 @@ setHeader({
         <p>내용5</p>
       </Section>
 
-      <OutsetBox class="mt-6">
+      <OutsetBox mt="6">
         <Section class="bg-gray-100">
           <div>음수마진박스</div>
         </Section>

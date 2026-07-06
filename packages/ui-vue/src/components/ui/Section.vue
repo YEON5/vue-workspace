@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
 import { cn } from '@/utils/cn';
 import { computed } from 'vue';
 
-interface Props {
+interface Props extends SpacingProps {
   as?: string;
   class?: string;
 }
@@ -11,10 +12,11 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   as: 'section',
 });
-
+const { spacingClasses } = useSpacing(props);
 const classes = computed(() =>
   cn(
     'ui-section relative w-full',
+    spacingClasses.value,
     props.class,
   )
 )

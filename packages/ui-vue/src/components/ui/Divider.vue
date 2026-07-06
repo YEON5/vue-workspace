@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
 import { cn } from '@/utils/cn';
 import { computed } from 'vue';
 
-interface Props {
+interface Props extends SpacingProps {
   class?: string;
   full?: boolean;
   type?: 'thin' | 'base' | 'bold';
@@ -14,7 +15,7 @@ const props = withDefaults(defineProps<Props>(), {
   type: 'base',
   direction: 'horizontal',
 });
-
+const { spacingClasses } = useSpacing(props);
 const classes = computed(() =>
   cn(
     'bg-gray-300 shrink-0',
@@ -29,6 +30,7 @@ const classes = computed(() =>
     props.direction === 'vertical' && [
       'inline-block align-middle w-px h-4 mx-2',
     ],
+    spacingClasses.value,
     props.class,
   )
 )

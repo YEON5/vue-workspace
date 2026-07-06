@@ -1,48 +1,43 @@
 <script setup lang="ts">
+import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
 import { cn } from '@/utils/cn';
 import { computed } from 'vue';
-
-interface Props {
+ 
+interface Props extends SpacingProps {
   title?: string;
   description?: string;
-  bottomSpacing?: 'none' | 'sm' | 'md' | 'lg'
   titleClass?: string;
   descriptionClass?: string;
   class?: string;
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  bottomSpacing: 'md',
-});
-const spacingClass = {
-  none: 'pb-0',
-  sm: 'pb-6',
-  md: 'pb-8',
-  lg: 'pb-10'
-}[props.bottomSpacing];
-
-
+ 
+const props = defineProps<Props>();
+ 
+const { spacingClasses } = useSpacing(props);
+ 
 const wrapperClasses = computed(() =>
   cn(
     'flex flex-col gap-3',
-    spacingClass,         
-    props.class           
+    spacingClasses.value,
+    props.class,
   )
 );
+ 
 const titleClasses = computed(() =>
   cn(
     'text-2xl font-bold text-foreground',
-    props.titleClass                     
+    props.titleClass,
   )
 );
+ 
 const descriptionClasses = computed(() =>
   cn(
     'text-md text-muted-foreground',
-    props.descriptionClass          
+    props.descriptionClass,
   )
 );
 </script>
-
+ 
 <template>
   <div :class="wrapperClasses">
     <h2 :class="titleClasses">
@@ -50,7 +45,7 @@ const descriptionClasses = computed(() =>
         <span v-html="title" />
       </slot>
     </h2>
-    
+ 
     <template v-if="description || $slots.description">
       <p :class="descriptionClasses">
         <slot name="description">
