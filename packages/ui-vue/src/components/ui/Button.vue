@@ -1,24 +1,28 @@
 <script setup lang="ts">
 
-export type ButtonType = 'fill' | 'outline' | 'transparent' | 'icon' | 'text'
-export type ButtonSize = 'xsm' | 'sm' | 'md' | 'lg' | 'xlg'
-export type ButtonColor = 'primary' | 'secondary' | 'tertiary' 
+export type ButtonType = 'fill' | 'outline' | 'transparent' | 'icon'
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'cta'
+export type ButtonColor = 'primary' | 'secondary' | 'tertiary'
 export type IconAlign = 'left' | 'right' | 'top'
 
 interface Props {
   variant?: ButtonType;
   size?: ButtonSize;
   color?: ButtonColor;
+  textSize?: string;
+  textColor?: string;
   iconAlign?: IconAlign | boolean;
-  fullSize?: boolean;
+  full?: boolean;
   disabled?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   variant: 'fill',
   size: 'md',
   color: 'primary',
-  IconAlign: false,
-  fullSize: false,
+  textSize: '',
+  textColor: '',
+  IconAlign: 'left',
+  full: false,
   disabled: false,
 })
 
@@ -37,6 +41,7 @@ const handleSubmit = () => {
 <template>
   <button
     :class="computedClass"
+    @click="handleControl"
   >
     <slot />
   </button>

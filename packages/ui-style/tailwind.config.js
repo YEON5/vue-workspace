@@ -6,9 +6,20 @@ module.exports = {
   // PREFIX가 있을 때만 safelist 적용
   // PREFIX가 빈 문자열이면 ^bg- 처럼 모든 Tailwind 기본 클래스까지 포함되어 번들이 불필요하게 커짐
   safelist: [
-    // useSpacing 동적 클래스 (PREFIX 유무 관계없이 항상 포함)
+    // useSpacing 동적 클래스
+    // ✏️ SpacingToken 변경 시 패턴도 함께 수정
     {
       pattern: /^(p|pt|pb|pl|pr|px|py|m|mt|mb|ml|mr|mx|my|gap)-(0|1|2|3|4|5|6|7|8|9|10|11|12|13)$/,
+    },
+    // useFontSize 동적 클래스
+    // ✏️ FontSizeToken 변경 시 패턴도 함께 수정
+    {
+      pattern: /^text-(xxs|xs|sm|md|lg|xl|2xl|3xl|4xl)$/,
+    },
+    // useRadius 동적 클래스
+    // ✏️ RadiusToken 변경 시 패턴도 함께 수정
+    {
+      pattern: /^rounded-(none|sm|md|lg|xl|2xl|3xl|full)$/,
     },
 
     // PREFIX가 있을 때만 디자인 토큰 클래스 safelist 적용
