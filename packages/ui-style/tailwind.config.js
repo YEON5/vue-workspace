@@ -5,27 +5,35 @@ const { PREFIX, PREFIX_DASH } = require("./src/tokens-config");
 module.exports = {
   // PREFIX가 있을 때만 safelist 적용
   // PREFIX가 빈 문자열이면 ^bg- 처럼 모든 Tailwind 기본 클래스까지 포함되어 번들이 불필요하게 커짐
-  safelist: PREFIX ? [
-    { pattern: new RegExp(`^bg-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^text-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^border-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^rounded-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^p-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^px-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^py-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^pt-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^pb-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^pl-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^pr-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^m-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^mx-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^my-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^mt-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^mb-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^ml-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^mr-${PREFIX_DASH}`) },
-    { pattern: new RegExp(`^gap-${PREFIX_DASH}`) },
-  ] : [],
+  safelist: [
+    // useSpacing 동적 클래스 (PREFIX 유무 관계없이 항상 포함)
+    {
+      pattern: /^(p|pt|pb|pl|pr|px|py|m|mt|mb|ml|mr|mx|my|gap)-(0|1|2|3|4|5|6|7|8|9|10|11|12|13)$/,
+    },
+
+    // PREFIX가 있을 때만 디자인 토큰 클래스 safelist 적용
+    ...(PREFIX ? [
+      { pattern: new RegExp(`^bg-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^text-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^border-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^rounded-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^p-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^px-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^py-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^pt-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^pb-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^pl-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^pr-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^m-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^mx-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^my-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^mt-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^mb-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^ml-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^mr-${PREFIX_DASH}`) },
+      { pattern: new RegExp(`^gap-${PREFIX_DASH}`) },
+    ] : []),
+  ],
 
   content: [
     // @ui/style 자체 소스

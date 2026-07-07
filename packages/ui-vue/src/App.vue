@@ -59,7 +59,7 @@ setHeader({
       </Section>
 
       <Section>
-        <Flex wrap align="center" justify="start" gap="3">
+        <Flex wrap align="center" justify="start" gap="3" mb="5">
           <p>내용 div1</p>
           <Divider direction="vertical" />
           <p>내용 div2</p>
@@ -90,13 +90,13 @@ setHeader({
 
       <Divider class="my-[33px] bg-red-500" />
 
-      <Section>
+      <Section py="2" px="5">
         <p>내용5</p>
       </Section>
 
       <OutsetBox mt="6">
         <Section class="bg-gray-100">
-          <div>음수마진박스</div>
+          <Box as="article" p="5">음수마진박스</Box>
         </Section>
       </OutsetBox>
 
