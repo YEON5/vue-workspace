@@ -26,5 +26,6 @@ declare module 'vue' {
     ResultView: typeof import('./src/components/ui/ResultView.vue')['default']
     Section: typeof import('./src/components/ui/Section.vue')['default']
     TextButton: typeof import('./src/components/ui/TextButton.vue')['default']
+    Typo: typeof import('./src/components/ui/Typo.vue')['default']
   }
 }

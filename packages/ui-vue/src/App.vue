@@ -51,15 +51,19 @@ setHeader({
       <Divider full type="bold" />
 
       <Section pb="6">
-        <p>내용1</p>
+        <Typo text="lg" weight="medium" ellipsis>
+          내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1
+        </Typo>
       </Section>
 
       <Section>
-        <p>내용2</p>
+        <Typo :multi-ellipsis="2">
+          내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1
+        </Typo>
       </Section>
 
       <Section>
-        <Flex wrap align="center" justify="start" gap="3" mb="5">
+        <Flex wrap align="center" justify="start" gap="3" mb="5" p="4" rounded="md" class="bg-slate-400">
           <p>내용 div1</p>
           <Divider direction="vertical" />
           <p>내용 div2</p>

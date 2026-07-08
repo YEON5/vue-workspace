@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { useRadius, type RadiusProps } from '@/composables/useRadius';
 import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
 import { cn } from '@/utils/cn';
 import { computed } from 'vue';
 
-interface Props extends SpacingProps {
+interface Props extends SpacingProps, RadiusProps {
   as?: string;
   class?: string;
   wrap?: boolean;
@@ -21,6 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const { spacingClasses } = useSpacing(props);
+const { radiusClasses } = useRadius(props);
 
 const directionMap = {
   row: 'flex-row',
@@ -54,6 +56,7 @@ const classes = computed(() =>
     justifyMap[props.justify],
     props.wrap && 'flex-wrap',
     spacingClasses.value,
+    radiusClasses.value,
     props.class,
   )
 )
