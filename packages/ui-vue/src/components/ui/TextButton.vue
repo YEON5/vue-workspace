@@ -1,21 +1,49 @@
 <script setup lang="ts">
-export type ButtonType = 'fill' | 'outline' | 'transparent' | 'icon'
-export type ButtonSize = 'xsm' | 'sm' | 'md' | 'lg' | 'xlg'
-export type ButtonColor = 'primary' | 'secondary' | 'tertiary' 
+import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
+import { cn } from '@/utils/cn';
+import { computed } from 'vue';
+
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'cta'
 export type IconAlign = 'left' | 'right' | 'top'
 
-interface Props {
-  variant?: ButtonType;
-  size?: ButtonSize;
+interface Props extends SpacingProps {
+  textSize?: ButtonSize;
+  textColor?: string;
   icon?: IconAlign;
-  fullSize?: boolean;
   disabled?: boolean;
+  class?: string;
 }
+const props = withDefaults(defineProps<Props>(), {
+  textSize: 'md',
+  textColor: 'primary',
+  IconAlign: 'left',
+  disabled: false,
+})
 
+const { spacingClasses } = useSpacing(props);
+
+const classes = computed(() =>
+  cn(
+    'flex items-center',
+    props.textColor,
+    spacingClasses.value,
+    props.class,
+  )
+)
+
+const emit = defineEmits(['click'])
+
+const handleControl = () => {
+  emit('click')
+  console.log('click')
+}
 </script>
 
 <template>
-  <button>
+  <button
+    :class="classes"
+    @click="handleControl"
+  >
     <slot />
   </button>
 </template>

@@ -79,23 +79,24 @@ setHeader({
       <Divider type="thin" />
       
       <Section as="article">
-        <p>내용 article</p>
+        <Typo>내용 article</Typo>
+        <Button variant="outline" color="secondary">버튼 outline</Button>
       </Section>
 
       <Divider full />
 
       <Section>
-        <p>내용3</p>
+        <Typo>내용3</Typo>
       </Section>
 
       <Section>
-        <p>내용4</p>
+        <Typo>내용4</Typo>
       </Section>
 
       <Divider class="my-[33px] bg-red-500" />
 
       <Section py="2" px="5">
-        <p>내용5</p>
+        <Typo>내용5</Typo>
       </Section>
 
       <OutsetBox mt="6">
@@ -107,12 +108,13 @@ setHeader({
     </Container>
 
     <BottomSticky>
-      <button class="w-full ...">확인</button>
+      <Button size="cta" color="tertiary">취소</Button>
+      <Button size="cta">확인</Button>
     </BottomSticky>
 
-    <template #footer>
+    <!-- <template #footer>
       <AppFooter />
-    </template>
+    </template> -->
 
 
     <!-- 결과 페이지 : Container로 감쌀 필요 없음 -->
