@@ -15,10 +15,10 @@ interface Props extends SpacingProps, RadiusProps {
 
 const props = withDefaults(defineProps<Props>(), {
   as: 'div',
+  wrap: true,
   direction: 'row',
   align: 'stretch',
   justify: 'start',
-  wrap: false,
 });
 
 const { spacingClasses } = useSpacing(props);
@@ -60,6 +60,9 @@ const classes = computed(() =>
     props.class,
   )
 )
+
+// 자식이 flex-1을 가져야 할때 한번에 선언 방법
+// <Flex class="[&>*]:flex-1"></Flex>
 </script>
 
 <template>

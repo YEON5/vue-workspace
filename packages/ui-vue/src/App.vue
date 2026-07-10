@@ -79,8 +79,42 @@ setHeader({
       <Divider type="thin" />
       
       <Section as="article">
-        <Typo>내용 article</Typo>
-        <Button variant="outline" color="secondary">버튼 outline</Button>
+        <Typo>Button 모음</Typo>
+        <Flex
+          gap="6"
+        >
+          <Button variant="outline" color="secondary">버튼 outline</Button>
+          <Button variant="outline">
+            <IMy class="size-6 mr-2 text-mint-500" />
+            버튼 outline
+          </Button>
+          <Button variant="icon" color="secondary" class="size-[32px] p-2">
+            <IMy class="size-[20px] text-black" />
+          </Button>
+          <Button size="lg" icon-align="left" class="w-max p-4">
+            <template #icon>
+              <IMy class="size-6" />
+            </template>
+            아이콘 버튼
+          </Button>
+          <Button variant="outline" icon-align="top" class="w-max h-auto p-3 text-mint-500">
+            <template #icon>
+              <IMy class="size-7 text-mint-500" />
+            </template>
+            아이콘 버튼
+          </Button>
+          <Button variant="transparent" color="secondary" icon-align="right" class="w-max h-auto p-4">
+            <template #icon>
+              <IMy class="size-6" />
+            </template>
+            아이콘 버튼
+          </Button>
+          <Button size="cta" full class="flex-auto">버튼 full</Button>
+        </Flex>
+        <Flex align="center" justify="between" gap="4" mt="5">
+          <Button color="secondary" size="lg" class="flex-1">버튼 lg</Button>
+          <Button color="tertiary" size="lg" class="flex-1">버튼 lg</Button>
+        </Flex>
       </Section>
 
       <Divider full />
