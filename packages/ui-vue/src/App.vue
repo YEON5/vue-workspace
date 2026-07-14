@@ -31,7 +31,7 @@ setHeader({
   <AppLayout>
     <Container>
       <PageHeader
-        title="본문페이지 <span class='text-mint-700'>타이틀</span> 텍스트"
+        title="본문페이지 <span class='text-mint-500'>타이틀</span> 텍스트"
         description="본문페이지 설명 텍스트 입니다.<br>줄바꿈도 가능해요" 
         pb="6"
       />
@@ -79,37 +79,44 @@ setHeader({
       <Divider type="thin" />
       
       <Section as="article">
-        <Typo>Button 모음</Typo>
+        <Typo
+          variant="body-l"
+          color="display"
+          class="pb-6"
+        >
+          Button
+        </Typo>
         <Flex
           gap="6"
         >
-          <Button variant="outline" color="secondary">버튼 outline</Button>
-          <Button variant="outline">
-            <IMy class="size-6 mr-2 text-mint-500" />
-            버튼 outline
-          </Button>
-          <Button variant="icon" color="secondary" class="size-[32px] p-2">
-            <IMy class="size-[20px] text-black" />
-          </Button>
-          <Button size="lg" icon-align="left" class="w-max p-4">
+          <Button variant="fill" size="sm">버튼 fill</Button>
+          <Button variant="outline" size="md" color="secondary">버튼 outline</Button>
+          <Button variant="fill" size="md" disabled>버튼 disabled</Button>
+          
+          <Button variant="fill" size="lg" icon-align="left">
             <template #icon>
               <IMy class="size-6" />
             </template>
-            아이콘 버튼
+            아이콘 버튼L
           </Button>
-          <Button variant="outline" icon-align="top" class="w-max h-auto p-3 text-mint-500">
-            <template #icon>
-              <IMy class="size-7 text-mint-500" />
-            </template>
-            아이콘 버튼
-          </Button>
-          <Button variant="transparent" color="secondary" icon-align="right" class="w-max h-auto p-4">
+          <Button variant="outline" size="lg" color="tertiary" icon-align="right">
             <template #icon>
               <IMy class="size-6" />
             </template>
-            아이콘 버튼
+            아이콘 버튼R
           </Button>
-          <Button size="cta" full class="flex-auto">버튼 full</Button>
+          <Button variant="outline" size="lg" icon-align="top" class="h-auto p-3">
+            <template #icon>
+              <IMy class="size-6" />
+            </template>
+            아이콘 버튼T
+          </Button>
+          
+          <Button variant="icon" class="size-[32px] p-2">
+            <IMy class="size-[24px]" />
+          </Button>
+
+          <Button variant="fill" size="lg" full>버튼 full</Button>
         </Flex>
         <Flex align="center" justify="between" gap="4" mt="5">
           <Button color="secondary" size="lg" class="flex-1">버튼 lg</Button>
@@ -120,7 +127,19 @@ setHeader({
       <Divider full />
 
       <Section>
-        <Typo>내용3</Typo>
+        <Typo class="pb-6">TextButton</Typo>
+        <Flex gap="5">
+          <TextButton size="sm">텍스트 버튼</TextButton>
+          <TextButton size="md" disabled>텍스트 버튼</TextButton>
+          <TextButton size="md" color="secondary">텍스트 버튼</TextButton>
+          <TextButton size="lg" color="tertiary">텍스트 버튼</TextButton>
+          <TextButton size="lg" icon-align="right">
+            <template #icon>
+              <IMy class="size-6" />
+            </template>
+            텍스트 버튼
+          </TextButton>
+        </Flex>
       </Section>
 
       <Section>
