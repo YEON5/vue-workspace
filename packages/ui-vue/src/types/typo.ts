@@ -13,6 +13,7 @@ export type TypoToken =
   | 'label-l'
   | 'label-m'
   | 'label-s'
+  | 'label-xs'
   | 'caption-1'
   | 'caption-2';
 
@@ -34,6 +35,7 @@ export const TypoMap: Record<TypoToken, string> = {
   'label-l':   'text-lg font-bold leading-snug tracking-[-0.3px]',
   'label-m':   'text-md font-normal leading-normal tracking-[-0.24px]',
   'label-s':   'text-sm font-normal leading-normal tracking-[-0.24px]',
+  'label-xs':   'text-xs font-normal leading-normal tracking-[-0.2px]',
   'caption-1': 'text-xs font-normal leading-normal tracking-[-0.2px]',
   'caption-2': 'text-xxs font-normal leading-normal tracking-[-0.2px]',
 };

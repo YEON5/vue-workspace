@@ -52,25 +52,29 @@ setHeader({
 
       <Section pb="6">
         <Typo text="lg" weight="medium" ellipsis>
-          내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1
+          말줄임 1줄 내용입니다. 말줄임 1줄 내용입니다. 말줄임 1줄 내용입니다. 말줄임 1줄 내용입니다.
         </Typo>
       </Section>
 
       <Section>
         <Typo :multi-ellipsis="2">
-          내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1 내용 1
+          말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다.
         </Typo>
       </Section>
 
       <Section>
-        <Flex wrap align="center" justify="start" gap="3" mb="5" p="4" rounded="md" class="bg-slate-400">
+        <Flex wrap align="center" justify="start" gap="3" mb="5" p="4" rounded="md" class="bg-gray-100">
           <Typo variant="body-l">variant body-l</Typo>
           <Divider direction="vertical" />
           <Typo variant="body-m">variant body-m</Typo>
           <Divider direction="vertical" />
           <Typo variant="body-s">variant body-s</Typo>
           <Divider direction="vertical" />
-          <Typo variant="label">variant label</Typo>
+          <Typo variant="label-l">variant label-l</Typo>
+          <Divider direction="vertical" />
+          <Typo variant="label-m">variant label-m</Typo>
+          <Divider direction="vertical" />
+          <Typo variant="label-s">variant label-s</Typo>
           <Divider direction="vertical" />
           <Typo variant="caption-1">variant caption-1</Typo>
         </Flex>
@@ -97,19 +101,19 @@ setHeader({
             <template #icon>
               <IMy class="size-6" />
             </template>
-            아이콘 버튼L
+            텍스트+icon 버튼L
           </Button>
           <Button variant="outline" size="lg" color="tertiary" icon-align="right">
             <template #icon>
               <IMy class="size-6" />
             </template>
-            아이콘 버튼R
+            텍스트+icon 버튼R
           </Button>
           <Button variant="outline" size="lg" icon-align="top" class="h-auto p-3">
             <template #icon>
               <IMy class="size-6" />
             </template>
-            아이콘 버튼T
+            텍스트+icon 버튼T
           </Button>
           
           <Button variant="icon" class="size-[32px] p-2">
@@ -137,7 +141,7 @@ setHeader({
             <template #icon>
               <IMy class="size-6" />
             </template>
-            텍스트 버튼
+            텍스트+icon 버튼
           </TextButton>
         </Flex>
       </Section>
