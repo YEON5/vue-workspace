@@ -2,6 +2,7 @@
 import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
 import { cn } from '@/utils/cn';
 import { computed } from 'vue';
+import Typo from './Typo.vue';
  
 interface Props extends SpacingProps {
   title?: string;
@@ -37,24 +38,25 @@ const descriptionClasses = computed(() =>
   )
 );
 </script>
- 
+
 <template>
   <div :class="wrapperClasses">
-    <h2 :class="titleClasses">
+    <Typo as="h2" variant="heading-l" :class="titleClasses">
       <slot name="title">
         <span v-html="title" />
       </slot>
-    </h2>
+    </Typo>
  
     <template v-if="description || $slots.description">
-      <p :class="descriptionClasses">
+      <Typo as="p" variant="body-m" color="caption" :class="descriptionClasses">
         <slot name="description">
           <span v-html="description" />
         </slot>
-      </p>
+      </Typo>
     </template>
   </div>
 </template>
+
 
 <!-- 
 const classes = computed(() =>

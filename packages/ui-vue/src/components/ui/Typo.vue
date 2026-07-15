@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { colorMap, textAlignMap, variantMap, type ColorToken, type TypoAlign, type TypoVariant } from '@/types';
+import { colorMap, textAlignMap, TypoVariantMap, type ColorToken, type TypoAlign, type TypoVariant } from '@/types';
 import { cn } from '@/utils/cn';
 import { computed } from 'vue';
 
@@ -28,7 +28,7 @@ const multiEllipsisMap = {
 
 const classes = computed(() =>
   cn(
-    variantMap[props.variant],
+    TypoVariantMap[props.variant],
     colorMap[props.color],
     props.align && textAlignMap[props.align],
     props.ellipsis && !props.multiEllipsis && 'truncate',

@@ -10,8 +10,11 @@ export type TypoVariant =
   | 'body-l'
   | 'body-m'
   | 'body-s'
-  | 'body-xs'
-  | 'caption-1';
+  | 'label-l'
+  | 'label-m'
+  | 'label-s'
+  | 'caption-1'
+  | 'caption-2';
 
 export type TypoAlign =
   | 'left'
@@ -19,7 +22,7 @@ export type TypoAlign =
   | 'right';
 
 // 크기 + 굵기 + line-height + letter-spacing
-export const variantMap: Record<TypoVariant, string> = {
+export const TypoVariantMap: Record<TypoVariant, string> = {
   'display-l': 'text-4xl font-bold leading-tight tracking-[-0.5px]',
   'display-m': 'text-3xl font-bold leading-tight tracking-[-0.5px]',
   'heading-l': 'text-2xl font-bold leading-snug tracking-[-0.3px]',
@@ -28,8 +31,11 @@ export const variantMap: Record<TypoVariant, string> = {
   'body-l':    'text-lg font-medium leading-normal tracking-[-0.24px]',
   'body-m':    'text-md font-normal leading-normal tracking-[-0.24px]',
   'body-s':    'text-sm font-normal leading-normal tracking-[-0.24px]',
-  'body-xs':   'text-xs font-normal leading-normal tracking-[-0.24px]',
-  'caption-1': 'text-xxs font-normal leading-normal tracking-[-0.2px]',
+  'label-l':   'text-lg font-bold leading-snug tracking-[-0.3px]',
+  'label-m':   'text-md font-normal leading-normal tracking-[-0.24px]',
+  'label-s':   'text-sm font-normal leading-normal tracking-[-0.24px]',
+  'caption-1': 'text-xs font-normal leading-normal tracking-[-0.2px]',
+  'caption-2': 'text-xxs font-normal leading-normal tracking-[-0.2px]',
 };
 
 // 정렬
@@ -41,3 +47,4 @@ export const textAlignMap: Record<TypoAlign, string> = {
 
 // ColorToken을 re-export해서 Typo.vue에서 @/types/typo만 import해도 됨
 export type { ColorToken };
+

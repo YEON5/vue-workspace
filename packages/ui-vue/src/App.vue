@@ -64,15 +64,15 @@ setHeader({
 
       <Section>
         <Flex wrap align="center" justify="start" gap="3" mb="5" p="4" rounded="md" class="bg-slate-400">
-          <p>내용 div1</p>
+          <Typo variant="body-l">variant body-l</Typo>
           <Divider direction="vertical" />
-          <p>내용 div2</p>
+          <Typo variant="body-m">variant body-m</Typo>
           <Divider direction="vertical" />
-          <p>내용 div3</p>
+          <Typo variant="body-s">variant body-s</Typo>
           <Divider direction="vertical" />
-          <p>내용 div4</p>
+          <Typo variant="label">variant label</Typo>
           <Divider direction="vertical" />
-          <p>내용 div5</p>
+          <Typo variant="caption-1">variant caption-1</Typo>
         </Flex>
       </Section>
 
