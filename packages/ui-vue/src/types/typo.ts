@@ -1,7 +1,7 @@
 // src/types/typo.ts
 import type { ColorToken } from './color';
 
-export type TypoVariant =
+export type TypoToken =
   | 'display-l'
   | 'display-m'
   | 'heading-l'
@@ -22,7 +22,7 @@ export type TypoAlign =
   | 'right';
 
 // 크기 + 굵기 + line-height + letter-spacing
-export const TypoVariantMap: Record<TypoVariant, string> = {
+export const TypoMap: Record<TypoToken, string> = {
   'display-l': 'text-4xl font-bold leading-tight tracking-[-0.5px]',
   'display-m': 'text-3xl font-bold leading-tight tracking-[-0.5px]',
   'heading-l': 'text-2xl font-bold leading-snug tracking-[-0.3px]',
