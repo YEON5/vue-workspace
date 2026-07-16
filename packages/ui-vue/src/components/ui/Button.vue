@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useFontSize, type FontSizeProps } from '@/composables/useFontSize';
 import { useRadius, type RadiusProps } from '@/composables/useRadius';
 import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
-import { type ColorToken } from '@/types';
+import { TypoMap, type ColorToken } from '@/types';
 import { cn } from '@/utils/cn';
 import { computed } from 'vue';
 
@@ -10,7 +9,7 @@ export type ButtonVariant = 'fill' | 'outline' | 'transparent' | 'icon';
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'cta';
 export type IconAlign = 'left' | 'right' | 'top';
 
-interface Props extends FontSizeProps, SpacingProps, RadiusProps {
+interface Props extends SpacingProps, RadiusProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
   color?: ColorToken;
@@ -32,15 +31,14 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { spacingClasses } = useSpacing(props);
 const { radiusClasses } = useRadius(props);
-const { fontSizeClasses } = useFontSize(props);
 
 // size map (높이, 패딩, 기본 폰트 사이즈)
 const sizeMap: Record<ButtonSize, string> = {
-  xs:  'h-7 px-2 text-xs rounded-md',
-  sm:  'h-8 px-3 text-sm rounded-md',
-  md:  'h-9 px-4 text-md rounded-lg',
-  lg:  'h-10 px-6 text-lg rounded-lg',
-  cta: 'flex-1 h-[56px] text-lg rounded-xl',
+  xs:  `h-7 px-2 ${TypoMap['label-xs']} rounded-md`,
+  sm:  `h-8 px-3 ${TypoMap['label-s']} rounded-md`,
+  md:  `h-9 px-4 ${TypoMap['label-m']} rounded-lg`,
+  lg:  `h-10 px-6 ${TypoMap['label-l']} rounded-lg`,
+  cta: `flex-1 h-[56px] ${TypoMap['label-l']} rounded-xl`,
 };
 
 // style
@@ -64,7 +62,7 @@ const styleMap: Record<Exclude<ButtonVariant, 'icon'>, Partial<Record<ColorToken
 
 const classes = computed(() =>
   cn(
-    'inline-flex items-center justify-center font-medium transition-colors shrink-0',
+    'inline-flex items-center justify-center transition-colors shrink-0',
     'disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
     props.iconAlign === 'top' ? 'flex-col gap-1' : 'flex-row gap-1.5',
     props.variant !== 'icon' && sizeMap[props.size],
@@ -72,7 +70,6 @@ const classes = computed(() =>
       ? styleMap[props.variant][props.color]
       : 'p-0 bg-transparent',
     props.full && props.variant !== 'icon' && 'w-full',
-    fontSizeClasses.value,
     spacingClasses.value,
     props.variant !== 'icon' && radiusClasses.value,
     props.class,

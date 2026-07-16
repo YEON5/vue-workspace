@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { useFontSize, type FontSizeProps } from '@/composables/useFontSize';
 import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
-import { type ColorToken } from '@/types';
+import { TypoMap, type ColorToken } from '@/types';
 import { cn } from '@/utils/cn';
 import { computed } from 'vue';
 
 export type TextButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 export type IconAlign = 'left' | 'right' | 'top';
 
-interface Props extends FontSizeProps, SpacingProps {
+interface Props extends SpacingProps {
   size?: TextButtonSize;
   color?: ColorToken;
   iconAlign?: IconAlign;
@@ -25,14 +24,14 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const { spacingClasses } = useSpacing(props);
-const { fontSizeClasses } = useFontSize(props);
+
 
 // size
 const sizeMap: Record<TextButtonSize, string> = {
-  xs: 'text-xxs gap-1',
-  sm: 'text-sm gap-1',
-  md: 'text-md gap-1.5',
-  lg: 'text-lg gap-2',
+  xs: `${TypoMap['label-xs']} gap-1`,
+  sm: `${TypoMap['label-s']} gap-1`,
+  md: `${TypoMap['label-m']} gap-1.5`,
+  lg: `${TypoMap['label-l']} gap-2`,
 };
 
 // color
@@ -44,12 +43,11 @@ const colorMap: Partial<Record<ColorToken, string>> = {
 
 const classes = computed(() =>
   cn(
-    'inline-flex items-center justify-center font-medium transition-all outline-none rounded-sm',
+    'inline-flex items-center justify-center transition-all outline-none rounded-sm',
     'disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
     props.iconAlign === 'top' ? 'flex-col gap-1' : 'flex-row gap-1.5',
     sizeMap[props.size],
     colorMap[props.color],
-    fontSizeClasses.value,
     spacingClasses.value,
     props.class,
   )
