@@ -83,20 +83,12 @@ setHeader({
       <Divider type="thin" />
       
       <Section as="article">
-        <Typo
-          variant="body-l"
-          color="display"
-          class="pb-6"
-        >
-          Button
-        </Typo>
-        <Flex
-          gap="6"
-        >
+        <Typo variant="body-l" color="display" class="pb-6">Button</Typo>
+        <Flex gap="6">
           <Button variant="fill" size="sm">버튼 fill</Button>
           <Button variant="outline" size="md" color="secondary">버튼 outline</Button>
           <Button variant="fill" size="md" disabled>버튼 disabled</Button>
-          
+
           <Button variant="fill" size="lg" icon-align="left">
             <template #icon>
               <IMy class="size-6" />
