@@ -56,6 +56,8 @@ setHeader({
         </Typo>
       </Section>
 
+      <Divider my="8" class="bg-red-500" />
+
       <Section>
         <Typo :multi-ellipsis="2">
           말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다.
@@ -80,7 +82,7 @@ setHeader({
         </Flex>
       </Section>
 
-      <Divider type="thin" />
+      <Divider full />
       
       <Section as="article">
         <Typo variant="body-l" color="display" class="pb-6">Button</Typo>
@@ -120,7 +122,7 @@ setHeader({
         </Flex>
       </Section>
 
-      <Divider full />
+      <Divider type="thin" />
 
       <Section>
         <Typo class="pb-6">TextButton</Typo>
@@ -138,19 +140,23 @@ setHeader({
         </Flex>
       </Section>
 
+      <Divider full />
+
       <Section>
         <Typo>내용4</Typo>
       </Section>
 
-      <Divider class="my-[33px] bg-red-500" />
+      <Divider full />
 
-      <Section py="2" px="5">
+      <Section>
         <Typo>내용5</Typo>
       </Section>
 
+      <Divider full />
+
       <OutsetBox mt="6">
         <Section class="bg-gray-100">
-          <Box as="article" p="5">음수마진박스</Box>
+          <Box as="article" py="7" px="5">음수마진박스</Box>
         </Section>
       </OutsetBox>
 

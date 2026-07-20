@@ -22,8 +22,8 @@ const classes = computed(() =>
     // horizontal
     props.direction === 'horizontal' && [
       props.full ? 'block w-auto -mx-[var(--layout-px)]' : 'w-full',
-      props.type === 'thin' && 'h-px my-5',
-      props.type === 'base' && 'h-1 my-7',
+      props.type === 'thin' && 'h-px my-7',
+      props.type === 'base' && 'h-1 my-8',
       props.type === 'bold' && 'h-2 my-9',
     ],
     // vertical
