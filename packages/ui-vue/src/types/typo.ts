@@ -37,7 +37,7 @@ export const TypoMap: Record<TypoToken, string> = {
   'label-s':   'text-sm font-normal leading-normal tracking-[-0.24px]',
   'label-xs':  'text-xs font-normal leading-normal tracking-[-0.2px]',
   'caption-1': 'text-xs font-normal leading-normal tracking-[-0.2px]',
-  'caption-2': 'text-xxs font-normal leading-normal tracking-[-0.2px]',
+  'caption-2': 'text-xxs font-normal leading-[18px] tracking-[-0.2px]',
 };
 
 // 정렬

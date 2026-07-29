@@ -14,6 +14,7 @@ declare module 'vue' {
     AppFooter: typeof import('./src/components/layout/AppFooter.vue')['default']
     AppHeader: typeof import('./src/components/layout/AppHeader.vue')['default']
     AppLayout: typeof import('./src/components/layout/AppLayout.vue')['default']
+    Badge: typeof import('./src/components/ui/badge.vue')['default']
     BottomSticky: typeof import('./src/components/ui/BottomSticky.vue')['default']
     Box: typeof import('./src/components/ui/Box.vue')['default']
     Button: typeof import('./src/components/ui/Button.vue')['default']
@@ -25,6 +26,7 @@ declare module 'vue' {
     PageHeader: typeof import('./src/components/ui/PageHeader.vue')['default']
     ResultView: typeof import('./src/components/ui/ResultView.vue')['default']
     Section: typeof import('./src/components/ui/Section.vue')['default']
+    Tag: typeof import('./src/components/ui/tag.vue')['default']
     TextButton: typeof import('./src/components/ui/TextButton.vue')['default']
     Typo: typeof import('./src/components/ui/Typo.vue')['default']
   }

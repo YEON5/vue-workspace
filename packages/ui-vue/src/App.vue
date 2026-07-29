@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ILeftArrow, IMenu, IMy } from '#components';
+import { ILeftArrow, IMenu, IMy, ITime } from '#components';
 import AppLayout from '@/components/layout/AppLayout.vue';
 import BottomSticky from '@/components/ui/BottomSticky.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
@@ -79,6 +79,8 @@ setHeader({
           <Typo variant="label-s">variant label-s</Typo>
           <Divider direction="vertical" />
           <Typo variant="caption-1">variant caption-1</Typo>
+          <Divider direction="vertical" />
+          <Typo variant="caption-2">variant caption-2</Typo>
         </Flex>
       </Section>
 
@@ -143,13 +145,44 @@ setHeader({
       <Divider full />
 
       <Section>
-        <Typo>내용4</Typo>
+        <Typo class="pb-6">Tag</Typo>
+        <Flex gap="4">
+          <Tag variant="solid" color="success">완료</Tag>
+          <Tag variant="solid" color="warning">주의</Tag>
+          <Tag variant="outline" color="error" type="rounded">실패</Tag>
+          <Tag variant="outline" color="success" type="rounded">완료</Tag>
+          <Tag variant="solid" color="info">
+            <template #icon>
+              <IMy class="size-4" />
+            </template>
+            모집중
+          </Tag>
+        </Flex>
       </Section>
 
       <Divider full />
 
       <Section>
-        <Typo>내용5</Typo>
+        <Typo class="pb-6">Badge</Typo>
+        <Typo as="span" class="relative">
+          내용5
+          <Badge type="dot" />
+        </Typo>
+
+        <Flex align="center" gap="2">
+          <Typo>내용5</Typo>
+          <Badge type="count" color="warning" :count="99" />
+        </Flex>
+
+        <Flex align="center" gap="2">
+          <Typo>내용5</Typo>
+          <Badge type="count" color="warning" :count="1000" />
+        </Flex>
+
+        <button class="relative p-2">
+          <ITime class="size-8" />
+          <Badge type="dot" class="top-[5px] right-[6px] size-3" />
+        </button>
       </Section>
 
       <Divider full />
@@ -159,7 +192,6 @@ setHeader({
           <Box as="article" py="7" px="5">음수마진박스</Box>
         </Section>
       </OutsetBox>
-
     </Container>
 
     <BottomSticky>
