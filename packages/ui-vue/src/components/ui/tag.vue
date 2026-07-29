@@ -27,6 +27,7 @@ const styleMap: Record<TagVariant, Partial<Record<ColorToken, string>>> = {
   solid: {
     primary:   `${bgColorMap['primary']} text-white`,
     secondary: `${bgColorMap['secondary']} text-white`,
+    tertiary:  `${bgColorMap['tertiary']} text-white`,
     info:      `${bgColorMap['info']} text-white`,
     error:     `${bgColorMap['error']} text-white`,
     success:   `${bgColorMap['success']} text-white`,
@@ -35,6 +36,7 @@ const styleMap: Record<TagVariant, Partial<Record<ColorToken, string>>> = {
   outline: {
     primary:   `border ${borderColorMap['primary']} ${colorMap['primary']}`,
     secondary: `border ${borderColorMap['secondary']} ${colorMap['secondary']}`,
+    tertiary:  `border ${borderColorMap['tertiary']} ${colorMap['tertiary']}`,
     info:      `border ${borderColorMap['info']} ${colorMap['info']}`,
     error:     `border ${borderColorMap['error']} ${colorMap['error']}`,
     success:   `border ${borderColorMap['success']} ${colorMap['success']}`,

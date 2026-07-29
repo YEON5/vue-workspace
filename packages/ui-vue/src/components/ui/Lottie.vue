@@ -15,7 +15,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  loop: true,
+  loop: false,
   autoplay: true,
   speed: 1,
   alt: '애니메이션',
@@ -37,7 +37,7 @@ const initLottie = () => {
     renderer: 'svg',
     loop: props.loop,
     autoplay: props.autoplay,
-    path: props.path, // 👈 lottie-web 엔진이 이 경로로 HTTP GET 요청을 보내 JSON을 가져옵니다
+    path: props.path, // lottie-web 엔진이 이 경로로 HTTP GET 요청을 보내 JSON을 가져옵니다
   });
 
   animation.value.setSpeed(props.speed);

@@ -192,6 +192,16 @@ setHeader({
           <Box as="article" py="7" px="5">음수마진박스</Box>
         </Section>
       </OutsetBox>
+
+      <Section>
+        <Typo>Lottie Player</Typo>
+        <Lottie 
+          path="/lottie/lottie-test.json"
+          :width="326"
+          :height="220"
+          class="mx-auto"
+        />
+      </Section>
     </Container>
 
     <BottomSticky>

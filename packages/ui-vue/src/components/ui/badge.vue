@@ -1,9 +1,8 @@
-<!-- Badge.vue 상상도 -->
 <script setup lang="ts">
 import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
 import { TypoMap, bgColorMap, type ColorToken } from '@/types';
 import { cn } from '@/utils/cn';
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 
 export type BadgeType = 'dot' | 'count';
 
@@ -28,6 +27,16 @@ const displayCount = computed(() => {
   return props.count > props.maxCount ? `${props.maxCount}+` : props.count;
 });
 
+// const slots = defineSlots<{
+//   default?: () => any;
+// }>();
+const slots = useSlots();
+// count 타입인데 표시할 값(count 또는 slot)이 없으면 렌더링하지 않음
+const shouldRender = computed(() => {
+  if (props.type === 'dot') return true;
+  return props.count !== undefined || !!slots.default;
+});
+
 const { spacingClasses } = useSpacing(props);
 
 const classes = computed(() =>
@@ -45,9 +54,8 @@ const classes = computed(() =>
 </script>
 
 <template>
-  <component :is="as" :class="classes">
+  <component :is="as" v-if="shouldRender" :class="classes">
     <template v-if="type === 'count'">
-      <!-- 숫자가 있으면 숫자 표시, 없으면 아이콘 등을 넣을 수 있는 슬롯 -->
       <slot>{{ displayCount }}</slot>
     </template>
   </component>
