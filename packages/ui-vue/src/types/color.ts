@@ -15,6 +15,7 @@ export type ColorToken =
   | 'body'
   | 'caption'
   | 'label'
+  | 'disabled'
   | 'white'
   | 'black';
 
@@ -22,16 +23,17 @@ export type ColorToken =
 export const colorMap: Record<ColorToken, string> = {
   primary:   'text-mint-500',
   secondary: 'text-gray-600',
-  tertiary:  'text-gray-400',
+  tertiary:  'text-gray-500',
   display:   'text-gray-950',
   title:     'text-gray-900',
   body:      'text-foreground',
-  caption:   'text-gray-500',
+  caption:   'text-gray-400',
   label:     'text-gray-800',
   info:      'text-mint-600',
   error:     'text-destructive',
   success:   'text-blue-500',
   warning:   'text-orange-500',
+  disabled:  'text-gray-400',
   white:     'text-white',
   black:     'text-gray-black',
 };
@@ -40,11 +42,12 @@ export const colorMap: Record<ColorToken, string> = {
 export const bgColorMap: Partial<Record<ColorToken, string>> = {
   primary:   'bg-mint-500',
   secondary: 'bg-gray-600',
-  tertiary:  'bg-gray-400',
+  tertiary:  'bg-gray-500',
   info:      'bg-mint-600',
   error:     'bg-destructive',
   success:   'bg-blue-500',
   warning:   'bg-orange-500',
+  disabled:  'bg-gray-100',
   white:     'bg-white',
   black:     'bg-gray-black',
 };
@@ -53,10 +56,11 @@ export const bgColorMap: Partial<Record<ColorToken, string>> = {
 export const borderColorMap: Partial<Record<ColorToken, string>> = {
   primary:   'border-mint-500',
   secondary: 'border-gray-600',
-  tertiary:  'border-gray-400',
+  tertiary:  'border-gray-500',
   info:      'border-mint-600',
   error:     'border-destructive',
   success:   'border-blue-500',
   warning:   'border-orange-500',
+  disabled:  'border-gray-200',
   black:     'border-gray-black',
 };

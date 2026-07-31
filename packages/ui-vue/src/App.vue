@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ILeftArrow, IMenu, IMy, ITime } from '#components';
+import { ILeftArrow, IMenu, IMy, IRightArrowS, ITime } from '#components';
 import AppLayout from '@/components/layout/AppLayout.vue';
 import BottomSticky from '@/components/ui/BottomSticky.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import { setHeader } from '@/composables/useHeaderState';
+import { ref } from 'vue';
 
 // ResultView(완료/실패)
 // const emit = defineEmits(['click', 'update']);
@@ -25,6 +26,15 @@ setHeader({
     { icon: IMenu, label: '전체메뉴 보기', action: () => console.log('전체메뉴 클릭') }
   ]
 });
+
+// formData
+const formData = ref({
+  labelText1: '입력데이터',
+  labelText2: '입력데이터 required',
+  labelText3: '입력데이터 error',
+  labelText4: '입력데이터 readonly',
+  labelText5: '입력데이터 disabled',
+})
 </script>
 
 <template>
@@ -135,7 +145,7 @@ setHeader({
           <TextButton size="lg" color="tertiary">텍스트 버튼</TextButton>
           <TextButton size="lg" icon-align="right">
             <template #icon>
-              <IMy class="size-6" />
+              <IRightArrowS class="size-6" />
             </template>
             텍스트+icon 버튼
           </TextButton>
@@ -183,6 +193,43 @@ setHeader({
           <ITime class="size-8" />
           <Badge type="dot" class="top-[5px] right-[6px] size-3" />
         </button>
+      </Section>
+
+      <Divider full />
+
+      <Section>
+        <Typo class="pb-6">Text Input</Typo>
+        <Flex direction="col" gap="6">
+          <TextInput
+            v-model="formData.labelText1"
+            label="레이블"
+            placeholder="placeholder"
+          />
+          <TextInput
+            v-model="formData.labelText2"
+            label="레이블"
+            placeholder="required"
+            required
+          />
+          <TextInput
+            v-model="formData.labelText3"
+            label="레이블"
+            placeholder="error"
+            error
+          />
+          <TextInput
+            v-model="formData.labelText4"
+            label="레이블"
+            placeholder="readonly"
+            readonly
+          />
+          <TextInput
+            v-model="formData.labelText5"
+            label="레이블"
+            placeholder="disabled"
+            disabled
+          />
+        </Flex>
       </Section>
 
       <Divider full />
