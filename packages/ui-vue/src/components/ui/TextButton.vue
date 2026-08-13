@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
-import { TypoMap, type ColorToken } from '@/types';
+import { TypoMap, type ColorToken, type IconAlign, type TextButtonSize } from '@/types';
 import { cn } from '@/utils/cn';
 import { computed } from 'vue';
-
-export type TextButtonSize = 'xs' | 'sm' | 'md' | 'lg';
-export type IconAlign = 'left' | 'right' | 'top';
 
 interface Props extends SpacingProps {
   size?: TextButtonSize;
@@ -13,7 +10,7 @@ interface Props extends SpacingProps {
   iconAlign?: IconAlign;
   disabled?: boolean;
   class?: string;
-  to?: string;
+  to?: string; // button or RouterLink
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -25,29 +22,35 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { spacingClasses } = useSpacing(props);
 
-
 // size
 const sizeMap: Record<TextButtonSize, string> = {
-  xs: `${TypoMap['label-xs']} gap-1`,
-  sm: `${TypoMap['label-s']} gap-1`,
-  md: `${TypoMap['label-m']} gap-1.5`,
-  lg: `${TypoMap['label-l']} gap-2`,
+  xs: `${TypoMap['label-xs']}`,
+  sm: `${TypoMap['label-s']}`,
+  md: `${TypoMap['label-m']}`,
+  lg: `${TypoMap['label-l']}`,
 };
 
 // color
-const colorMap: Partial<Record<ColorToken, string>> = {
-  primary:   'text-mint-500 hover:text-mint-600 hover:underline underline-offset-4',
-  secondary: 'text-gray-800 hover:text-gray-900 hover:underline underline-offset-4',
-  tertiary:  'text-gray-500 hover:text-gray-700',
+const colorMap: Partial<Record<ColorToken, { base: string; hover?: string }>> = {
+  primary:   { base: 'text-mint-500 underline-offset-4', hover: 'hover:text-mint-600 hover:underline' },
+  secondary: { base: 'text-gray-800 underline-offset-4', hover: 'hover:text-gray-900 hover:underline' },
+  tertiary:  { base: 'text-gray-500', hover: 'hover:text-gray-700' },
+  error:     { base: 'text-destructive' },
+  success:   { base: 'text-blue-500' },
+  warning:   { base: 'text-orange-500' },
+  black:     { base: 'text-gray-black' },
 };
+
+const currentColor = computed(() => colorMap[props.color]);
 
 const classes = computed(() =>
   cn(
-    'inline-flex items-center justify-center transition-all outline-none rounded-sm',
-    'disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
+    'inline-flex items-center justify-center transition-all',
+    props.disabled && 'opacity-50 cursor-not-allowed pointer-events-none', // 비활성화 클래스 주입
     props.iconAlign === 'top' ? 'flex-col gap-1' : 'flex-row gap-1.5',
     sizeMap[props.size],
-    colorMap[props.color],
+    currentColor.value?.base, // 기본(base) 스타일 주입
+    !props.disabled && currentColor.value?.hover, // disabled가 아닐 때만 hover 스타일 주입
     spacingClasses.value,
     props.class,
   )

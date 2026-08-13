@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ILeftArrow, IMenu, IMy, IRightArrowS, ITime } from '#components';
+import { ILeftArrow, IMenu, IMy, IRightArrowS, ISearch, ITime } from '#components';
 import AppLayout from '@/components/layout/AppLayout.vue';
 import BottomSticky from '@/components/ui/BottomSticky.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
@@ -27,13 +27,28 @@ setHeader({
   ]
 });
 
+// button click
+const emit = defineEmits(['search', 'resend']);
+const handleSearch = () => {
+  emit('search')
+  console.log('search click!');
+}
+const requestResend = () => {
+  emit('resend');
+  console.log('resend click!');
+}
+
 // formData
 const formData = ref({
-  labelText1: '입력데이터',
-  labelText2: '입력데이터 required',
-  labelText3: '입력데이터 error',
-  labelText4: '입력데이터 readonly',
-  labelText5: '입력데이터 disabled',
+  labelText: '입력데이터',
+  labelSearch: '',
+  labelCertNum: '',
+  labelNum: '',
+  labelTextPassword: '',
+  labelRequired: '필수입력데이터 required',
+  labelError: '입력데이터 error',
+  labelReadonly: '입력데이터 readonly',
+  labelDisabled: '입력데이터 disabled',
 })
 </script>
 
@@ -174,25 +189,27 @@ const formData = ref({
 
       <Section>
         <Typo class="pb-6">Badge</Typo>
-        <Typo as="span" class="relative">
-          내용5
-          <Badge type="dot" />
-        </Typo>
-
-        <Flex align="center" gap="2">
-          <Typo>내용5</Typo>
-          <Badge type="count" color="warning" :count="99" />
-        </Flex>
-
-        <Flex align="center" gap="2">
-          <Typo>내용5</Typo>
-          <Badge type="count" color="warning" :count="1000" />
-        </Flex>
-
-        <button class="relative p-2">
-          <ITime class="size-8" />
-          <Badge type="dot" class="top-[5px] right-[6px] size-3" />
-        </button>
+        <Box>
+          <Typo as="span" class="relative">
+            내용5
+            <Badge type="dot" />
+          </Typo>
+  
+          <Flex align="center" gap="2">
+            <Typo>내용5</Typo>
+            <Badge type="count" color="warning" :count="99" />
+          </Flex>
+  
+          <Flex align="center" gap="2">
+            <Typo>내용5</Typo>
+            <Badge type="count" color="warning" :count="1000" />
+          </Flex>
+  
+          <button class="relative p-2">
+            <ITime class="size-8" />
+            <Badge type="dot" class="top-[5px] right-[6px] size-3" />
+          </button>
+        </Box>
       </Section>
 
       <Divider full />
@@ -201,33 +218,109 @@ const formData = ref({
         <Typo class="pb-6">Text Input</Typo>
         <Flex direction="col" gap="6">
           <TextInput
-            v-model="formData.labelText1"
+            v-model="formData.labelText"
             label="레이블"
             placeholder="placeholder"
+            :max-length="15"
+            info-msg="정보 메시지"
           />
           <TextInput
-            v-model="formData.labelText2"
+            v-model="formData.labelNum"
+            type="tel"
+            label="레이블"
+            placeholder="숫자만"
+          />
+          <TextInput
+            v-model="formData.labelTextPassword"
+            type="password"
+            label="레이블"
+            placeholder="password"
+          />
+          <TextInput
+            v-model="formData.labelRequired"
             label="레이블"
             placeholder="required"
             required
           />
           <TextInput
-            v-model="formData.labelText3"
+            v-model="formData.labelError"
             label="레이블"
             placeholder="error"
             error
+            error-msg="에러 메시지"
           />
           <TextInput
-            v-model="formData.labelText4"
+            v-model="formData.labelReadonly"
             label="레이블"
             placeholder="readonly"
             readonly
           />
           <TextInput
-            v-model="formData.labelText5"
+            v-model="formData.labelDisabled"
             label="레이블"
             placeholder="disabled"
             disabled
+          />
+          <TextInput
+            v-model="formData.labelDisabled"
+            label="레이블"
+            placeholder="disabled"
+            disabled
+          />
+        </Flex>
+
+        <Divider type="thin" />
+
+        <Flex direction="col" gap="6">
+          <TextInput
+            v-model="formData.labelSearch"
+            label="레이블"
+            placeholder="검색어 입력"
+          >
+            <template #suffix>
+              <Button
+                variant="icon"
+                class="p-2 mr-2"
+                @click="handleSearch"
+              >
+                <ISearch class="size-[24px]" />
+              </Button>
+            </template>
+          </TextInput>
+          <TextInput
+            v-model="formData.labelCertNum"
+            label="레이블"
+            placeholder="인증번호 입력"
+          >
+            <template #suffix>
+              <div class="flex items-center gap-2 mr-3">
+                <!-- 타이머 -->
+                <span class="text-destructive text-sm font-medium">02:59</span>
+                <Divider direction="vertical" />
+                <TextButton 
+                  size="sm" 
+                  color="success"
+                  @click="requestResend"
+                >
+                  재발송
+                </TextButton>
+              </div>
+            </template>
+          </TextInput>
+        </Flex>
+        
+        <Divider type="thin" />
+
+        <Flex align="end" justify="between" gap="3">
+          <TextInput
+            v-model="formData.labelText1"
+            label="레이블"
+            placeholder="placeholder"
+          />
+          <span class="h-[56px] flex items-center justify-center">-</span>
+          <TextInput
+            v-model="formData.labelText2"
+            placeholder="placeholder"
           />
         </Flex>
       </Section>
