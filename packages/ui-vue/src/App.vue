@@ -49,6 +49,7 @@ const formData = ref({
   labelError: '입력데이터 error',
   labelReadonly: '입력데이터 readonly',
   labelDisabled: '입력데이터 disabled',
+  labelTextarea: '',
 })
 </script>
 
@@ -311,15 +312,59 @@ const formData = ref({
         
         <Divider type="thin" />
 
+        <Textarea
+          v-model="formData.labelTextarea"
+          label="레이블"
+          placeholder="Textarea placeholder"
+          :max-length="100"
+          info-msg="50자 이내로 입력해주세요"
+          show-count
+        />
+
+        <Divider type="thin" />
+
         <Flex align="end" justify="between" gap="3">
           <TextInput
-            v-model="formData.labelText1"
             label="레이블"
             placeholder="placeholder"
           />
           <span class="h-[56px] flex items-center justify-center">-</span>
           <TextInput
-            v-model="formData.labelText2"
+            placeholder="placeholder"
+          />
+        </Flex>
+
+        <Flex direction="col" gap="3">
+          <!-- 공통 라벨 -->
+          <label class="inline-flex items-center text-md font-medium text-gray-800">
+            레이블
+          </label>
+  
+          <Flex align="center" gap="3">
+            <TextInput placeholder="앞 6자리" class="flex-1" />
+            <span class="text-gray-500">-</span>
+            <TextInput type="password" placeholder="뒤 7자리" class="flex-1" />
+          </Flex>
+        </Flex>
+
+        <Flex direction="col" gap="3">
+          <TextInput
+            v-model="formData.labelSearch"
+            label="레이블"
+            placeholder="검색어 입력"
+          >
+            <template #suffix>
+              <Button
+                variant="icon"
+                class="p-2 mr-2"
+                @click="handleSearch"
+              >
+                <ISearch class="size-[24px]" />
+              </Button>
+            </template>
+          </TextInput>
+          <TextInput
+            disabled
             placeholder="placeholder"
           />
         </Flex>
