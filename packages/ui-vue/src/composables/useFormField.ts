@@ -1,5 +1,6 @@
 // src/composables/useFormField.ts
 // TextInput, TextArea, Select 등 폼 컴포넌트의 공통 스타일/상태 로직
+// label, 에러메시지(errorMsg), 정보메시지(infoMsg)
 import { TypoMap, colorMap } from '@/types';
 import type { FormFieldProps } from '@/types/form';
 import { cn } from '@/utils/cn';
@@ -19,7 +20,7 @@ export function useFormField(props: FormFieldProps) {
   );
 
   const infoMsgClasses = computed(() =>
-    cn('text-xs', colorMap['tertiary']),
+    cn('text-xs', colorMap['caption']),
   );
 
   // error가 있으면 errorMsg 우선, 없으면 infoMsg

@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { IInfo, IInputDelete } from '#components';
+import { IInputDelete } from '#components';
 import { useFocusContainer } from '@/composables/useFocusContainer';
-import { useFormField } from '@/composables/useFormField';
-import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
-import { TypoMap, bgColorMap, borderColorMap, colorMap, type FormFieldProps } from '@/types';
+import { type SpacingProps } from '@/composables/useSpacing';
+import { TypoMap, bgColorMap, borderColorMap, colorMap } from '@/types';
 import { cn } from '@/utils/cn';
-import { computed, ref, useId, useSlots } from 'vue';
+import { computed, inject, ref, useSlots, type Ref } from 'vue';
 
-export type InputType = 'text' | 'password' | 'tel' | 'number';
+export type InputType = 'text' | 'password' | 'tel' | 'numeric';
+export type InputAlign = 'left' | 'center' | 'right' ;
 
-interface Props extends SpacingProps, FormFieldProps {
+interface Props extends SpacingProps {
+  id?: string;
   type?: InputType;
+  align?: InputAlign;
   placeholder?: string;
+  readonly?: boolean;
+  disabled?: boolean;
+  error?: boolean;
   maxLength?: number;
   clearable?: boolean;
   class?: string;
@@ -19,132 +24,112 @@ interface Props extends SpacingProps, FormFieldProps {
 
 const props = withDefaults(defineProps<Props>(), {
   type: 'text',
-  label: '',
-  placeholder: '',
+  align: 'left',
   readonly: false,
   disabled: false,
-  required: false,
   error: false,
-  errorMsg: '',
-  infoMsg: '',
   maxLength: undefined,
   clearable: true,
 });
 
+// input error 상태
+const formGroupError = inject<Ref<boolean>>('formGroupError', ref(false)); // 상위 FormGroup의 error 상태를 주입받음 (없으면 false)
+const hasError = computed(() => props.error || formGroupError.value); // 자기가 직접 error를 받았거나, 상위 FormGroup이 error 상태라면
+
 const modelValue = defineModel<string>({ default: '' });
-const { spacingClasses } = useSpacing(props);
 
-const inputId = useId();
 const slots = useSlots();
-
 const inputRef = ref<HTMLInputElement | null>(null);
 
+// numeric은 실제로는 text + inputmode로 렌더링 (스피너/maxLength 미적용 문제 회피)
+const nativeType = computed(() => (props.type === 'numeric' ? 'text' : props.type));
+const inputMode = computed(() => (props.type === 'numeric' ? 'numeric' : undefined));
+const inputPattern = computed(() => (props.type === 'numeric' ? '[0-9]*' : undefined));
+
 const { containerRef, isFocused, handleFocusIn, handleFocusOut } = useFocusContainer();
-const { labelClasses, errorMsgClasses, infoMsgClasses, showError, showInfo } = useFormField(props);
 
 // 입력값 삭제
 const handleClear = () => {
   if (props.disabled || props.readonly) return;
   modelValue.value = '';
-  inputRef.value?.focus(); // 입력값 삭제 후 input에 다시 focus
+  inputRef.value?.focus();
 };
 
-const formFieldClasses = computed(() =>
-  cn(
-    'relative flex flex-col gap-3 flex-1',
-    spacingClasses.value,
-    props.class
-  )
-)
+
+const wrapperClasses = computed(() =>
+  cn('form-input relative', props.class)
+);
 const inputClasses = computed(() =>
   cn(
-    'w-full h-[56px] px-5 rounded-lg outline-none transition-colors border',
+    'w-full h-[56px] px-5 border rounded-lg outline-none transition-colors',
     TypoMap['body-m'],
 
     // 기본 스타일 (비활성화가 아닐 때만 DOM에 노출)
     !props.disabled && [
-      colorMap['label'], 
-      bgColorMap['white'], 
+      colorMap['secondary'],
+      bgColorMap['white'],
       borderColorMap['tertiary']
     ],
     props.readonly && !props.disabled && 'bg-gray-100', // readonly
-    props.error && !props.disabled && borderColorMap['error'], // error
-    
+    hasError.value && !props.disabled && borderColorMap['error'], // error
+
     // disabled일 때만
     props.disabled && [
-      colorMap['disabled'], 
-      bgColorMap['disabled'], 
-      borderColorMap['disabled'], 
+      colorMap['disabled'],
+      bgColorMap['disabled'],
+      borderColorMap['disabled'],
       'cursor-not-allowed'
     ],
-    !props.disabled && !props.readonly && 'focus:border-mint-500', // focus    
+    !props.disabled && !props.readonly && 'focus:border-mint-500', // focus border color
     (props.clearable || slots.suffix) && 'pr-10',
+
+    // input 텍스트 정렬
+    {
+      'text-left': props.align === 'left',
+      'text-center': props.align === 'center',
+      'text-right': props.align === 'right',
+    },
   )
 );
 </script>
 
 <template>
-  <div class="form-field" :class="formFieldClasses">
-    <!-- label -->
-    <div v-if="label" class="form-label">
-      <label :for="inputId" :class="labelClasses">
-        {{ label }}
-        <span v-if="required" class="text-lg text-destructive ml-0.5">*</span>
-      </label>
-    </div>
-
-    <!-- input -->
-    <div
-      ref="containerRef"
-      class="form-input relative flex-1"
-      @focusin="handleFocusIn"
-      @focusout="handleFocusOut"
+  <div
+    ref="containerRef"
+    :class="wrapperClasses"
+    @focusin="handleFocusIn"
+    @focusout="handleFocusOut"
+  >
+    <input
+      :id="id"
+      ref="inputRef"
+      v-model="modelValue"
+      :type="nativeType"
+      :inputmode="inputMode"
+      :pattern="inputPattern"
+      :placeholder="placeholder"
+      :readonly="readonly"
+      :disabled="disabled"
+      :maxlength="maxLength"
+      :class="inputClasses"
     >
-      <input
-        :id="inputId"
-        ref="inputRef"
-        v-model="modelValue"
-        :type="type"
-        :placeholder="placeholder"
-        :readonly="readonly"
-        :disabled="disabled"
-        :maxlength="maxLength"
-        :class="inputClasses"
+    <div
+      v-if="clearable || slots.suffix"
+      class="flex items-center gap-1.5 absolute right-3 top-1/2 -translate-y-1/2"
+    >
+      <!-- clear button (입력값 삭제) -->
+      <Button
+        v-if="clearable && modelValue && isFocused && !disabled && !readonly"
+        variant="icon"
+        aria-label="입력 내용 지우기"
+        class="p-1"
+        @click="handleClear"
       >
-      <div 
-        v-if="clearable || slots.suffix" 
-        class="flex items-center gap-1.5 absolute right-3 top-1/2 -translate-y-1/2"
-      >
-        <!-- clear button (입력값 삭제) -->
-        <Button
-          v-if="clearable && modelValue && isFocused && !disabled && !readonly"
-          variant="icon"
-          aria-label="입력 내용 지우기"
-          class="p-1"
-          @click="handleClear"
-        >
-          <IInputDelete class="size-[20px]" />
-        </Button>
-
-        <!-- input 안에 버튼 및 내용 추가 slot -->
-        <slot name="suffix" />
-      </div>
+        <IInputDelete class="size-[20px]" />
+      </Button>
+ 
+      <!-- input 안에 버튼 및 내용 추가 slot -->
+      <slot name="suffix" />
     </div>
-
-    <!-- error msg -->
-    <Flex v-if="showError" align="center" gap="2">
-      <IInfo class="size-5" />
-      <p :class="errorMsgClasses">
-        {{ errorMsg }}
-      </p>
-    </Flex>
-    
-    <!-- info msg -->
-    <Flex v-else-if="showInfo" align="center" gap="2">
-      <IInfo class="size-5" />
-      <p :class="infoMsgClasses">
-        {{ infoMsg }}
-      </p>
-    </Flex>
   </div>
 </template>

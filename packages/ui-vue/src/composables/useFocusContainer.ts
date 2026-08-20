@@ -1,3 +1,5 @@
+// src/composables/useFocusContainer.ts
+// text input 및 폼 요소 포커스 관리
 import { ref } from 'vue';
 
 export function useFocusContainer() {
