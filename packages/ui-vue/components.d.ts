@@ -35,6 +35,7 @@ declare module 'vue' {
     Textarea: typeof import('./src/components/ui/Textarea.vue')['default']
     TextButton: typeof import('./src/components/ui/TextButton.vue')['default']
     TextInput: typeof import('./src/components/ui/TextInput.vue')['default']
+    TextInputFloating: typeof import('./src/components/ui/TextInputFloating.vue')['default']
     TextInputMotion: typeof import('./src/components/ui/TextInputMotion.vue')['default']
     Typo: typeof import('./src/components/ui/Typo.vue')['default']
   }

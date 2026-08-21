@@ -48,20 +48,24 @@ const textareaClasses = computed(() =>
     'block w-full px-5 py-4 border rounded-lg outline-none transition-colors',
     TypoMap['body-m'],
 
+    // 기본 스타일
     !props.disabled && [
       colorMap['secondary'],
       bgColorMap['white'],
       borderColorMap['tertiary']
     ],
-    props.readonly && !props.disabled && 'bg-gray-100',
-    hasError.value && !props.disabled && borderColorMap['error'],
+    `placeholder:${colorMap['caption']}`, // placeholder
+    props.readonly && !props.disabled && 'bg-gray-100', // readonly
+    hasError.value && !props.disabled && borderColorMap['error'], // error
+
+    // disabled일 때만
     props.disabled && [
       colorMap['disabled'],
       bgColorMap['disabled'],
       borderColorMap['disabled'],
       'cursor-not-allowed'
     ],
-    !props.disabled && !props.readonly && 'focus:border-mint-500',
+    !props.disabled && !props.readonly && 'focus:border-mint-500', // focus border color
 
     // resize option
     {

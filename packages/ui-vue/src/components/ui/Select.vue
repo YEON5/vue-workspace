@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { IArrowSelect } from '#components';
-import { useFocusContainer } from '@/composables/useFocusContainer';
 import { TypoMap, bgColorMap, borderColorMap, colorMap } from '@/types';
 import { cn } from '@/utils/cn';
 import { computed, inject, ref, type Ref } from 'vue';
@@ -33,15 +32,12 @@ const hasError = computed(() => props.error || formGroupError.value);
 // v-model (초기값이 없으면 빈 문자열로 두어 placeholder가 선택되게 함)
 const modelValue = defineModel<string | number>({ default: '' });
 
-const { containerRef, handleFocusIn, handleFocusOut } = useFocusContainer();
-
 const wrapperClasses = computed(() =>
-  cn('form-input relative', props.class)
+  cn('form-select relative', props.class)
 );
 
 const selectClasses = computed(() =>
   cn(
-    // appearance-none으로 브라우저 기본 화살표 제거
     'w-full h-[56px] px-5 pr-12 border rounded-lg outline-none transition-colors appearance-none',
     TypoMap['body-m'],
 
@@ -52,10 +48,11 @@ const selectClasses = computed(() =>
     ],
     
     // 값이 없을 때(placeholder 상태)는 텍스트 색상을 흐리게 처리
-    !modelValue.value && colorMap['caption'],
+    !modelValue.value && colorMap['caption'], // placeholder
     
-    hasError.value && !props.disabled && borderColorMap['error'],
+    hasError.value && !props.disabled && borderColorMap['error'], // error
 
+    // disabled일 때만
     props.disabled && [
       colorMap['disabled'],
       bgColorMap['disabled'],
@@ -68,12 +65,7 @@ const selectClasses = computed(() =>
 </script>
 
 <template>
-  <div
-    ref="containerRef"
-    :class="wrapperClasses"
-    @focusin="handleFocusIn"
-    @focusout="handleFocusOut"
-  >
+  <div :class="wrapperClasses">
     <select
       :id="id"
       v-model="modelValue"
