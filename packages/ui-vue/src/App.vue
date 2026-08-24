@@ -72,6 +72,7 @@ const selectOptions = [
 const nameId = useId()
 const searchId = useId()
 const amountId = useId()
+const floatingId = useId()
 </script>
 
 <template>
@@ -452,7 +453,7 @@ const amountId = useId()
             </Flex>
           </FormGroup>
 
-          <!-- label 오른쪽 필요 시 -->
+          <!-- label 오른쪽 필요 시 (예외케이스) -->
           <FormGroup>
             <template #label="{ forId }">
               <Flex align="center" justify="between">
@@ -495,7 +496,7 @@ const amountId = useId()
             />
           </FormGroup>
 
-          <!-- info msg / count 나란히 배치 -->
+          <!-- info msg / count 나란히 배치 (예외케이스) -->
           <Flex direction="col" gap="3">
             <FormLabel>레이블</FormLabel>
             <Textarea 
@@ -514,11 +515,53 @@ const amountId = useId()
         <Divider type="thin" />
 
         <Flex direction="col" gap="6">
-          <FormGroup label="레이블">
+          <FormGroup label="레이블" pb="5">
             <Select
               v-model="selectValue"
               :options="selectOptions"
               placeholder="선택하세요" />
+          </FormGroup>
+        </Flex>
+      </Section>
+
+      <Divider full />
+
+      <Section>
+        <Typo class="pb-6">Textinput Floating</Typo>
+        <Flex direction="col" gap="6">
+          <FormGroup
+            info-msg="정보메세지"
+          >
+            <TextInputFloating
+              label="레이블"
+              placeholder="-없이 입력"
+              required
+            />
+            <TextInputFloating 
+              placeholder="placeholder"
+            />
+          </FormGroup>
+          <FormGroup
+            error
+            error-msg="에러메시지"
+          >
+            <TextInputFloating
+              label="레이블고정"
+            />
+          </FormGroup>
+          <FormGroup>
+            <TextInputFloating
+              label="레이블고정"
+              readonly
+            />
+          </FormGroup>
+          <FormGroup
+            disabled
+          >
+            <TextInputFloating
+              label="레이블고정"
+              disabled
+            />
           </FormGroup>
         </Flex>
       </Section>

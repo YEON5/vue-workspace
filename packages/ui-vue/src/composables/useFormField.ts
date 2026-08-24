@@ -1,6 +1,12 @@
 // src/composables/useFormField.ts
 // TextInput, TextArea, Select 등 폼 컴포넌트의 공통 스타일/상태 로직
 // label, 에러메시지(errorMsg), 정보메시지(infoMsg)
+// labelClasses는 기본형(FormGroup이 label을 그리는 조합)에서만 사용됨.
+//
+// 참고: TextInputFloating 형태로 전면 전환되면
+// labelClasses와 FormGroup.vue의 props, label 렌더링 영역 함께 제거할 것.
+
+
 import { TypoMap, colorMap } from '@/types';
 import type { FormFieldProps } from '@/types/form';
 import { cn } from '@/utils/cn';

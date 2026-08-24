@@ -39,7 +39,7 @@ const wrapperClasses = computed(() =>
 const selectClasses = computed(() =>
   cn(
     'w-full h-[56px] px-5 pr-12 border rounded-lg outline-none transition-colors appearance-none',
-    TypoMap['body-m'],
+    TypoMap['label-m'],
 
     !props.disabled && [
       colorMap['secondary'],

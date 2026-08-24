@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { IInputDelete } from '#components';
 import { useFocusContainer } from '@/composables/useFocusContainer';
-import { type SpacingProps } from '@/composables/useSpacing';
 import { TypoMap, bgColorMap, borderColorMap, colorMap } from '@/types';
 import { cn } from '@/utils/cn';
 import { computed, inject, ref, useSlots, type Ref } from 'vue';
 
 export type InputType = 'text' | 'password' | 'tel' | 'numeric';
-export type InputAlign = 'left' | 'center' | 'right' ;
+export type InputAlign = 'left' | 'center' | 'right';
 
-interface Props extends SpacingProps {
+interface Props {
   id?: string;
   type?: InputType;
   align?: InputAlign;
@@ -54,14 +53,14 @@ const handleClear = () => {
   inputRef.value?.focus();
 };
 
-
 const wrapperClasses = computed(() =>
   cn('form-input relative', props.class)
 );
+
 const inputClasses = computed(() =>
   cn(
     'w-full h-[56px] px-5 border rounded-lg outline-none transition-colors',
-    TypoMap['body-m'],
+    TypoMap['label-m'],
 
     // 기본 스타일 (비활성화가 아닐 때만 DOM에 노출)
     !props.disabled && [
@@ -127,7 +126,7 @@ const inputClasses = computed(() =>
       >
         <IInputDelete class="size-[20px]" />
       </Button>
- 
+
       <!-- input 안에 버튼 및 내용 추가 slot -->
       <slot name="suffix" />
     </div>

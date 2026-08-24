@@ -1,47 +1,56 @@
 <script setup lang="ts">
 import { IInputDelete } from '#components';
 import { useFocusContainer } from '@/composables/useFocusContainer';
-import { type SpacingProps } from '@/composables/useSpacing';
+import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
 import { TypoMap, bgColorMap, borderColorMap, colorMap } from '@/types';
 import { cn } from '@/utils/cn';
-import { computed, inject, ref, useSlots, type Ref } from 'vue';
+import { computed, inject, onBeforeUnmount, ref, useId, useSlots, watch, type Ref } from 'vue';
 
 export type InputType = 'text' | 'password' | 'tel' | 'numeric';
-export type InputAlign = 'left' | 'center' | 'right' ;
+export type InputAlign = 'left' | 'center' | 'right';
 
 interface Props extends SpacingProps {
   id?: string;
-  label: string; // 💡 플로팅 라벨 (필수)
-  floatMode?: boolean; // 💡 데이터 로드 시점 애니메이션 방지용 강제 플로팅
+  label?: string;
+  required?: boolean;
   type?: InputType;
   align?: InputAlign;
-  // placeholder?: string; // 플로팅 라벨이 placeholder 역할을 하므로 제거
+  placeholder?: string;
   readonly?: boolean;
   disabled?: boolean;
   error?: boolean;
   maxLength?: number;
   clearable?: boolean;
   class?: string;
+  floatMode?: boolean; // 데이터 로드 시점 애니메이션 방지용 강제 플로팅
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  floatMode: false,
   type: 'text',
+  label: '',
+  required: false,
+  placeholder: '',
   align: 'left',
   readonly: false,
   disabled: false,
   error: false,
   maxLength: undefined,
   clearable: true,
+  floatMode: false,
 });
 
 // input error 상태
 const formGroupError = inject<Ref<boolean>>('formGroupError', ref(false));
-const hasError = computed(() => props.error || formGroupError.value); 
+const hasError = computed(() => props.error || formGroupError.value);
 
 const modelValue = defineModel<string>({ default: '' });
+const { spacingClasses } = useSpacing(props);
 const slots = useSlots();
 const inputRef = ref<HTMLInputElement | null>(null);
+
+// id를 직접 안 받으면 자체 생성 (label의 for와 연결하기 위함 - 이 컴포넌트는 label을 자체 내장)
+const autoId = useId();
+const internalId = computed(() => props.id ?? autoId);
 
 // numeric은 실제로는 text + inputmode로 렌더링
 const nativeType = computed(() => (props.type === 'numeric' ? 'text' : props.type));
@@ -57,44 +66,76 @@ const handleClear = () => {
   inputRef.value?.focus();
 };
 
-// ==========================================
-// 💡 플로팅 라벨 상태 및 스타일 제어
-// ==========================================
-const isFloated = computed(() => 
+// floating label 제어
+const isFloated = computed(() =>
   props.floatMode || // 1. 강제 플로팅 모드 (데이터 로딩 버그 방지)
   isFocused.value || // 2. 인풋에 포커스가 갔을 때
   !!modelValue.value // 3. 인풋에 값이 존재할 때
 );
 
+// placeholder 제어
+const displayPlaceholder = ref('');
+let placeholderTimer: ReturnType<typeof setTimeout> | null = null;
+
+watch(
+  () => isFloated.value,
+  (newVal) => {
+    // 라벨이 아예 없으면 타이머 없이 항상 즉시 노출
+    if (!props.label) {
+      displayPlaceholder.value = props.placeholder || '';
+      return;
+    }
+
+    // 기존 타이머가 실행 중이라면 초기화 (버그 방지)
+    if (placeholderTimer) clearTimeout(placeholderTimer);
+
+    if (newVal) {
+      // 라벨이 떠오를 때: 라벨이 위로 올라갈 시간을 벌어준 뒤 노출 (150ms 지연)
+      placeholderTimer = setTimeout(() => {
+        displayPlaceholder.value = props.placeholder || '';
+      }, 150);
+    } else {
+      displayPlaceholder.value = '';
+    }
+  },
+  { immediate: true }
+);
+
+onBeforeUnmount(() => {
+  if (placeholderTimer) clearTimeout(placeholderTimer);
+});
+
+
+const labelColorClass = computed(() => {
+  if (props.disabled) return colorMap['disabled'];
+  if (!isFloated.value) return colorMap['secondary'];
+  return colorMap['caption'];
+});
 const labelClasses = computed(() =>
   cn(
     'absolute left-5 transition-all duration-200 pointer-events-none',
-    hasError.value && !props.disabled ? colorMap['error'] : colorMap['caption'],
-    
-    isFloated.value 
-      ? 'top-1.5 text-xs' // 위로 작아지며 올라감
-      : 'top-1/2 -translate-y-1/2 text-base' // 정중앙 배치 (Placeholder 형태)
+    labelColorClass.value,
+    isFloated.value
+      ? cn('top-[8px]', TypoMap['label-xs']) // 위로 작아지며 올라감
+      : cn('top-1/2 -translate-y-1/2', TypoMap['label-m']), // 정중앙 배치 (Placeholder 형태)
   )
 );
-// ==========================================
-
 const wrapperClasses = computed(() =>
-  cn('form-input relative', props.class)
+  cn('form-input relative', spacingClasses.value, props.class)
 );
-
 const inputClasses = computed(() =>
   cn(
-    // 💡 패딩 조정: 라벨이 들어갈 공간(pt-6) 확보 및 텍스트를 약간 내림(pb-2)
-    'w-full h-[56px] px-5 pt-6 pb-2 border rounded-lg outline-none transition-colors',
-    TypoMap['body-m'],
+    'w-full h-[60px] px-5 border rounded-lg outline-none transition-colors',
+    props.label ? 'pt-[22px]' : '', // label이 있을 때만 padding-top 추가
+    TypoMap['label-m'],
 
     !props.disabled && [
       colorMap['secondary'],
       bgColorMap['white'],
       borderColorMap['tertiary']
     ],
-    props.readonly && !props.disabled && 'bg-gray-100', 
-    hasError.value && !props.disabled && borderColorMap['error'], 
+    props.readonly && !props.disabled && 'bg-gray-100',
+    hasError.value && !props.disabled && borderColorMap['error'],
 
     props.disabled && [
       colorMap['disabled'],
@@ -102,7 +143,7 @@ const inputClasses = computed(() =>
       borderColorMap['disabled'],
       'cursor-not-allowed'
     ],
-    !props.disabled && !props.readonly && 'focus:border-mint-500', 
+    !props.disabled && !props.readonly && 'focus:border-mint-500',
     (props.clearable || slots.suffix) && 'pr-10',
 
     {
@@ -121,13 +162,14 @@ const inputClasses = computed(() =>
     @focusin="handleFocusIn"
     @focusout="handleFocusOut"
   >
-    <!-- 💡 플로팅 라벨 -->
-    <label :for="id" :class="labelClasses">
+    <!-- 플로팅 라벨 -->
+    <label v-if="label" :for="internalId" :class="labelClasses">
       {{ label }}
+      <span v-if="required" class="text-destructive">*</span>
     </label>
 
     <input
-      :id="id"
+      :id="internalId"
       ref="inputRef"
       v-model="modelValue"
       :type="nativeType"
@@ -137,9 +179,8 @@ const inputClasses = computed(() =>
       :disabled="disabled"
       :maxlength="maxLength"
       :class="inputClasses"
-      placeholder="" 
+      :placeholder="displayPlaceholder"
     >
-    <!-- 🚨 플로팅 라벨이 대신하므로 네이티브 placeholder는 반드시 비웁니다 -->
 
     <div
       v-if="clearable || slots.suffix"
@@ -155,7 +196,7 @@ const inputClasses = computed(() =>
       >
         <IInputDelete class="size-[20px]" />
       </Button>
- 
+
       <!-- input 안에 버튼 및 내용 추가 slot -->
       <slot name="suffix" />
     </div>

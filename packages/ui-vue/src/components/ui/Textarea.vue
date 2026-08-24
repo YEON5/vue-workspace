@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { useFocusContainer } from '@/composables/useFocusContainer';
-import { type SpacingProps } from '@/composables/useSpacing';
 import { TypoMap, bgColorMap, borderColorMap, colorMap } from '@/types';
 import { cn } from '@/utils/cn';
 import { computed, inject, ref, type Ref } from 'vue';
 
-interface Props extends SpacingProps {
+interface Props {
   id?: string;
   placeholder?: string;
   readonly?: boolean;
@@ -29,7 +28,6 @@ const props = withDefaults(defineProps<Props>(), {
   showCount: false,
 });
 
-
 // textarea error 상태
 const formGroupError = inject<Ref<boolean>>('formGroupError', ref(false)); // 상위 FormGroup의 error 상태를 주입받음 (없으면 false)
 const hasError = computed(() => props.error || formGroupError.value); // 자기가 직접 error를 받았거나, 상위 FormGroup이 error 상태라면
@@ -38,15 +36,16 @@ const modelValue = defineModel<string>({ default: '' });
 
 const { containerRef, handleFocusIn, handleFocusOut } = useFocusContainer();
 
-
+// wrapper: 레이아웃(너비, margin 등) - class는 여기서만 적용
 const wrapperClasses = computed(() =>
   cn('flex flex-col gap-3', props.class)
 );
+
 // textarea 높이 임의 패딩값 px-5 py-4 적용
 const textareaClasses = computed(() =>
   cn(
     'block w-full px-5 py-4 border rounded-lg outline-none transition-colors',
-    TypoMap['body-m'],
+    TypoMap['label-m'],
 
     // 기본 스타일
     !props.disabled && [
@@ -74,7 +73,6 @@ const textareaClasses = computed(() =>
       'resize-x': props.resize === 'horizontal',
       'resize': props.resize === 'both',
     },
-    props.class,
   )
 );
 
@@ -101,7 +99,7 @@ const textCount = computed(() => modelValue.value.length);
         :class="textareaClasses"
       />
     </div>
- 
+
     <!-- 글자 수 표시 (showCount와 maxLength가 있을 때만 노출) -->
     <div v-if="showCount && maxLength" class="flex justify-end">
       <span class="text-xs text-gray-500 shrink-0">

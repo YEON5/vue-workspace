@@ -17,7 +17,6 @@ const props = withDefaults(defineProps<Props>(), {
   label: '',
   required: false,
   disabled: false,
-  readonly: false,
   error: false,
   errorMsg: '',
   infoMsg: '',
