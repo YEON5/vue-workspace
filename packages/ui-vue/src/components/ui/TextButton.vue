@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
-import { TypoMap, type ColorToken, type IconAlign, type TextButtonSize } from '@/types';
-import { cn } from '@/utils/cn';
+import { useSpacing, type SpacingProps } from '#/composables/useSpacing';
+import { TypoMap, type ColorToken, type IconAlign, type TextButtonSize } from '#/types';
+import { cn } from '#/utils/cn';
 import { computed } from 'vue';
 
 interface Props extends SpacingProps {

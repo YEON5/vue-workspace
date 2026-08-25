@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
-import { cn } from '@/utils/cn';
+import { useSpacing, type SpacingProps } from '#/composables/useSpacing';
+import { cn } from '#/utils/cn';
 import { computed } from 'vue';
 
 interface Props extends SpacingProps {

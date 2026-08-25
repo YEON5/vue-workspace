@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
-import { TypoMap, bgColorMap, borderColorMap, colorMap, type ColorToken } from '@/types';
-import { cn } from '@/utils/cn';
+import { useSpacing, type SpacingProps } from '#/composables/useSpacing';
+import { TypoMap, bgColorMap, borderColorMap, colorMap, type ColorToken } from '#/types';
+import { cn } from '#/utils/cn';
 import { computed } from 'vue';
 
 export type TagVariant = 'solid' | 'outline';

@@ -39,9 +39,8 @@ export default defineConfig({
     })
   ],
   resolve: {
-    alias: {
-      // '@' 기호를 'src' 폴더의 절대 경로로 매핑합니다.
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      alias: {
+      '#': fileURLToPath(new URL('./src', import.meta.url)),
       '#components': path.resolve(__dirname, './src/components'),
     }
   },

@@ -1,4 +1,4 @@
-import type { HeaderBtn } from '@/components/layout/AppHeader.vue';
+import type { HeaderBtn } from '#/components/layout/AppHeader.vue';
 import { ref, shallowRef } from 'vue';
 
 export const isVisible = ref(true);

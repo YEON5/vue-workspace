@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { useFormField } from '#/composables/useFormField';
+import { useSpacing, type SpacingProps } from '#/composables/useSpacing';
+import type { FormFieldProps } from '#/types/form';
+import { cn } from '#/utils/cn';
 import { IInfo } from '#components';
-import { useFormField } from '@/composables/useFormField';
-import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
-import type { FormFieldProps } from '@/types/form';
-import { cn } from '@/utils/cn';
 import { computed, provide } from 'vue';
+import Flex from './Flex.vue';
 import FormLabel from './FormLabel.vue';
 
 

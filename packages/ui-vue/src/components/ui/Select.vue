@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { TypoMap, bgColorMap, borderColorMap, colorMap } from '#/types';
+import { cn } from '#/utils/cn';
 import { IArrowSelect } from '#components';
-import { TypoMap, bgColorMap, borderColorMap, colorMap } from '@/types';
-import { cn } from '@/utils/cn';
 import { computed, inject, ref, type Ref } from 'vue';
 
 export interface SelectOption {

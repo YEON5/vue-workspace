@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { useFocusContainer } from '#/composables/useFocusContainer';
+import { TypoMap, bgColorMap, borderColorMap, colorMap } from '#/types';
+import { cn } from '#/utils/cn';
 import { IInputDelete } from '#components';
-import { useFocusContainer } from '@/composables/useFocusContainer';
-import { TypoMap, bgColorMap, borderColorMap, colorMap } from '@/types';
-import { cn } from '@/utils/cn';
 import { computed, inject, ref, useSlots, type Ref } from 'vue';
+import Button from './Button.vue';
 
 export type InputType = 'text' | 'password' | 'tel' | 'numeric';
 export type InputAlign = 'left' | 'center' | 'right';

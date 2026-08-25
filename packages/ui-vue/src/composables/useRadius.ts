@@ -1,6 +1,6 @@
 // src/composables/useRadius.ts
-import { radiusMap, type RadiusToken } from '@/types/radius';
-import { cn } from '@/utils/cn';
+import { radiusMap, type RadiusToken } from '#/types/radius';
+import { cn } from '#/utils/cn';
 import { computed } from 'vue';
 
 export interface RadiusProps {

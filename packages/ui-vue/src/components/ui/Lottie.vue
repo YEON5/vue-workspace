@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/utils/cn';
+import { cn } from '#/utils/cn';
 import lottie, { type AnimationItem } from 'lottie-web';
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 

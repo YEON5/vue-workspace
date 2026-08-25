@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { TypoMap, colorMap } from '@/types';
-import { cn } from '@/utils/cn';
+import { TypoMap, colorMap } from '#/types';
+import { cn } from '#/utils/cn';
 import { computed } from 'vue';
 
 interface Props {

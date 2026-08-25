@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useRadius, type RadiusProps } from '@/composables/useRadius';
-import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
-import { cn } from '@/utils/cn';
+import { useRadius, type RadiusProps } from '#/composables/useRadius';
+import { useSpacing, type SpacingProps } from '#/composables/useSpacing';
+import { cn } from '#/utils/cn';
 import { computed } from 'vue';
 
 interface Props extends SpacingProps, RadiusProps {

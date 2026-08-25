@@ -47,6 +47,6 @@ export const textAlignMap: Record<TypoAlign, string> = {
   right:  'text-right',
 };
 
-// ColorToken을 re-export해서 Typo.vue에서 @/types/typo만 import해도 됨
+// ColorToken을 re-export해서 Typo.vue에서 #/types/typo만 import해도 됨
 export type { ColorToken };
 

@@ -1,6 +1,6 @@
 // src/composables/useSpacing.ts
-import { spacingMap, type SpacingToken } from '@/types/spacing';
-import { cn } from '@/utils/cn';
+import { spacingMap, type SpacingToken } from '#/types/spacing';
+import { cn } from '#/utils/cn';
 import { computed } from 'vue';
 
 export interface SpacingProps {

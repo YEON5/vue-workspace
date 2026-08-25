@@ -29,6 +29,8 @@ declare module 'vue' {
     OutsetBox: typeof import('./src/components/ui/OutsetBox.vue')['default']
     PageHeader: typeof import('./src/components/ui/PageHeader.vue')['default']
     ResultView: typeof import('./src/components/ui/ResultView.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     Section: typeof import('./src/components/ui/Section.vue')['default']
     Select: typeof import('./src/components/ui/Select.vue')['default']
     Tag: typeof import('./src/components/ui/Tag.vue')['default']

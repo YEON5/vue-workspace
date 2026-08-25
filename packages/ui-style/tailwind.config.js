@@ -54,6 +54,14 @@ module.exports = {
     "../../packages/ui-vue/src/**/*.{js,ts,jsx,tsx,vue}",
     "../../packages/ui-vue/index.html",
 
+    // Vue UI docs (패키지 추가 시 아래에 경로 추가)
+    "../../packages/ui-docs/src/**/*.{js,ts,jsx,tsx,vue}",
+    "../../packages/ui-docs/index.html",
+
+    // Markup pages
+    "../../packages/markup/pages/**/*.{js,ts,jsx,tsx,vue}",
+    "../../packages/markup/index.html",
+
     // Next.js App (react-docs)
     // "../../apps/react-docs/app/**/*.{js,ts,jsx,tsx,mdx}",
     // "../../apps/react-docs/components/**/*.{js,ts,jsx,tsx,mdx}",

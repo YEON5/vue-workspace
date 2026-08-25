@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { useFocusContainer } from '#/composables/useFocusContainer';
+import { useSpacing, type SpacingProps } from '#/composables/useSpacing';
+import { TypoMap, bgColorMap, borderColorMap, colorMap } from '#/types';
+import { cn } from '#/utils/cn';
 import { IInputDelete } from '#components';
-import { useFocusContainer } from '@/composables/useFocusContainer';
-import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
-import { TypoMap, bgColorMap, borderColorMap, colorMap } from '@/types';
-import { cn } from '@/utils/cn';
 import { computed, inject, onBeforeUnmount, ref, useId, useSlots, watch, type Ref } from 'vue';
+import Button from './Button.vue';
 
 export type InputType = 'text' | 'password' | 'tel' | 'numeric';
 export type InputAlign = 'left' | 'center' | 'right';
@@ -68,9 +69,9 @@ const handleClear = () => {
 
 // floating label 제어
 const isFloated = computed(() =>
-  props.floatMode || // 1. 강제 플로팅 모드 (데이터 로딩 버그 방지)
-  isFocused.value || // 2. 인풋에 포커스가 갔을 때
-  !!modelValue.value // 3. 인풋에 값이 존재할 때
+  props.floatMode ||  // 강제 플로팅 모드 (데이터 로딩 버그 방지)
+  isFocused.value ||  // 인풋에 포커스가 갔을 때
+  !!modelValue.value  // 인풋에 값이 존재할 때
 );
 
 // placeholder 제어
@@ -162,7 +163,6 @@ const inputClasses = computed(() =>
     @focusin="handleFocusIn"
     @focusout="handleFocusOut"
   >
-    <!-- 플로팅 라벨 -->
     <label v-if="label" :for="internalId" :class="labelClasses">
       {{ label }}
       <span v-if="required" class="text-destructive">*</span>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { colorMap, textAlignMap, TypoMap, type ColorToken, type TypoAlign, type TypoToken } from '@/types';
-import { cn } from '@/utils/cn';
+import { colorMap, textAlignMap, TypoMap, type ColorToken, type TypoAlign, type TypoToken } from '#/types';
+import { cn } from '#/utils/cn';
 import { computed } from 'vue';
 
 interface Props {

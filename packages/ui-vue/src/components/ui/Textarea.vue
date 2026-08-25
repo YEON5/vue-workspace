@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useFocusContainer } from '@/composables/useFocusContainer';
-import { TypoMap, bgColorMap, borderColorMap, colorMap } from '@/types';
-import { cn } from '@/utils/cn';
+import { useFocusContainer } from '#/composables/useFocusContainer';
+import { TypoMap, bgColorMap, borderColorMap, colorMap } from '#/types';
+import { cn } from '#/utils/cn';
 import { computed, inject, ref, type Ref } from 'vue';
 
 interface Props {

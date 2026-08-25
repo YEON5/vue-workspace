@@ -7,9 +7,9 @@
 // labelClasses와 FormGroup.vue의 props, label 렌더링 영역 함께 제거할 것.
 
 
-import { TypoMap, colorMap } from '@/types';
-import type { FormFieldProps } from '@/types/form';
-import { cn } from '@/utils/cn';
+import { TypoMap, colorMap } from '#/types';
+import type { FormFieldProps } from '#/types/form';
+import { cn } from '#/utils/cn';
 import { computed } from 'vue';
 
 export function useFormField(props: FormFieldProps) {

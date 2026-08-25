@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
-import { TypoMap, bgColorMap, type ColorToken } from '@/types';
-import { cn } from '@/utils/cn';
+import { useSpacing, type SpacingProps } from '#/composables/useSpacing';
+import { TypoMap, bgColorMap, type ColorToken } from '#/types';
+import { cn } from '#/utils/cn';
 import { computed, useSlots } from 'vue';
 
 export type BadgeType = 'dot' | 'count';

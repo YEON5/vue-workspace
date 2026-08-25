@@ -1,6 +1,6 @@
 // src/composables/useFontSize.ts
-import { fontSizeMap, type FontSizeToken } from '@/types/fontSize';
-import { cn } from '@/utils/cn';
+import { fontSizeMap, type FontSizeToken } from '#/types/fontSize';
+import { cn } from '#/utils/cn';
 import { computed } from 'vue';
 
 export interface FontSizeProps {

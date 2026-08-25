@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import AppHeader from '@/components/layout/AppHeader.vue';
-import { align, isVisible, leftBtn, rightBtn, title, transparent } from '@/composables/useHeaderState'; // header props
+import { align, isVisible, leftBtn, rightBtn, title, transparent } from '#/composables/useHeaderState'; // header props
+import AppHeader from './AppHeader.vue';
 
 </script>
 

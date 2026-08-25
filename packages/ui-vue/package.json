@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "./src/components/index.ts",
+  "exports": {
+    ".": "./src/components/index.ts"
+  },
   "scripts": {
     "dev": "concurrently \"node scripts/watch-icons.js\" \"vite\"",
     "build": "node scripts/generate-icons.js && vue-tsc --noEmit",

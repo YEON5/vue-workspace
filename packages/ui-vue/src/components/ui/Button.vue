@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useRadius, type RadiusProps } from '@/composables/useRadius';
-import { useSpacing, type SpacingProps } from '@/composables/useSpacing';
-import { TypoMap, type ButtonSize, type ButtonVariant, type ColorToken, type IconAlign } from '@/types';
-import { cn } from '@/utils/cn';
+import { useRadius, type RadiusProps } from '#/composables/useRadius';
+import { useSpacing, type SpacingProps } from '#/composables/useSpacing';
+import { TypoMap, type ButtonSize, type ButtonVariant, type ColorToken, type IconAlign } from '#/types';
+import { cn } from '#/utils/cn';
 import { computed } from 'vue';
 
 
