@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import Container from '#/components/ui/Container.vue';
-import Section from '#/components/ui/Section.vue';
-
+import { Container, Section } from '@ui/vue';
 </script>
 
 

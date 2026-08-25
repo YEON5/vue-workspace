@@ -3,8 +3,7 @@ import AppLayout from '#/components/layout/AppLayout.vue';
 import BottomSticky from '#/components/ui/BottomSticky.vue';
 import PageHeader from '#/components/ui/PageHeader.vue';
 import { setHeader } from '#/composables/useHeaderState';
-import { IArrowLeft, IArrowRightS, IMenu, IMy, ITime } from '#components';
-import { ref, useId } from 'vue';
+import { IArrowLeft, IMenu, IMy } from '#components';
 
 // ResultView(완료/실패)
 // const emit = defineEmits(['click', 'update']);
@@ -27,52 +26,6 @@ setHeader({
   ]
 });
 
-
-// -------------------------- Button click emit --------------------------
-const emit = defineEmits(['search', 'resend']);
-const handleSearch = () => {
-  emit('search')
-  console.log('search click!');
-}
-const requestResend = () => {
-  emit('resend');
-  console.log('resend click!');
-}
-
-
-// -------------------------- Form --------------------------
-// formData (text input, textarea)
-const formData = ref({
-  labelText: '입력데이터',
-  labelSearch: '',
-  labelCertNum: '',
-  labelNum: '',
-  labelTextPassword: '',
-  labelRequired: '필수입력데이터 required',
-  labelError: '입력데이터 error',
-  labelReadonly: '입력데이터 readonly',
-  labelDisabled: '입력데이터 disabled',
-  labelTextarea: '',
-  labelTextarea2: '',
-  cardNum: ['1234', '5678', '9012', '3456'],
-  bizNum1: '123',
-  bizNum2: '45',
-  bizNum3: '67890',
-  amount: '',
-})
-
-// select Data
-const selectValue = ref('1');
-const selectOptions = [
-  {label: '옵션1', value: '1'},
-  {label: '옵션2', value: '2'},
-  {label: '옵션3', value: '3'}
-]
-// label for input id 매칭
-const nameId = useId()
-const searchId = useId()
-const amountId = useId()
-const floatingId = useId()
 </script>
 
 <template>
@@ -98,142 +51,11 @@ const floatingId = useId()
 
       <Divider full type="bold" />
 
-      <Section pb="6">
-        <Typo text="lg" weight="medium" ellipsis>
-          말줄임 1줄 내용입니다. 말줄임 1줄 내용입니다. 말줄임 1줄 내용입니다. 말줄임 1줄 내용입니다.
-        </Typo>
-      </Section>
-
-      <Divider my="8" class="bg-red-500" />
-
-      <Section>
-        <Typo :multi-ellipsis="2">
-          말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다.
-        </Typo>
-      </Section>
-
-      <Section>
-        <Flex wrap align="center" justify="start" gap="3" mb="5" p="4" rounded="md" class="bg-gray-100">
-          <Typo variant="body-l">variant body-l</Typo>
-          <Divider direction="vertical" />
-          <Typo variant="body-m">variant body-m</Typo>
-          <Divider direction="vertical" />
-          <Typo variant="body-s">variant body-s</Typo>
-          <Divider direction="vertical" />
-          <Typo variant="label-l">variant label-l</Typo>
-          <Divider direction="vertical" />
-          <Typo variant="label-m">variant label-m</Typo>
-          <Divider direction="vertical" />
-          <Typo variant="label-s">variant label-s</Typo>
-          <Divider direction="vertical" />
-          <Typo variant="caption-1">variant caption-1</Typo>
-          <Divider direction="vertical" />
-          <Typo variant="caption-2">variant caption-2</Typo>
-        </Flex>
-      </Section>
-
-      <Divider full />
+      <Section>Section component</Section>
       
-      <Section as="article">
-        <Typo variant="body-l" color="display" class="pb-6">Button</Typo>
-        <Flex gap="6">
-          <Button variant="fill" size="sm">버튼 fill</Button>
-          <Button variant="outline" size="md" color="secondary">버튼 outline</Button>
-          <Button variant="fill" size="md" disabled>버튼 disabled</Button>
-
-          <Button variant="fill" size="lg" icon-align="left">
-            <template #icon>
-              <IMy class="size-6" />
-            </template>
-            텍스트+icon 버튼L
-          </Button>
-          <Button variant="outline" size="lg" color="tertiary" icon-align="right">
-            <template #icon>
-              <IMy class="size-6" />
-            </template>
-            텍스트+icon 버튼R
-          </Button>
-          <Button variant="outline" size="lg" icon-align="top" class="h-auto p-3">
-            <template #icon>
-              <IMy class="size-6" />
-            </template>
-            텍스트+icon 버튼T
-          </Button>
-          
-          <Button variant="icon" class="size-[32px] p-2">
-            <IMy class="size-[24px]" />
-          </Button>
-
-          <Button variant="fill" size="lg" full>버튼 full</Button>
-        </Flex>
-        <Flex align="center" justify="between" gap="4" mt="5">
-          <Button color="secondary" size="lg" class="flex-1">버튼 lg</Button>
-          <Button color="tertiary" size="lg" class="flex-1">버튼 lg</Button>
-        </Flex>
-      </Section>
-
-      <Divider type="thin" />
-
-      <Section>
-        <Typo class="pb-6">TextButton</Typo>
-        <Flex gap="5">
-          <TextButton size="sm">텍스트 버튼</TextButton>
-          <TextButton size="md" disabled>텍스트 버튼</TextButton>
-          <TextButton size="md" color="secondary">텍스트 버튼</TextButton>
-          <TextButton size="lg" color="tertiary">텍스트 버튼</TextButton>
-          <TextButton size="lg" icon-align="right">
-            <template #icon>
-              <IArrowRightS class="size-6" />
-            </template>
-            텍스트+icon 버튼
-          </TextButton>
-        </Flex>
-      </Section>
-
-      <Divider full />
-
-      <Section>
-        <Typo class="pb-6">Tag</Typo>
-        <Flex gap="4">
-          <Tag variant="solid" color="success">완료</Tag>
-          <Tag variant="solid" color="warning">주의</Tag>
-          <Tag variant="outline" color="error" type="rounded">실패</Tag>
-          <Tag variant="outline" color="success" type="rounded">완료</Tag>
-          <Tag variant="solid" color="info">
-            <template #icon>
-              <IMy class="size-4" />
-            </template>
-            모집중
-          </Tag>
-        </Flex>
-      </Section>
-
-      <Divider full />
-
-      <Section>
-        <Typo class="pb-6">Badge</Typo>
-        <Box>
-          <Typo as="span" class="relative">
-            내용5
-            <Badge type="dot" />
-          </Typo>
-  
-          <Flex align="center" gap="2">
-            <Typo>내용5</Typo>
-            <Badge type="count" color="warning" :count="99" />
-          </Flex>
-  
-          <Flex align="center" gap="2">
-            <Typo>내용5</Typo>
-            <Badge type="count" color="warning" :count="1000" />
-          </Flex>
-  
-          <button class="relative p-2">
-            <ITime class="size-8" />
-            <Badge type="dot" class="top-[5px] right-[6px] size-3" />
-          </button>
-        </Box>
-      </Section>
+      <Divider my="8" class="bg-red-500" />
+      
+      <Section as="article">Section component</Section>
 
       <Divider full />
 
@@ -242,16 +64,6 @@ const floatingId = useId()
           <Box as="article" py="7" px="5">음수마진박스</Box>
         </Section>
       </OutsetBox>
-
-      <Section>
-        <Typo>Lottie Player</Typo>
-        <Lottie 
-          path="/lottie/lottie-test.json"
-          :width="326"
-          :height="220"
-          class="mx-auto"
-        />
-      </Section>
     </Container>
 
     <BottomSticky>

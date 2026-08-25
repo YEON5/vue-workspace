@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import Button from '#/components/ui/Button.vue';
-import Container from '#/components/ui/Container.vue';
-import Divider from '#/components/ui/Divider.vue';
-import Flex from '#/components/ui/Flex.vue';
-import FormGroup from '#/components/ui/FormGroup.vue';
-import FormLabel from '#/components/ui/FormLabel.vue';
-import Section from '#/components/ui/Section.vue';
-import Select from '#/components/ui/Select.vue';
-import TextButton from '#/components/ui/TextButton.vue';
-import TextInput from '#/components/ui/TextInput.vue';
-import TextInputFloating from '#/components/ui/TextInputFloating.vue';
-import Textarea from '#/components/ui/Textarea.vue';
-import Typo from '#/components/ui/Typo.vue';
-import { ISearch } from '@ui/vue';
+import {
+  Button,
+  Container,
+  Divider,
+  Flex,
+  FormGroup,
+  FormLabel,
+  ISearch,
+  Section,
+  Select,
+  TextButton,
+  TextInput,
+  Typo
+} from '@ui/vue';
 import { ref, useId } from 'vue';
 
-// -------------------------- Button click emit --------------------------
+
+// Button click
 const emit = defineEmits(['search', 'resend']);
 const handleSearch = () => {
   emit('search')
@@ -26,9 +27,7 @@ const requestResend = () => {
   console.log('resend click!');
 }
 
-
-// -------------------------- Form --------------------------
-// formData (text input, textarea)
+// formData
 const formData = ref({
   labelText: '입력데이터',
   labelSearch: '',
@@ -39,8 +38,6 @@ const formData = ref({
   labelError: '입력데이터 error',
   labelReadonly: '입력데이터 readonly',
   labelDisabled: '입력데이터 disabled',
-  labelTextarea: '',
-  labelTextarea2: '',
   cardNum: ['1234', '5678', '9012', '3456'],
   bizNum1: '123',
   bizNum2: '45',
@@ -65,7 +62,8 @@ const amountId = useId()
 <template>
   <Container>
     <Section>
-      <Typo class="pb-6">Text Input</Typo>
+      <Typo variant="body-l" color="display" class="pb-6">Text Input</Typo>
+
       <Flex direction="col" gap="6">
         <FormGroup
           label="레이블"
@@ -302,95 +300,11 @@ const amountId = useId()
       <Divider type="thin" />
 
       <Flex direction="col" gap="6">
-        <FormGroup
-          label="레이블"
-          info-msg="300자 이내로 입력해주세요"
-        >
-          <Textarea
-            v-model="formData.labelTextarea2"
-            placeholder="Textarea placeholder"
-          />
-        </FormGroup>
-
-        <FormGroup
-          label="레이블"
-        >
-          <Textarea
-            v-model="formData.labelTextarea2"
-            placeholder="Textarea placeholder"
-            show-count
-            :max-length="100"
-          />
-        </FormGroup>
-
-        <!-- info msg / count 나란히 배치 (예외케이스) -->
-        <Flex direction="col" gap="3">
-          <FormLabel>레이블</FormLabel>
-          <Textarea 
-            v-model="formData.labelTextarea"
-            placeholder="Textarea placeholder"
-            :max-length="100" 
-          />
-          <Flex align="center" justify="between">
-            <Typo variant="body-s" color="caption">100자 이내로 입력해주세요</Typo>
-            <Typo as="span" variant="body-s" color="caption">{{ formData.labelTextarea.length }}/100</Typo>
-          </Flex>
-
-        </Flex>
-      </Flex>
-
-      <Divider type="thin" />
-
-      <Flex direction="col" gap="6">
         <FormGroup label="레이블" pb="5">
           <Select
             v-model="selectValue"
             :options="selectOptions"
             placeholder="선택하세요" />
-        </FormGroup>
-      </Flex>
-    </Section>
-
-    <Divider full />
-
-    <Section>
-      <Typo class="pb-6">Textinput Floating</Typo>
-      <Flex direction="col" gap="6">
-        <FormGroup
-          info-msg="정보메세지"
-        >
-          <TextInputFloating
-            id="floatingId"
-            label="레이블"
-            placeholder="-없이 입력"
-            required
-          />
-          <TextInputFloating 
-            id="floatingId2"
-            placeholder="placeholder"
-          />
-        </FormGroup>
-        <FormGroup
-          error
-          error-msg="에러메시지"
-        >
-          <TextInputFloating
-            label="레이블고정"
-          />
-        </FormGroup>
-        <FormGroup>
-          <TextInputFloating
-            label="레이블고정"
-            readonly
-          />
-        </FormGroup>
-        <FormGroup
-          disabled
-        >
-          <TextInputFloating
-            label="레이블고정"
-            disabled
-          />
         </FormGroup>
       </Flex>
     </Section>

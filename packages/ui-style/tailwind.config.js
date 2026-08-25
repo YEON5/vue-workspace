@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-const tokenValue = require("./src/design-tokens");
-const { PREFIX, PREFIX_DASH } = require("./src/tokens-config");
+import tailwindcssAnimate from "tailwindcss-animate";
+import tokenValue from "./src/design-tokens.js";
+import { PREFIX, PREFIX_DASH } from "./src/tokens-config.js";
 
-module.exports = {
+export default {
   // PREFIX가 있을 때만 safelist 적용
   // PREFIX가 빈 문자열이면 ^bg- 처럼 모든 Tailwind 기본 클래스까지 포함되어 번들이 불필요하게 커짐
   safelist: [
@@ -142,5 +143,5 @@ module.exports = {
     },
   },
 
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 };

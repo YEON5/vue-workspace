@@ -1,9 +1,13 @@
 import vue from '@vitejs/plugin-vue';
 import { fileURLToPath, URL } from 'node:url';
+import path from 'path';
 import { defineConfig } from 'vite';
 import svgLoader from 'vite-svg-loader';
 
 export default defineConfig({
+  // Vite가 정적 자산(Public)을 찾는 기본 폴더를 모노레포 공통 폴더로 변경
+  publicDir: path.resolve(__dirname, '../../packages/ui-public'),
+
   plugins: [
     vue(),
     svgLoader({

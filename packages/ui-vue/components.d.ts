@@ -35,6 +35,7 @@ declare module 'vue' {
     Select: typeof import('./src/components/ui/Select.vue')['default']
     Tag: typeof import('./src/components/ui/Tag.vue')['default']
     Textarea: typeof import('./src/components/ui/Textarea.vue')['default']
+    TextArea: typeof import('./src/components/ui/TextArea.vue')['default']
     TextButton: typeof import('./src/components/ui/TextButton.vue')['default']
     TextInput: typeof import('./src/components/ui/TextInput.vue')['default']
     TextInputFloating: typeof import('./src/components/ui/TextInputFloating.vue')['default']

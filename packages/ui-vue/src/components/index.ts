@@ -29,10 +29,11 @@ export { default as Tag } from './ui/Tag.vue';
 export { default as FormGroup } from './ui/FormGroup.vue';
 export { default as FormLabel } from './ui/FormLabel.vue';
 export { default as Select } from './ui/Select.vue';
-export { default as Textarea } from './ui/Textarea.vue';
+export { default as TextArea } from './ui/TextArea.vue';
 export { default as TextInput } from './ui/TextInput.vue';
 export { default as TextInputFloating } from './ui/TextInputFloating.vue';
 
 // ui - 기타
 export { default as Lottie } from './ui/Lottie.vue';
 export { default as ResultView } from './ui/ResultView.vue';
+
