@@ -6,7 +6,7 @@ import { Container, Lottie, Section, Typo } from '@ui/vue';
 <template>
   <Container>
     <Section>
-      <Typo variant="body-l" color="display" class="pb-6">Lottie Player</Typo>
+      <Typo variant="heading-l" class="pb-9">Lottie Player</Typo>
       
       <Lottie 
         path="/lottie/lottie-test.json"

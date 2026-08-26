@@ -22,7 +22,7 @@ const formData = ref({
 <template>
   <Container>
     <Section>
-      <Typo variant="body-l" color="display" class="pb-6">TextArea</Typo>
+      <Typo variant="heading-l" class="pb-9">TextArea</Typo>
 
       <Flex direction="col" gap="6">
         <FormGroup

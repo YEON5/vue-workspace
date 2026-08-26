@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, Container, Flex, IArrowRightS, IMy, Section, TextButton, Typo } from '@ui/vue';
+import { Button, Container, Divider, Flex, IArrowRightS, IMy, Section, TextButton, Typo } from '@ui/vue';
 
 </script>
 
@@ -7,9 +7,9 @@ import { Button, Container, Flex, IArrowRightS, IMy, Section, TextButton, Typo }
 <template>
   <Container>
     <Section>
-      <Typo variant="body-l" color="display" class="pb-6">Button</Typo>
-      
-      <Flex gap="6">
+      <Typo variant="heading-l" class="pb-9">Button</Typo>
+
+      <Flex direction="col" gap="6" class="w-fit">
         <Button variant="fill" size="sm">버튼 fill</Button>
         <Button variant="outline" size="md" color="secondary">버튼 outline</Button>
         <Button variant="fill" size="md" disabled>버튼 disabled</Button>
@@ -45,11 +45,12 @@ import { Button, Container, Flex, IArrowRightS, IMy, Section, TextButton, Typo }
       </Flex>
     </Section>
 
-    <Divider type="thin" />
+    <Divider type="thin" class="my-10" />
 
     <Section>
-      <Typo class="pb-6">TextButton</Typo>
-      <Flex gap="5">
+      <Typo variant="heading-l" class="pb-9">TextButton</Typo>
+
+      <Flex gap="6">
         <TextButton size="sm">텍스트 버튼</TextButton>
         <TextButton size="md" disabled>텍스트 버튼</TextButton>
         <TextButton size="md" color="secondary">텍스트 버튼</TextButton>

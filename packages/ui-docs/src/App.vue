@@ -1,38 +1,51 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { RouterLink, RouterView, useRouter } from 'vue-router';
 
-const router = useRouter()
-const navItems = router.getRoutes()
+const router = useRouter();
+const rawRoutes = router.getRoutes();
+
+// 정렬 로직
+const navItems = computed(() => {
+  const validRoutes = rawRoutes.filter(route => route.name);
+
+  return validRoutes.sort((a, b) => {
+    // GuideView를 최상단으로 올리기
+    if (a.name === 'Guide' || a.name === 'GuideView') return -1;
+    if (b.name === 'Guide' || b.name === 'GuideView') return 1;
+
+    // 알파벳 순서대로 정렬
+    const nameA = String(a.name || '');
+    const nameB = String(b.name || '');
+    return nameA.localeCompare(nameB);
+  });
+});
 
 // 모바일 사이드바 열림/닫힘 상태
-const isSidebarOpen = ref(false)
+const isSidebarOpen = ref(false);
 </script>
 
 <template>
-  <div class="flex h-screen bg-gray-50 overflow-hidden">
+  <div class="app-layout">
     
-    <!-- 모바일용 배경 오버레이 (사이드바 열렸을 때 뒤에 깔리는 어두운 배경) -->
+    <!-- 모바일용 배경 오버레이 -->
     <div 
       v-if="isSidebarOpen" 
-      class="fixed inset-0 bg-black/40 z-40 md:hidden"
+      class="sidebar-overlay"
       @click="isSidebarOpen = false"
     />
 
     <!-- 사이드바 -->
-    <!-- md:relative로 PC에선 고정, 모바일(기본)에선 fixed로 화면 위에 띄움 -->
     <aside 
-      class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r px-5 py-7 transition-transform duration-300 ease-in-out md:relative md:translate-x-0"
-      :class="isSidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+      class="sidebar"
+      :class="{ 'is-open': isSidebarOpen }"
     >
-      <div class="flex items-center justify-between mb-8">
-        <h1 class="text-xl font-bold">UI COMPONENTS</h1>
-        <!-- 모바일용 닫기(X) 버튼 -->
-        <button class="md:hidden text-gray-500 text-2xl leading-none" @click="isSidebarOpen = false">&times;</button>
+      <div class="sidebar-header">
+        <h1>UI COMPONENTS</h1>
+        <button class="close-btn" @click="isSidebarOpen = false">&times;</button>
       </div>
       
-      <nav class="flex flex-col gap-5">
-        <!-- 모바일에서 메뉴 클릭 시 사이드바가 자동으로 닫히도록 이벤트 추가 -->
+      <nav class="sidebar-nav">
         <RouterLink 
           v-for="item in navItems" 
           :key="item.path" 
@@ -45,23 +58,167 @@ const isSidebarOpen = ref(false)
     </aside>
 
     <!-- 메인 영역 래퍼 -->
-    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <div class="main-wrapper">
       
       <!-- 모바일용 상단 헤더 -->
-      <header class="md:hidden bg-white border-b px-4 py-3 flex items-center shadow-sm z-30">
-        <button class="p-1 mr-3 text-gray-700" @click="isSidebarOpen = true">
-          <!-- 메뉴 아이콘 -->
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <header class="mobile-header">
+        <button class="menu-btn" @click="isSidebarOpen = true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <span class="font-bold text-lg">UI COMPONENTS</span>
+        <span class="header-title">UI COMPONENTS</span>
       </header>
 
-      <main class="flex-1 p-4 md:p-8 overflow-y-auto">
+      <!-- 콘텐츠 영역 -->
+      <main class="main-content">
         <RouterView />
       </main>
       
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.app-layout {
+  display: flex;
+  height: 100dvh;
+  background-color: #f9fafb;
+  overflow: hidden;
+
+  /* 모바일 오버레이 */
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background-color: rgba(0, 0, 0, 0.4);
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  /* 사이드바 */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    width: 256px;
+    padding: 28px 20px;
+    border-right: 1px solid #e5e7eb;
+    background-color: #ffffff;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%); /* 모바일 기본: 숨김 */
+
+    &.is-open {
+      transform: translateX(0); /* 모바일: 열림 */
+    }
+
+    @media (min-width: 768px) {
+      position: relative;
+      transform: translateX(0); /* PC 기본: 항상 노출 */
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+
+      h1 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      .close-btn {
+        border: none;
+        background: transparent;
+        font-size: 24px;
+        line-height: 1;
+        color: #6b7280;
+        cursor: pointer;
+
+        @media (min-width: 768px) {
+          display: none;
+        }
+      }
+    }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      a {
+        text-decoration: none;
+        color: #374151;
+        transition: color 0.2s;
+
+        &:hover,
+        &.router-link-active {
+          font-weight: 600;
+          color: #10b981; /* 활성화 색상 (원하는 색상으로 변경 가능) */
+        }
+      }
+    }
+  }
+
+  /* 메인 영역  */
+  .main-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+
+    .mobile-header {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid #e5e7eb;
+      background-color: #ffffff;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      z-index: 30;
+
+      @media (min-width: 768px) {
+        display: none;
+      }
+
+      .menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        padding: 4px;
+        border: none;
+        background: transparent;
+        color: #374151;
+        cursor: pointer;
+
+        svg {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+      }
+
+      .header-title {
+        font-weight: 700;
+        font-size: 18px;
+      }
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+
+      @media (min-width: 768px) {
+        padding: 32px;
+      }
+    }
+  }
+}
+</style>

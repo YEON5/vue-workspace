@@ -19,7 +19,7 @@ const formData = ref({
 <template>
   <Container>
     <Section>
-      <Typo variant="body-l" color="display" class="pb-6">Textinput Floating</Typo>
+      <Typo variant="heading-l" class="pb-9">Textinput Floating</Typo>
 
       <Flex direction="col" gap="6">
         <FormGroup

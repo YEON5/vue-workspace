@@ -62,7 +62,7 @@ const amountId = useId()
 <template>
   <Container>
     <Section>
-      <Typo variant="body-l" color="display" class="pb-6">Text Input</Typo>
+      <Typo variant="heading-l" class="pb-9">Text Input</Typo>
 
       <Flex direction="col" gap="6">
         <FormGroup
@@ -125,7 +125,7 @@ const amountId = useId()
         </FormGroup>
       </Flex>
 
-      <Divider type="thin" />
+      <Divider type="thin" class="my-10" />
 
       <Flex direction="col" gap="6">
         <FormGroup
@@ -194,7 +194,7 @@ const amountId = useId()
         </FormGroup>
       </Flex>
 
-      <Divider type="thin" />
+      <Divider type="thin" class="my-10" />
 
       <!-- 입력폼 조합 -->
       <Flex direction="col" gap="6">
@@ -297,7 +297,7 @@ const amountId = useId()
         </FormGroup>
       </Flex>
 
-      <Divider type="thin" />
+      <Divider type="thin" class="my-10" />
 
       <Flex direction="col" gap="6">
         <FormGroup label="레이블" pb="5">

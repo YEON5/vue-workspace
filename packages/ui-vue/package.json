@@ -27,6 +27,7 @@
     "chokidar": "^3.6.0",
     "concurrently": "^10.0.3",
     "postcss": "^8.4.0",
+    "sass-embedded": "^1.103.1",
     "tailwindcss": "3.4",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
