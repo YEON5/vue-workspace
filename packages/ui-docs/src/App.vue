@@ -150,7 +150,7 @@ const isSidebarOpen = ref(false);
     .sidebar-nav {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
 
       a {
         text-decoration: none;

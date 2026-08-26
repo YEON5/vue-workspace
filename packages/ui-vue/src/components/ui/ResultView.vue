@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { type Component, computed } from 'vue';
 import Container from './Container.vue';
+import Flex from './Flex.vue';
 import Lottie from './Lottie.vue';
+import Typo from './Typo.vue';
 
 interface Props {
   type?: 'success' | 'error' | 'warning';
@@ -19,19 +21,19 @@ const props = withDefaults(defineProps<Props>(), {
 const lottieConfig = computed(() => {
   const configs = {
     success: {
-      path: '/images/lottie/check.json',
+      path: '/lottie/check.json',
       width: 120,
       height: 120,
       alt: '성공적으로 완료되었음을 알리는 애니메이션'
     },
     error: {
-      path: '/images/lottie/error.json',
+      path: '/lottie/error.json',
       width: 120,
       height: 120,
       alt: '오류가 발생했음을 알리는 애니메이션'
     },
     warning: {
-      path: '/images/lottie/warning.json',
+      path: '/lottie/warning.json',
       width: 120,
       height: 120,
       alt: '주의가 필요함을 알리는 애니메이션'
@@ -44,8 +46,8 @@ const lottieConfig = computed(() => {
 <template>
   <Container :padded="false" class="items-center pt-[100px]">
     <!-- <Container :padded="false" centered> -->
-    <div class="flex flex-col items-center gap-4 text-center">
-
+    
+    <Flex direction="col" align="center" gap="7" class="text-center">
       <slot name="icon">
         <component
           :is="icon"
@@ -53,7 +55,6 @@ const lottieConfig = computed(() => {
           class="size-[80px]"
           :class="iconClass"
         />
-
         <Lottie 
           v-else
           :path="lottieConfig.path"
@@ -65,20 +66,24 @@ const lottieConfig = computed(() => {
         />
       </slot>
 
-      <h2 class="text-xl font-bold text-foreground">
-        <slot name="title">{{ title }}</slot>
-      </h2>
+      <!-- title / description -->
+      <Flex direction="col" gap="3">
+        <Typo variant="heading-l">
+          <slot name="title">{{ title }}</slot>
+        </Typo>
+  
+        <Typo
+          v-if="description || $slots.description"
+          variant="body-m"
+          color="tertiary"  
+        >
+          <slot name="description">{{ description }}</slot>
+        </Typo>
+      </Flex>
+    </Flex>
 
-      <p
-        v-if="description || $slots.description"
-        class="text-sm text-muted-foreground"
-      >
-        <slot name="description">{{ description }}</slot>
-      </p>
-    </div>
-
-    <!-- 완료 문구 아래 추가 요소 (배너, 안내 박스 등) -->
-    <div v-if="$slots.action" class="mt-6">
+    <!-- 완료 문구 아래 추가 요소 (클릭요소(action), 배너(banner), 안내 박스(extra) 등) -->
+    <div v-if="$slots.action" class="mt-8">
       <slot name="action" />
     </div>
 

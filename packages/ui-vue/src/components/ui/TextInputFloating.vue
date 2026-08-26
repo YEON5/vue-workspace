@@ -164,8 +164,7 @@ const inputClasses = computed(() =>
     @focusout="handleFocusOut"
   >
     <label v-if="label" :for="internalId" :class="labelClasses">
-      {{ label }}
-      <span v-if="required" class="text-destructive">*</span>
+      {{ label }}<span v-if="required" class="text-lg text-destructive ml-[2px]">*</span>
     </label>
 
     <input

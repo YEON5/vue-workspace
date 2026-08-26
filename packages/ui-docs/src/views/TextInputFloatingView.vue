@@ -5,6 +5,7 @@ import { ref } from 'vue';
 
 // formData
 const formData = ref({
+  labelText: '입력데이터',
 })
 </script>
 
@@ -19,7 +20,7 @@ const formData = ref({
         >
           <TextInputFloating
             id="floatingId"
-            label="레이블"
+            label="레이블고정"
             placeholder="-없이 입력"
             required
           />
@@ -34,10 +35,12 @@ const formData = ref({
         >
           <TextInputFloating
             label="레이블고정"
+            required
           />
         </FormGroup>
         <FormGroup>
           <TextInputFloating
+            v-model="formData.labelText"
             label="레이블고정"
             readonly
           />

@@ -1,7 +1,7 @@
 // main.ts
 import '@ui/style/dist/style.css';
 import { createApp } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router'; // 💡 필요하다면 RouteRecordRaw 타입을 가져와도 되지만, 아래 방법이 더 쉽습니다.
+import { createRouter, createWebHistory } from 'vue-router';
 import App from './App.vue';
 
 // views 폴더의 모든 .vue 파일을 자동으로 가져옴

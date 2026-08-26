@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const classes = computed(() =>
   cn(
-    'inline-flex items-center',
+    'relative inline-flex items-center',
     TypoMap['label-m'],
     props.disabled ? colorMap['disabled'] : colorMap['secondary'],
     props.class
@@ -28,6 +28,7 @@ const classes = computed(() =>
 <template>
   <label :for="forId" :class="classes">
     <slot />
-    <span v-if="required" class="text-lg text-destructive ml-0.5">*</span>
+    <span v-if="required" class="inline-flex absolute top-[3px] -right-[8px] w-[4px] h-[4px] ml-[2px] rounded-full bg-destructive" />
+    <!-- <span v-if="required" class="text-lg text-destructive ml-[2px]">*</span> -->
   </label>
 </template>

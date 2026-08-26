@@ -15,13 +15,10 @@ const handleBannerClick = () => {
     description="처리 결과를 확인해주세요."
   >
     <template #action>
-      <Flex
-        align="center"
-        gap="3"
-      >
-        <TextButton size="md" color="secondary">텍스트 버튼</TextButton>
+      <Flex align="center" gap="3">
+        <TextButton size="md" color="secondary" class="underline">텍스트 버튼</TextButton>
         <Divider direction="vertical" />
-        <TextButton size="md" color="secondary">텍스트 버튼</TextButton>
+        <TextButton size="md" color="secondary" class="underline">텍스트 버튼</TextButton>
       </Flex>
     </template>
 
@@ -30,7 +27,8 @@ const handleBannerClick = () => {
         <Typo variant="body-m">문의사항은 고객센터로 연락주세요.</Typo>
       </Box>
     </template>
-      
+    
+    <!-- 이미지를 사용하는 베너는 html button 태그 사용 -->
     <template #banner>
       <button
         type="button"
@@ -38,9 +36,6 @@ const handleBannerClick = () => {
       >
         <img src="/images/temp-banner.webp">
       </button>
-      <!-- <Button variant="icon" full class="size-[32px] p-2" @click="handleBannerClick">
-        <img src="/images/temp-banner.webp">
-      </Button> -->
     </template>
   </ResultView>
 

@@ -6,11 +6,11 @@ import { setHeader } from '#/composables/useHeaderState';
 import { IArrowLeft, IMenu, IMy } from '#components';
 
 // ResultView(완료/실패)
-// const emit = defineEmits(['click', 'update']);
-// const handleBannerClick = () => {
-//   // emit('click');
-//   console.log('click');
-// }
+const emit = defineEmits(['click', 'update']);
+const handleBannerClick = () => {
+  // emit('click');
+  console.log('click');
+}
 
 // -------------------------- Header --------------------------
 // (heder 미노출 : isVisible: true/false | heder 타이틀 왼쪽 정렬 : align: 'left' | header bg 불투명 : transparent: true)
@@ -82,22 +82,18 @@ setHeader({
       title="완료되었습니다"
       description="처리 결과를 확인해주세요."
     >
-      
       <template #action>
-        <Flex
-          align="center"
-          gap="3"
-        >
-          <button type="button" class="text-primary underline">영수증 보기</button>
+        <Flex align="center" gap="3">
+          <TextButton size="md" color="secondary" class="underline">텍스트 버튼</TextButton>
           <Divider direction="vertical" />
-          <button type="button" class="text-primary underline">영수증 보기</button>
+          <TextButton size="md" color="secondary" class="underline">텍스트 버튼</TextButton>
         </Flex>
       </template>
 
       <template #extra>
-        <div class="p-4 bg-muted rounded-lg text-sm text-muted-foreground text-center">
-          문의사항은 고객센터로 연락주세요.
-        </div>
+        <Box class="p-4 bg-muted rounded-lg text-center">
+          <Typo variant="body-m">문의사항은 고객센터로 연락주세요.</Typo>
+        </Box>
       </template>
       
       <template #banner>
@@ -111,7 +107,7 @@ setHeader({
     </ResultView>
 
     <BottomSticky>
-      <button class="w-full ...">확인</button>
+      <Button variant="fill" size="cta">확인</Button>
     </BottomSticky> -->
     <!-- //결과 페이지 : Container로 감쌀 필요 없음 -->
   </AppLayout>
