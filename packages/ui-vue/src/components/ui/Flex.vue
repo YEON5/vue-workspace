@@ -15,7 +15,7 @@ interface Props extends SpacingProps, RadiusProps {
 
 const props = withDefaults(defineProps<Props>(), {
   as: 'div',
-  wrap: true,
+  wrap: false,
   direction: 'row',
   align: 'stretch',
   justify: 'start',

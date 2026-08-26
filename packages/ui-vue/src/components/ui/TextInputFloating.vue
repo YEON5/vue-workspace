@@ -117,7 +117,7 @@ const labelClasses = computed(() =>
     'absolute left-5 transition-all duration-200 pointer-events-none',
     labelColorClass.value,
     isFloated.value
-      ? cn('top-[8px]', TypoMap['label-xs']) // 위로 작아지며 올라감
+      ? cn('top-[7px]', TypoMap['label-xs']) // 위로 작아지며 올라감
       : cn('top-1/2 -translate-y-1/2', TypoMap['label-m']), // 정중앙 배치 (Placeholder 형태)
   )
 );
@@ -164,7 +164,7 @@ const inputClasses = computed(() =>
     @focusout="handleFocusOut"
   >
     <label v-if="label" :for="internalId" :class="labelClasses">
-      {{ label }}<span v-if="required" class="text-lg text-destructive ml-[2px]">*</span>
+      {{ label }}<span v-if="required" class="text-md text-destructive ml-[2px]">*</span>
     </label>
 
     <input

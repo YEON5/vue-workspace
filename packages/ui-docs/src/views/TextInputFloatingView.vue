@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Container, Flex, FormGroup, Section, TextInputFloating, Typo } from '@ui/vue';
+import TextAreaFloating from '#/components/ui/TextAreaFloating.vue';
+import { Container, Divider, Flex, FormGroup, Section, TextInputFloating, Typo } from '@ui/vue';
 import { ref } from 'vue';
 
 
@@ -51,6 +52,21 @@ const formData = ref({
           <TextInputFloating
             label="레이블고정"
             disabled
+          />
+        </FormGroup>
+      </Flex>
+
+      <Divider type="thin" class="my-10" />
+
+      <Typo variant="heading-l" class="pb-9">TextArea Floating</Typo>
+
+      <Flex direction="col" gap="6">
+        <FormGroup
+          info-msg="300자 이내로 입력해주세요"
+        >
+          <TextAreaFloating 
+            label="레이블"
+            placeholder="Textarea placeholder"
           />
         </FormGroup>
       </Flex>

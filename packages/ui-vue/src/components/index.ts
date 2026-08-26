@@ -23,6 +23,7 @@ export { default as Typo } from './ui/Typo.vue';
 
 // ui - 표시(Tag/Badge)
 export { default as Badge } from './ui/Badge.vue';
+export { default as Image } from './ui/Image.vue';
 export { default as Tag } from './ui/Tag.vue';
 
 // ui - 폼
@@ -30,6 +31,7 @@ export { default as FormGroup } from './ui/FormGroup.vue';
 export { default as FormLabel } from './ui/FormLabel.vue';
 export { default as Select } from './ui/Select.vue';
 export { default as TextArea } from './ui/TextArea.vue';
+export { default as TextAreaFloating } from './ui/TextAreaFloating.vue';
 export { default as TextInput } from './ui/TextInput.vue';
 export { default as TextInputFloating } from './ui/TextInputFloating.vue';
 
