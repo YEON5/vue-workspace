@@ -2,7 +2,6 @@
 import { Container, Lottie, Section, Typo } from '@ui/vue';
 </script>
 
-
 <template>
   <Container>
     <Section>

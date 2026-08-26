@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { Button, Container, Divider, Flex, IArrowRightS, IMy, Section, TextButton, Typo } from '@ui/vue';
-
 </script>
-
 
 <template>
   <Container>

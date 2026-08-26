@@ -2,7 +2,6 @@
 import { Container, Divider, Flex, Section, Typo } from '@ui/vue';
 </script>
 
-
 <template>
   <Container>
     <Typo variant="heading-l" class="pb-9">Typo</Typo>

@@ -9,7 +9,6 @@ const handleBannerClick = () => {
 }
 </script>
 
-
 <template>
   <ResultView
     title="완료되었습니다"

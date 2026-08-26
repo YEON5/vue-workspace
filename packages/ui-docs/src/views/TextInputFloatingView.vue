@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import {
-  Container,
-  Flex,
-  FormGroup,
-  Section,
-  TextInputFloating,
-  Typo
-} from '@ui/vue';
+import { Container, Flex, FormGroup, Section, TextInputFloating, Typo } from '@ui/vue';
 import { ref } from 'vue';
 
 
@@ -14,7 +7,6 @@ import { ref } from 'vue';
 const formData = ref({
 })
 </script>
-
 
 <template>
   <Container>

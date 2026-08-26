@@ -1,18 +1,5 @@
 <script setup lang="ts">
-import {
-  Button,
-  Container,
-  Divider,
-  Flex,
-  FormGroup,
-  FormLabel,
-  ISearch,
-  Section,
-  Select,
-  TextButton,
-  TextInput,
-  Typo
-} from '@ui/vue';
+import { Button, Container, Divider, Flex, FormGroup, FormLabel, ISearch, Section, TextButton, TextInput, Typo } from '@ui/vue';
 import { ref, useId } from 'vue';
 
 
@@ -45,19 +32,11 @@ const formData = ref({
   amount: '',
 })
 
-// select Data
-const selectValue = ref('1');
-const selectOptions = [
-  {label: '옵션1', value: '1'},
-  {label: '옵션2', value: '2'},
-  {label: '옵션3', value: '3'}
-]
 // label for input id 매칭
 const nameId = useId()
 const searchId = useId()
 const amountId = useId()
 </script>
-
 
 <template>
   <Container>
@@ -126,6 +105,8 @@ const amountId = useId()
       </Flex>
 
       <Divider type="thin" class="my-10" />
+
+      <Typo variant="heading-s" class="pb-5">폼 조합</Typo>
 
       <Flex direction="col" gap="6">
         <FormGroup
@@ -294,17 +275,6 @@ const amountId = useId()
           </template>
 
           <TextInput placeholder="placeholder" />
-        </FormGroup>
-      </Flex>
-
-      <Divider type="thin" class="my-10" />
-
-      <Flex direction="col" gap="6">
-        <FormGroup label="레이블" pb="5">
-          <Select
-            v-model="selectValue"
-            :options="selectOptions"
-            placeholder="선택하세요" />
         </FormGroup>
       </Flex>
     </Section>

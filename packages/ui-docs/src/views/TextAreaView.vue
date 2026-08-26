@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import {
-  Container,
-  Flex,
-  FormGroup,
-  FormLabel,
-  Section,
-  TextArea,
-  Typo
-} from '@ui/vue';
+import { Container, Flex, FormGroup, FormLabel, Section, Select, TextArea, Typo } from '@ui/vue';
 import { ref } from 'vue';
 
-
+// select Data
+const selectValue = ref('1');
+const selectOptions = [
+  {label: '옵션1', value: '1'},
+  {label: '옵션2', value: '2'},
+  {label: '옵션3', value: '3'}
+]
 // formData
 const formData = ref({
   labelTextarea: '',
@@ -18,10 +16,20 @@ const formData = ref({
 })
 </script>
 
-
 <template>
   <Container>
     <Section>
+      <Typo variant="heading-l" class="pb-9">Select</Typo>
+
+      <Flex direction="col" gap="6">
+        <FormGroup label="레이블" pb="5">
+          <Select
+            v-model="selectValue"
+            :options="selectOptions"
+            placeholder="선택하세요" />
+        </FormGroup>
+      </Flex>
+
       <Typo variant="heading-l" class="pb-9">TextArea</Typo>
 
       <Flex direction="col" gap="6">
