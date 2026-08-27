@@ -34,26 +34,26 @@ const props = withDefaults(defineProps<Props>(), {
   floatMode: false,
 });
 
-// textarea error 상태 주입
+// textarea error 상태
 const formGroupError = inject<Ref<boolean>>('formGroupError', ref(false));
 const hasError = computed(() => props.error || formGroupError.value);
 
 const modelValue = defineModel<string>({ default: '' });
 
-// 고유 ID 자동 생성 (Label for 속성 매칭용)
+// id를 직접 안 받으면 자체 생성
 const autoId = useId();
 const internalId = computed(() => props.id ?? autoId);
 
 const { containerRef, isFocused, handleFocusIn, handleFocusOut } = useFocusContainer();
 
-// 💡 floating label 제어[cite: 5]
+// floating label
 const isFloated = computed(() =>
-  props.floatMode ||
-  isFocused.value ||
-  !!modelValue.value
+  props.floatMode ||  // 강제 플로팅 모드 (데이터 로딩 버그 방지)
+  isFocused.value ||  // 인풋에 포커스가 갔을 때
+  !!modelValue.value  // 인풋에 값이 존재할 때
 );
 
-// 💡 placeholder 제어 (라벨이 올라갈 시간을 벌어주는 지연 노출)[cite: 5]
+// placeholder 제어
 const displayPlaceholder = ref('');
 let placeholderTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -82,30 +82,25 @@ onBeforeUnmount(() => {
   if (placeholderTimer) clearTimeout(placeholderTimer);
 });
 
-// Label 스타일 연산
+
 const labelColorClass = computed(() => {
   if (props.disabled) return colorMap['disabled'];
   if (!isFloated.value) return colorMap['secondary'];
   return colorMap['caption'];
 });
-
 const labelClasses = computed(() =>
   cn(
     'absolute left-5 transition-all duration-200 pointer-events-none',
     labelColorClass.value,
     isFloated.value
-      ? cn('top-[8px]', TypoMap['label-xs']) // 떠올랐을 때: 약간 위로 붙으면서 작아짐
-      : cn('top-[12px]', TypoMap['label-m']),     // 💡 평상시: 정중앙이 아닌 textarea 기본 상단 패딩(py-4) 위치에 정렬
+      ? cn('top-[8px]', TypoMap['label-xs']) 
+      : cn('top-[12px]', TypoMap['label-m']), 
   )
 );
-
-// Wrapper 및 Textarea 클래스 연산
 const wrapperClasses = computed(() => cn('flex flex-col gap-3', props.class));
-
 const textareaClasses = computed(() =>
   cn(
     'block w-full px-5 border rounded-lg outline-none transition-colors',
-    // 💡 라벨이 있을 때는 텍스트가 겹치지 않게 상단 패딩을 여유롭게(pt-[28px]) 주고, 없을 때는 기본 패딩(py-4) 사용
     props.label ? 'pt-[28px] pb-[12px]' : 'py-[12px]', 
     TypoMap['label-m'],
 
@@ -119,7 +114,7 @@ const textareaClasses = computed(() =>
     props.readonly && !props.disabled && 'bg-gray-100',
     hasError.value && !props.disabled && borderColorMap['error'],
 
-    // disabled 스타일
+    // disabled일 때만
     props.disabled && [
       colorMap['disabled'],
       bgColorMap['disabled'],
@@ -138,7 +133,7 @@ const textareaClasses = computed(() =>
   )
 );
 
-// 글자 수 카운팅[cite: 6]
+// 글자 수 카운팅
 const textCount = computed(() => modelValue.value.length);
 </script>
 
@@ -166,7 +161,7 @@ const textCount = computed(() => modelValue.value.length);
       />
     </div>
 
-    <!-- 글자 수 표시[cite: 6] -->
+    <!-- 글자 수 표시 (showCount와 maxLength가 있을 때만 노출) -->
     <div v-if="showCount && maxLength" class="flex justify-end">
       <span class="text-xs text-gray-500 shrink-0">
         <span :class="{ 'text-destructive': textCount >= maxLength }">

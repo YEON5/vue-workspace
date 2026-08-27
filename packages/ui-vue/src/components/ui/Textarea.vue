@@ -36,12 +36,10 @@ const modelValue = defineModel<string>({ default: '' });
 
 const { containerRef, handleFocusIn, handleFocusOut } = useFocusContainer();
 
-// wrapper: 레이아웃(너비, margin 등) - class는 여기서만 적용
+
 const wrapperClasses = computed(() =>
   cn('flex flex-col gap-3', props.class)
 );
-
-// textarea 높이 임의 패딩값 px-5 py-4 적용
 const textareaClasses = computed(() =>
   cn(
     'block w-full px-5 py-4 border rounded-lg outline-none transition-colors',

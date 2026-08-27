@@ -49,7 +49,7 @@ const { spacingClasses } = useSpacing(props);
 const slots = useSlots();
 const inputRef = ref<HTMLInputElement | null>(null);
 
-// id를 직접 안 받으면 자체 생성 (label의 for와 연결하기 위함 - 이 컴포넌트는 label을 자체 내장)
+// id를 직접 안 받으면 자체 생성
 const autoId = useId();
 const internalId = computed(() => props.id ?? autoId);
 
