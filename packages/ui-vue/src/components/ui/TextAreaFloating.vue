@@ -18,6 +18,7 @@ interface Props {
   showCount?: boolean; // 우측 하단 글자 수 표시 여부
   class?: string;
   floatMode?: boolean; // 데이터 로드 시점 애니메이션 방지용 강제 플로팅
+  ariaLabel?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -158,6 +159,7 @@ const textCount = computed(() => modelValue.value.length);
         :maxlength="maxLength"
         :rows="rows"
         :class="textareaClasses"
+        :aria-label="ariaLabel"
       />
     </div>
 

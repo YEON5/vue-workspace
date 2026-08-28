@@ -20,6 +20,7 @@ interface Props {
   maxLength?: number;
   clearable?: boolean;
   class?: string;
+  ariaLabel?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -112,6 +113,7 @@ const inputClasses = computed(() =>
       :disabled="disabled"
       :maxlength="maxLength"
       :class="inputClasses"
+      :aria-label="ariaLabel"
     >
     <div
       v-if="clearable || slots.suffix"

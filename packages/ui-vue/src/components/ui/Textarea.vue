@@ -15,6 +15,7 @@ interface Props {
   resize?: 'none' | 'vertical' | 'horizontal' | 'both';
   showCount?: boolean; // 우측 하단 글자 수
   class?: string;
+  ariaLabel?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -95,6 +96,7 @@ const textCount = computed(() => modelValue.value.length);
         :maxlength="maxLength"
         :rows="rows"
         :class="textareaClasses"
+        :aria-label="ariaLabel"
       />
     </div>
 

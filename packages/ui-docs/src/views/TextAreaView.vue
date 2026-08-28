@@ -66,7 +66,6 @@ const formData = ref({
             <Typo variant="body-s" color="caption">100자 이내로 입력해주세요</Typo>
             <Typo as="span" variant="body-s" color="caption">{{ formData.labelTextarea.length }}/100</Typo>
           </Flex>
-
         </Flex>
       </Flex>
     </Section>

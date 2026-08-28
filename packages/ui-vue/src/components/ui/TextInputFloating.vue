@@ -23,6 +23,7 @@ interface Props extends SpacingProps {
   maxLength?: number;
   clearable?: boolean;
   class?: string;
+  ariaLabel?: string;
   floatMode?: boolean; // 데이터 로드 시점 애니메이션 방지용 강제 플로팅
 }
 
@@ -177,8 +178,9 @@ const inputClasses = computed(() =>
       :readonly="readonly"
       :disabled="disabled"
       :maxlength="maxLength"
-      :class="inputClasses"
       :placeholder="displayPlaceholder"
+      :class="inputClasses"
+      :aria-label="ariaLabel"
     >
 
     <div
