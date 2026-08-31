@@ -17,7 +17,7 @@ const imgList = ref<ImgBanner[]>([
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" class="pb-9">Image</Typo>
+      <Typo variant="heading-l" pb="9">Image</Typo>
       
       <Box>
         <Image

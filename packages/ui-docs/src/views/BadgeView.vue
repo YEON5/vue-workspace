@@ -5,7 +5,7 @@ import { Badge, Box, Container, Flex, ITime, Section, Typo } from '@ui/vue';
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" class="pb-9">Badge</Typo>
+      <Typo variant="heading-l" pb="9">Badge</Typo>
       
       <Box>
         <Flex direction="col" gap="6">

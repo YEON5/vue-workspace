@@ -5,7 +5,7 @@ import { Button, Container, Divider, Flex, IArrowRightS, IMy, Section, TextButto
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" class="pb-9">Button</Typo>
+      <Typo variant="heading-l" pb="9">Button</Typo>
 
       <Flex direction="col" gap="6" class="w-fit">
         <Button variant="fill" size="sm">버튼 fill</Button>
@@ -46,7 +46,7 @@ import { Button, Container, Divider, Flex, IArrowRightS, IMy, Section, TextButto
     <Divider type="thin" class="my-10" />
 
     <Section>
-      <Typo variant="heading-l" class="pb-9">TextButton</Typo>
+      <Typo variant="heading-l" pb="9">TextButton</Typo>
 
       <Flex gap="6">
         <TextButton size="sm">텍스트 버튼</TextButton>

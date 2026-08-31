@@ -4,12 +4,12 @@ import { Container, Divider, Flex, Section, Typo } from '@ui/vue';
 
 <template>
   <Container>
-    <Typo variant="heading-l" class="pb-9">Typo</Typo>
+    <Typo variant="heading-l" pb="9">Typo</Typo>
     
     <Section>
       <Flex direction="col" gap="6">
-        <Typo variant="display-l">variant display-l</Typo>
-        <Typo variant="display-m">variant display-m</Typo>
+        <Typo variant="display">variant display</Typo>
+        <Typo variant="heading-xl">variant heading-xl</Typo>
         <Typo variant="heading-l">variant heading-l</Typo>
         <Typo variant="heading-m">variant heading-m</Typo>
         <Typo variant="heading-s">variant heading-s</Typo>

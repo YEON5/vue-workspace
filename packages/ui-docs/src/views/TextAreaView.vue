@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Container, Flex, FormGroup, FormLabel, Section, Select, TextArea, Typo } from '@ui/vue';
-import { ref } from 'vue';
+import { Container, Divider, Flex, FormGroup, FormLabel, Section, Select, TextArea, Typo } from '@ui/vue';
+import { ref, useId } from 'vue';
 
 // select Data
 const selectValue = ref('1');
@@ -14,23 +14,29 @@ const formData = ref({
   labelTextarea: '',
   labelTextarea2: '',
 })
+
+const selectId = useId()
+const formSelect = 'formSelect'
 </script>
 
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" class="pb-9">Select</Typo>
+      <Typo variant="heading-l" pb="9">Select</Typo>
 
       <Flex direction="col" gap="6">
-        <FormGroup label="레이블" pb="5">
+        <FormGroup label="레이블" pb="5" :input-id="formSelect">
           <Select
+            :id="formSelect"
             v-model="selectValue"
             :options="selectOptions"
             placeholder="선택하세요" />
         </FormGroup>
       </Flex>
 
-      <Typo variant="heading-l" class="pb-9">TextArea</Typo>
+      <Divider type="thin" class="my-10" />
+
+      <Typo variant="heading-l" pb="9">TextArea</Typo>
 
       <Flex direction="col" gap="6">
         <FormGroup

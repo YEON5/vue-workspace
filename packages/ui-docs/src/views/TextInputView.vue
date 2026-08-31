@@ -52,7 +52,7 @@ const bizNum1Id = useId()
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" class="pb-9">Text Input</Typo>
+      <Typo variant="heading-l" pb="9">Text Input</Typo>
 
       <Flex direction="col" gap="6">
         <FormGroup

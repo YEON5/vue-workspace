@@ -5,7 +5,7 @@ import { Container, Flex, IMy, Section, Tag, Typo } from '@ui/vue';
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" class="pb-9">Tag</Typo>
+      <Typo variant="heading-l" pb="9">Tag</Typo>
       
       <Flex gap="5">
         <Tag variant="solid" color="success">완료</Tag>

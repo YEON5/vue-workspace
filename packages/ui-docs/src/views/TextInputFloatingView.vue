@@ -13,7 +13,7 @@ const formData = ref({
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" class="pb-9">Textinput Floating</Typo>
+      <Typo variant="heading-l" pb="9">Textinput Floating</Typo>
 
       <Flex direction="col" gap="6">
         <FormGroup
@@ -58,7 +58,7 @@ const formData = ref({
 
       <Divider type="thin" class="my-10" />
 
-      <Typo variant="heading-l" class="pb-9">TextArea Floating</Typo>
+      <Typo variant="heading-l" pb="9">TextArea Floating</Typo>
 
       <Flex direction="col" gap="6">
         <FormGroup

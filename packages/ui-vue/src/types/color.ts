@@ -11,7 +11,7 @@ export type ColorToken =
   | 'success'
   | 'warning'
   | 'display'
-  | 'title'
+  | 'heading'
   | 'body'
   | 'caption'
   | 'label'
@@ -22,10 +22,10 @@ export type ColorToken =
 // text color
 export const colorMap: Record<ColorToken, string> = {
   primary:   'text-mint-500',
-  secondary: 'text-gray-800',
+  secondary: 'text-gray-900',
   tertiary:  'text-gray-700',
-  display:   'text-gray-900',
-  title:     'text-gray-950',
+  display:   'text-gray-black',
+  heading:   'text-gray-950',
   body:      'text-foreground',
   caption:   'text-gray-500',
   label:     'text-gray-600',

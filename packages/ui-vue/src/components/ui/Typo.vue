@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { useSpacing, type SpacingProps } from '#/composables/useSpacing';
 import { colorMap, textAlignMap, TypoMap, type ColorToken, type TypoAlign, type TypoToken } from '#/types';
 import { cn } from '#/utils/cn';
 import { computed } from 'vue';
 
-interface Props {
+interface Props extends SpacingProps {
   as?: string;
   variant?: TypoToken;
   color?: ColorToken;
@@ -26,6 +27,8 @@ const multiEllipsisMap = {
   4: 'line-clamp-4',
 };
 
+const { spacingClasses } = useSpacing(props);
+
 const classes = computed(() =>
   cn(
     TypoMap[props.variant],
@@ -33,6 +36,7 @@ const classes = computed(() =>
     props.align && textAlignMap[props.align],
     props.ellipsis && !props.multiEllipsis && 'truncate',
     props.multiEllipsis && multiEllipsisMap[props.multiEllipsis],
+    spacingClasses.value,
     props.class,
   )
 );

@@ -2,8 +2,8 @@
 import type { ColorToken } from './color';
 
 export type TypoToken =
-  | 'display-l'
-  | 'display-m'
+  | 'display'
+  | 'heading-xl'
   | 'heading-l'
   | 'heading-m'
   | 'heading-s'
@@ -24,20 +24,20 @@ export type TypoAlign =
 
 // 크기 + 굵기 + line-height + letter-spacing
 export const TypoMap: Record<TypoToken, string> = {
-  'display-l': 'text-4xl font-bold leading-tight tracking-[-0.5px]',
-  'display-m': 'text-3xl font-bold leading-tight tracking-[-0.5px]',
-  'heading-l': 'text-2xl font-bold leading-snug tracking-[-0.3px]',
-  'heading-m': 'text-xl font-bold leading-snug tracking-[-0.3px]',
-  'heading-s': 'text-lg font-bold leading-snug tracking-[-0.3px]',
-  'body-l':    'text-lg font-medium leading-normal tracking-[-0.24px]',
-  'body-m':    'text-md font-normal leading-normal tracking-[-0.24px]',
-  'body-s':    'text-sm font-normal leading-normal tracking-[-0.24px]',
-  'label-l':   'text-lg font-bold leading-snug tracking-[-0.3px]',
-  'label-m':   'text-md font-normal leading-normal tracking-[-0.24px]',
-  'label-s':   'text-sm font-normal leading-normal tracking-[-0.24px]',
-  'label-xs':  'text-xs font-normal leading-normal tracking-[-0.2px]',
-  'caption-1': 'text-xs font-normal leading-normal tracking-[-0.2px]',
-  'caption-2': 'text-xxs font-normal leading-[18px] tracking-[-0.2px]',
+  'display': 'text-4xl font-bold tracking-[-0.1px]',
+  'heading-xl': 'text-3xl font-bold tracking-[-0.1px]',
+  'heading-l': 'text-2xl font-bold tracking-[-0.2px]',
+  'heading-m': 'text-xl font-bold tracking-[-0.2px]',
+  'heading-s': 'text-lg font-bold tracking-[-0.2px]',
+  'body-l':    'text-lg font-medium tracking-[-0.2px]',
+  'body-m':    'text-md font-normal tracking-[-0.2px]',
+  'body-s':    'text-sm font-normal tracking-[-0.2px]',
+  'label-l':   'text-lg font-medium tracking-[-0.2px]',
+  'label-m':   'text-md font-normal tracking-[-0.2px]',
+  'label-s':   'text-sm font-normal tracking-[-0.2px]',
+  'label-xs':  'text-xs font-normal tracking-[-0.2px]',
+  'caption-1': 'text-xs font-normal tracking-[-0.2px]',
+  'caption-2': 'text-xxs font-normal tracking-[-0.2px]',
 };
 
 // 정렬
