@@ -21,10 +21,14 @@ export { default as Button } from './ui/Button.vue';
 export { default as TextButton } from './ui/TextButton.vue';
 export { default as Typo } from './ui/Typo.vue';
 
-// ui - 표시(Tag/Badge)
+// ui - 표시
 export { default as Badge } from './ui/Badge.vue';
 export { default as Image } from './ui/Image.vue';
 export { default as Tag } from './ui/Tag.vue';
+
+// ui - 리스트
+export { default as BulletItem } from './ui/BulletItem.vue';
+export { default as BulletList } from './ui/BulletList.vue';
 
 // ui - 폼
 export { default as FormGroup } from './ui/FormGroup.vue';
