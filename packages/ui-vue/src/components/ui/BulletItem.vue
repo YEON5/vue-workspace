@@ -4,27 +4,24 @@ import { cn } from '#/utils/cn';
 import { computed, inject } from 'vue';
 
 interface Props {
-  index?: number; // number 타입일 때 순번 (1부터)
   class?: string;
 }
 
 const props = defineProps<Props>();
 
 const depth = inject<number>('bulletDepth', 0);
-const type = inject<'dot' | 'hyphen' | 'number'>('bulletType', 'dot');  // BulletList에서 내려준 type을 그대로 상속받음 (기본값 dot)
+const type = inject<'dot' | 'hyphen' | 'number'>('bulletType', 'dot'); // BulletList에서 내려준 type을 그대로 상속받음 (기본값 dot)
 
 const textClass = computed(() => (depth === 0 ? TypoMap['label-m'] : TypoMap['label-s']));
-const markerClass = computed(() => {
-  if (type !== 'dot' && type !== 'hyphen') return '';
-  const depthKey = depth === 0 ? 'depth0' : 'depth1';
-  return `bullet-${type}-${depthKey}`;
-});
+
 const itemClasses = computed(() =>
   cn(
-    'relative flex items-start gap-1.5',
+    'relative flex flex-col',
     textClass.value,
+    type === 'dot' && 'bullet-dot pl-[10px]',
+    type === 'hyphen' && 'bullet-hyphen pl-[10px]',
+    type === 'number' && ['bullet-number pl-[16px]', '[counter-increment:bullet-idx]'],
     colorMap['body'],
-    markerClass.value && [markerClass.value, 'pl-[10px]'],
     props.class,
   )
 );
@@ -32,63 +29,40 @@ const itemClasses = computed(() =>
 
 <template>
   <li :class="itemClasses">
-    <!-- number 타입만 순번 텍스트를 직접 렌더링 -->
-    <span v-if="type === 'number'" class="shrink-0" :class="textClass">{{ index ?? 1 }}.</span>
- 
-    <div class="flex-1">
-      <slot />
-      <!-- 중첩된 BulletList가 여기 들어오면 depth/type이 자동으로 갱신되어 스타일 적용됨 -->
-      <slot name="depth" />
-    </div>
+    <slot />
+    <slot name="depth" />
   </li>
 </template>
- 
+
 <style scoped>
-/* dot - 1depth */
-.bullet-dot-depth0::before {
-  content: '';
-  display: block;
+/* number type 번호 자동 생성 */
+.bullet-number::before {
+  content: counter(bullet-idx) '. ';
   position: absolute;
-  top: 11px;
+  top: 0;
+  left: 0;
+}
+/* dot */
+.bullet-dot::before {
+  content: '';
+  position: absolute;
+  top: 0.75em;
   left: 0;
   width: 4px;
   height: 4px;
   border-radius: 50%;
   background-color: currentColor;
+  transform: translateY(-50%);
 }
-/* dot - 2depth */
-.bullet-dot-depth1::before {
+/* hyphen */
+.bullet-hyphen::before {
   content: '';
-  display: block;
   position: absolute;
-  top: 8px;
-  left: 0;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background-color: currentColor;
-}
- 
-/* hyphen - 1depth */
-.bullet-hyphen-depth0::before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 12px;
+  top: 0.75em;
   left: 0;
   width: 4px;
   height: 1px;
   background-color: currentColor;
-}
-/* hyphen - 2depth */
-.bullet-hyphen-depth1::before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 10px;
-  left: 0;
-  width: 4px;
-  height: 1px;
-  background-color: currentColor;
+  transform: translateY(-50%);
 }
 </style>

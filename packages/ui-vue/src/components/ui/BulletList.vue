@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { colorMap } from '#/types';
 import { cn } from '#/utils/cn';
 import { computed, inject, provide } from 'vue';
 
@@ -25,13 +24,13 @@ provide('bulletType', props.type);
 const listClasses = computed(() =>
   cn(
     'flex flex-col list-none',
-    depth === 0 ? 'gap-2' : 'gap-2 pl-1 my-[8px]', // 2-depth 들여쓰기 + 상/하단 여백
-    colorMap['body'],
+    depth === 0 ? 'gap-2' : 'gap-2 pl-1 my-[8px]', // 2depth 부터는 1depth 문구만큼 들여쓰기 + 상하 여백
+    props.type === 'number' && '[counter-reset:bullet-idx]',
     props.class,
   )
 );
 
-// type + depth에 따른 tag
+// type에 따른 tag 결정
 const tag = computed(() => (props.type === 'number' ? 'ol' : 'ul'));
 </script>
 
@@ -40,5 +39,3 @@ const tag = computed(() => (props.type === 'number' ? 'ol' : 'ul'));
     <slot />
   </component>
 </template>
-
-

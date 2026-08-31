@@ -7,13 +7,13 @@ import { BulletItem, BulletList, Container, Divider, Section, Typo } from '@ui/v
     <Section>
       <Typo variant="heading-l" pb="9">BulletList</Typo>
       
-      <!-- 1depth 도트형 -->
+      <!-- 도트형 -->
       <BulletList type="dot">
         <BulletItem>Bullet dot 첫 번째 항목입니다.</BulletItem>
         <BulletItem>
           Bullet dot 두 번째 항목입니다.
           <template #depth>
-            <!-- 2depth - 새로운 BulletList로 type을 hyphen으로 전환, depth는 자동 +1 -->
+            <!-- 2depth -->
             <BulletList type="hyphen">
               <BulletItem>하위 항목 1</BulletItem>
               <BulletItem>하위 항목 2</BulletItem>
@@ -25,6 +25,7 @@ import { BulletItem, BulletList, Container, Divider, Section, Typo } from '@ui/v
 
       <Divider type="thin" class="my-10" />
 
+      <!-- 하이픈형 -->
       <BulletList type="hyphen">
         <BulletItem>Bullet hyphen 첫 번째 항목입니다.</BulletItem>
         <BulletItem>Bullet hyphen 두 번째 항목입니다.</BulletItem>
@@ -34,18 +35,32 @@ import { BulletItem, BulletList, Container, Divider, Section, Typo } from '@ui/v
  
       <!-- 숫자형 -->
       <BulletList type="number">
-        <BulletItem :index="1">
+        <BulletItem>
           Bullet number 첫 번째 순서
           <template #depth>
-            <!-- 2depth - 새로운 BulletList로 type을 hyphen으로 전환, depth는 자동 +1 -->
+            <!-- 2depth -->
             <BulletList type="dot">
               <BulletItem>하위 항목 1</BulletItem>
               <BulletItem>하위 항목 2</BulletItem>
             </BulletList>
           </template>
         </BulletItem>
-        <BulletItem :index="2">Bullet number 두 번째 순서</BulletItem>
-        <BulletItem :index="3">Bullet number 세 번째 순서</BulletItem>
+        <BulletItem>Bullet number 두 번째 순서</BulletItem>
+        <BulletItem>
+          Bullet number 세 번째 순서
+          <BulletList type="number">
+            <BulletItem>
+              하위 항목 1
+              <template #depth>
+                <BulletList type="dot">
+                  <BulletItem>더 깊은 항목 1</BulletItem>
+                  <BulletItem>더 깊은 항목 2</BulletItem>
+                </BulletList>
+              </template>
+            </BulletItem>
+            <BulletItem>하위 항목 2</BulletItem>
+          </BulletList>
+        </BulletItem>
       </BulletList>
  
     </Section>
