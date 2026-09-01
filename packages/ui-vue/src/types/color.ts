@@ -55,8 +55,8 @@ export const bgColorMap: Partial<Record<ColorToken, string>> = {
 // border color
 export const borderColorMap: Partial<Record<ColorToken, string>> = {
   primary:   'border-mint-500',
-  secondary: 'border-gray-600',
-  tertiary:  'border-gray-500',
+  secondary: 'border-gray-500',
+  tertiary:  'border-gray-300',
   info:      'border-mint-600',
   error:     'border-destructive',
   success:   'border-blue-500',

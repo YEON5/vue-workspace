@@ -29,6 +29,9 @@ export { default as Tag } from './ui/Tag.vue';
 // ui - 리스트
 export { default as BulletItem } from './ui/BulletItem.vue';
 export { default as BulletList } from './ui/BulletList.vue';
+export { default as List } from './ui/List.vue';
+export { default as ListItem } from './ui/ListItem.vue';
+export { default as ListItemLink } from './ui/ListItemLink.vue';
 
 // ui - 폼
 export { default as FormGroup } from './ui/FormGroup.vue';
