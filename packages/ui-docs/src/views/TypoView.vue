@@ -42,7 +42,7 @@ import { Container, Divider, Flex, Section, Typo } from '@ui/vue';
       </Flex> -->
     </Section>
   
-    <Divider type="thin" class="my-10" />
+    <Divider type="thin" my="10" />
 
     <Section>
       <Typo text="lg" weight="medium" ellipsis>
@@ -50,7 +50,7 @@ import { Container, Divider, Flex, Section, Typo } from '@ui/vue';
       </Typo>
     </Section>
 
-    <Divider type="thin" class="my-10" />
+    <Divider type="thin" my="10" />
     
     <Section>
       <Typo :multi-ellipsis="2">

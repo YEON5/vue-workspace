@@ -34,6 +34,8 @@ export { default as ListItem } from './ui/ListItem.vue';
 export { default as ListItemLink } from './ui/ListItemLink.vue';
 
 // ui - 폼
+export { default as Checkbox } from './ui/Checkbox.vue';
+export { default as Filter } from './ui/Filter.vue';
 export { default as FormGroup } from './ui/FormGroup.vue';
 export { default as FormLabel } from './ui/FormLabel.vue';
 export { default as Select } from './ui/Select.vue';

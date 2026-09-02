@@ -115,7 +115,7 @@ const bizNum1Id = useId()
         </FormGroup>
       </Flex>
 
-      <Divider type="thin" class="my-10" />
+      <Divider type="thin" my="10" />
 
       <Typo variant="heading-s" class="pb-5">폼 조합</Typo>
 
@@ -188,7 +188,7 @@ const bizNum1Id = useId()
         </FormGroup>
       </Flex>
 
-      <Divider type="thin" class="my-10" />
+      <Divider type="thin" my="10" />
 
       <!-- 입력폼 조합 -->
       <Flex direction="col" gap="6">

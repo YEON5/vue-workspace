@@ -21,7 +21,7 @@ const tag = computed(() => (props.to ? 'RouterLink' : 'button'));
 const linkClasses = computed(() =>
   cn(
     'flex items-center justify-between w-full gap-3 py-4 text-left transition-colors',
-    !props.disabled && 'hover:bg-gray-50',
+    !props.disabled && 'hover:bg-gray-50 focus-visible:bg-gray-50 focus-visible:outline-none',
     props.disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
   )
 );

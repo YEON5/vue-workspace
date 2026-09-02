@@ -56,7 +56,7 @@ const formData = ref({
         </FormGroup>
       </Flex>
 
-      <Divider type="thin" class="my-10" />
+      <Divider type="thin" my="10" />
 
       <Typo variant="heading-l" pb="9">TextArea Floating</Typo>
 

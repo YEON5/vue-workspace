@@ -43,7 +43,7 @@ import { Button, Container, Divider, Flex, IArrowRightS, IMy, Section, TextButto
       </Flex>
     </Section>
 
-    <Divider type="thin" class="my-10" />
+    <Divider type="thin" my="10" />
 
     <Section>
       <Typo variant="heading-l" pb="9">TextButton</Typo>

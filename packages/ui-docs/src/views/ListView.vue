@@ -12,7 +12,7 @@ import { Container, Divider, List, ListItem, ListItemLink, Section, Typo } from 
         <ListItem>divide 없는 기본형 목록 내용2</ListItem>
       </List>
       
-      <Divider type="thin" class="my-10" />
+      <Divider type="thin" my="10" />
 
       <Typo variant="body-l" pb="4">좌우 정렬형</Typo>
       <!-- 좌우 정렬형 -->
@@ -65,7 +65,7 @@ import { Container, Divider, List, ListItem, ListItemLink, Section, Typo } from 
         </ListItem>
       </List>
 
-      <Divider type="thin" class="my-10" />
+      <Divider type="thin" my="10" />
 
       <Typo variant="body-l" pb="4">링크형</Typo>
       <!-- 링크형 -->

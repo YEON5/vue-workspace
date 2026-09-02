@@ -23,7 +23,7 @@ import { BulletItem, BulletList, Container, Divider, Section, Typo } from '@ui/v
         <BulletItem>Bullet dot 세 번째 항목입니다.</BulletItem>
       </BulletList>
 
-      <Divider type="thin" class="my-10" />
+      <Divider type="thin" my="10" />
 
       <!-- 하이픈형 -->
       <BulletList type="hyphen">
@@ -31,7 +31,7 @@ import { BulletItem, BulletList, Container, Divider, Section, Typo } from '@ui/v
         <BulletItem>Bullet hyphen 두 번째 항목입니다.</BulletItem>
       </BulletList>
             
-      <Divider type="thin" class="my-10" />
+      <Divider type="thin" my="10" />
  
       <!-- 숫자형 -->
       <BulletList type="number">

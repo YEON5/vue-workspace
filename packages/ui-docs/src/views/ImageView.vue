@@ -29,7 +29,7 @@ const imgList = ref<ImgBanner[]>([
         />
       </Box>
 
-      <Divider type="thin" />
+      <Divider type="thin" my="10" />
 
       <Box>
         <Image
@@ -42,7 +42,7 @@ const imgList = ref<ImgBanner[]>([
         />
       </Box>
       
-      <Divider type="thin" />
+      <Divider type="thin" my="10" />
 
       <Flex>
         <Image
