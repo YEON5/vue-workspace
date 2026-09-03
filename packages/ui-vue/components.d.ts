@@ -41,6 +41,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     Section: typeof import('./src/components/ui/Section.vue')['default']
     Select: typeof import('./src/components/ui/Select.vue')['default']
+    Switch: typeof import('./src/components/ui/Switch.vue')['default']
     Tag: typeof import('./src/components/ui/Tag.vue')['default']
     Textarea: typeof import('./src/components/ui/Textarea.vue')['default']
     TextArea: typeof import('./src/components/ui/TextArea.vue')['default']
