@@ -30,6 +30,7 @@ const formData = ref({
             placeholder="placeholder"
           />
         </FormGroup>
+
         <FormGroup
           error
           error-msg="에러메시지"
@@ -39,6 +40,7 @@ const formData = ref({
             required
           />
         </FormGroup>
+
         <FormGroup>
           <TextInputFloating
             v-model="formData.labelText"
@@ -46,6 +48,7 @@ const formData = ref({
             readonly
           />
         </FormGroup>
+        
         <FormGroup
           disabled
         >

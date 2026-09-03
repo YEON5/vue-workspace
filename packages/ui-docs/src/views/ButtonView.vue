@@ -37,15 +37,14 @@ import { Button, Container, Divider, Flex, IArrowRightS, IMy, Section, TextButto
 
         <Button variant="fill" size="lg" full>버튼 full</Button>
       </Flex>
+      
       <Flex align="center" justify="between" gap="4" mt="5">
         <Button color="secondary" size="lg" class="flex-1">버튼 lg</Button>
         <Button color="tertiary" size="lg" class="flex-1">버튼 lg</Button>
       </Flex>
-    </Section>
 
-    <Divider type="thin" my="10" />
+      <Divider type="thin" my="10" />
 
-    <Section>
       <Typo variant="heading-l" pb="9">TextButton</Typo>
 
       <Flex gap="6">

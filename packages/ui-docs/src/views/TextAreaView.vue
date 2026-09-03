@@ -73,6 +73,7 @@ const formSelect = 'formSelect'
             <Typo as="span" variant="body-s" color="caption">{{ formData.labelTextarea.length }}/100</Typo>
           </Flex>
         </Flex>
+        
       </Flex>
     </Section>
   </Container>

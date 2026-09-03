@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Container, Divider, Flex, Section, Typo } from '@ui/vue';
+import { Box, Container, Divider, Flex, Section, Typo } from '@ui/vue';
 </script>
 
 <template>
@@ -40,22 +40,22 @@ import { Container, Divider, Flex, Section, Typo } from '@ui/vue';
         <Divider direction="vertical" />
         <Typo variant="caption-2">variant caption-2</Typo>
       </Flex> -->
-    </Section>
-  
-    <Divider type="thin" my="10" />
+      <Divider type="thin" my="10" />
+      
+      <!-- 말줄임 ellipsis -->
+      <Box>
+        <Typo text="lg" weight="medium" ellipsis>
+          말줄임 1줄 내용입니다. 말줄임 1줄 내용입니다. 말줄임 1줄 내용입니다. 말줄임 1줄 내용입니다.
+        </Typo>
+      </Box>
 
-    <Section>
-      <Typo text="lg" weight="medium" ellipsis>
-        말줄임 1줄 내용입니다. 말줄임 1줄 내용입니다. 말줄임 1줄 내용입니다. 말줄임 1줄 내용입니다.
-      </Typo>
-    </Section>
-
-    <Divider type="thin" my="10" />
-    
-    <Section>
-      <Typo :multi-ellipsis="2">
-        말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다.
-      </Typo>
+      <Divider type="thin" my="10" />
+      
+      <Box>
+        <Typo :multi-ellipsis="2">
+          말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다. 말줄임 2줄 내용입니다.
+        </Typo>
+      </Box>
     </Section>
 
   </Container>
