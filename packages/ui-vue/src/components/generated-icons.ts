@@ -14,5 +14,7 @@ export { default as IInputDelete } from '../assets/icons/input-delete.svg?skipsv
 export { default as IMenu } from '../assets/icons/menu.svg';
 export { default as IMy } from '../assets/icons/my.svg';
 export { default as IOption } from '../assets/icons/option.svg';
+export { default as IPlus } from '../assets/icons/plus.svg';
+export { default as IRefresh } from '../assets/icons/refresh.svg';
 export { default as ISearch } from '../assets/icons/search.svg?skipsvgo';
 export { default as ITime } from '../assets/icons/time.svg';
