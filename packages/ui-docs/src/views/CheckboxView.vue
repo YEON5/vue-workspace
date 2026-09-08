@@ -2,6 +2,21 @@
 import { Checkbox, Container, Divider, Flex, Section, Typo } from '@ui/vue';
 import { ref } from 'vue';
 
+
+interface CheckboxItem {
+  label: string;
+  value: string;
+  disabled?: boolean;
+}
+const checkboxData = ref<CheckboxItem[]>([
+  { label: 'Checkbox1', value: 'checkbox1' },
+  { label: 'Checkbox2', value: 'checkbox2' },
+  { label: 'Checkbox3', value: 'checkbox3', disabled: true },
+  { label: 'Checkbox4', value: 'checkbox4', disabled: true },
+]);
+const checkboxSelect = ref<string[]>(['checkbox2', 'checkbox4']);
+
+
 // checked props 대신 v-model + value 사용
 const basicChk = ref<string[]>(['basic1', 'basic2']);
 const selectedAccount = ref<string[]>(['account1' , 'account2']);
@@ -11,6 +26,21 @@ const selectedAccount = ref<string[]>(['account1' , 'account2']);
   <Container>
     <Section>
       <Typo variant="heading-l" pb="9">Checkbox</Typo>
+
+      <!-- checkbox data -->
+      <Flex gap="6">
+        <Checkbox
+          v-for="(item, index) in checkboxData"
+          :key="index"
+          v-model="checkboxSelect"
+          :value="item.value"
+          :disabled="item.disabled"
+        >
+          {{ item.label }}
+        </Checkbox>
+      </Flex>
+
+      <Divider type="thin" my="10" />
       
       <!-- basic type -->
       <Flex direction="col" gap="6">

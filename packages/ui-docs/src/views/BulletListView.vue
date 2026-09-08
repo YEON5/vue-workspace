@@ -1,11 +1,60 @@
 <script setup lang="ts">
 import { BulletItem, BulletList, Container, Divider, Section, Typo } from '@ui/vue';
+import { ref } from 'vue';
+
+
+interface BulletItemNode {
+  label: string;
+  type: 'dot' | 'hyphen' | 'number';
+  depth?: BulletItemNode[];
+}
+const bulletData = ref<BulletItemNode[]>([
+  {
+    label: 'Bullet depth1 항목입니다.',
+    type: 'dot',
+    depth: [
+      { label: 'Bullet depth2 항목입니다.', type: 'hyphen' },
+      { label: 'Bullet depth2 항목입니다.', type: 'hyphen' },
+    ]
+  },
+  {
+    label: 'Bullet depth1 항목입니다.',
+    type: 'dot',
+  },
+  {
+    label: 'Bullet depth1 항목입니다.',
+    type: 'dot',
+  }
+]);
 </script>
 
 <template>
   <Container>
     <Section>
       <Typo variant="heading-l" pb="9">BulletList</Typo>
+
+      <!-- bullet data -->
+      <BulletList
+        v-for="(item, index) in bulletData"
+        :key="index"
+        :type="item.type"
+      >
+        <BulletItem>
+          {{ item.label }}
+      
+          <!-- 2depth -->
+          <BulletList v-if="item.depth && item.depth.length > 0" :type="item.depth[0].type">
+            <BulletItem
+              v-for="(child, childIndex) in item.depth"
+              :key="`child-${childIndex}`"
+            >
+              {{ child.label }}
+            </BulletItem>
+          </BulletList>
+        </BulletItem>
+      </BulletList>
+
+      <Divider type="thin" my="10" />
       
       <!-- 도트형 -->
       <BulletList type="dot">

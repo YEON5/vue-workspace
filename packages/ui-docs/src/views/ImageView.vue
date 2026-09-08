@@ -1,16 +1,20 @@
 <script setup lang="ts">
-import Divider from '#/components/ui/Divider.vue';
-import { Box, Container, Flex, Image, Section, Typo } from '@ui/vue';
+import { Box, Container, Divider, Flex, Image, ScrollArea, Section, Typo } from '@ui/vue';
 import { ref } from 'vue';
 
-interface ImgBanner {
+interface ImgList {
   src: string
   alt: string
 }
-const imgList = ref<ImgBanner[]>([
-  { src: '/images/temp_img.webp', alt: 'cat' },
-  { src: '/images/temp_img.webp', alt: 'dog' },
-  { src: '/images/temp_img.webp', alt: 'bird' },
+const bannerData = ref<ImgList[]>([
+  { src: '/images/temp_img.webp', alt: '이미지설명' },
+  { src: '/images/temp_img.webp', alt: '이미지설명' },
+  { src: '/images/temp_img.webp', alt: '이미지설명' },
+])
+const imgData = ref<ImgList[]>([
+  { src: '/images/temp_img.webp', alt: '이미지설명' },
+  { src: '/images/temp_img.webp', alt: '이미지설명' },
+  { src: '/images/temp_img.webp', alt: '이미지설명' },
 ])
 </script>
 
@@ -18,14 +22,47 @@ const imgList = ref<ImgBanner[]>([
   <Container>
     <Section>
       <Typo variant="heading-l" pb="9">Image</Typo>
+      <!-- images scroll data -->
+      <ScrollArea
+        snap
+        snap-align="center"
+        bleed="right"
+        class="gap-4"
+      >
+        <Image
+          v-for="img in bannerData"
+          :key="img.src"
+          v-bind="img"
+          object-fit="cover"
+          width="310px"
+          ratio="310/167"
+          class="bg-slate-400"
+        />
+      </ScrollArea>
       
+      <Divider type="thin" my="10" />
+
+      <!-- images data -->
+      <Flex wrap>
+        <Image
+          v-for="img in imgData"
+          :key="img.src"
+          v-bind="img"
+          object-fit="cover"
+          width="310px"
+          ratio="310/167"
+        />
+      </Flex>
+        
+      <Divider type="thin" my="10" />
+
       <Box>
         <Image
           src="/images/temp_img.webp"
           object-fit="cover"
           width="310px"
           ratio="310/167"
-          alt="cat"
+          alt="이미지설명"
         />
       </Box>
 
@@ -38,22 +75,10 @@ const imgList = ref<ImgBanner[]>([
           width="310px"
           height="167px"
           radius="xl"
-          alt="cat"
+          alt="이미지설명"
         />
       </Box>
-      
-      <Divider type="thin" my="10" />
 
-      <Flex>
-        <Image
-          v-for="img in imgList"
-          :key="img.src"
-          v-bind="img"
-          object-fit="cover"
-          width="310px"
-          ratio="310/167"
-        />
-      </Flex>
     </Section>
   </Container>
 </template>

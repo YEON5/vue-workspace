@@ -212,7 +212,6 @@ const isSidebarOpen = ref(false);
 
     .main-content {
       flex: 1;
-      padding: 16px;
       overflow-y: auto;
 
       @media (min-width: 768px) {

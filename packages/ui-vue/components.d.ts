@@ -39,6 +39,7 @@ declare module 'vue' {
     ResultView: typeof import('./src/components/ui/ResultView.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScrollArea: typeof import('./src/components/ui/ScrollArea.vue')['default']
     Section: typeof import('./src/components/ui/Section.vue')['default']
     Select: typeof import('./src/components/ui/Select.vue')['default']
     Switch: typeof import('./src/components/ui/Switch.vue')['default']

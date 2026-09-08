@@ -14,6 +14,7 @@ export { default as Divider } from './ui/Divider.vue';
 export { default as Flex } from './ui/Flex.vue';
 export { default as OutsetBox } from './ui/OutsetBox.vue';
 export { default as PageHeader } from './ui/PageHeader.vue';
+export { default as ScrollArea } from './ui/ScrollArea.vue';
 export { default as Section } from './ui/Section.vue';
 
 // ui - 버튼/텍스트
