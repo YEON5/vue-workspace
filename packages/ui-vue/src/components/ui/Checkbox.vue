@@ -11,6 +11,7 @@ interface Props {
   id?: string;
   label?: string;
   value?: unknown;
+  name?: string;
   variant?: CheckboxVariant;
   checked?: boolean;
   disabled?: boolean;
@@ -103,6 +104,7 @@ const textClasses = computed(() => {
         :id="internalId"
         v-model="modelValue"
         type="checkbox"
+        :name="name"
         :value="value"
         :checked="isChecked"
         :disabled="disabled"

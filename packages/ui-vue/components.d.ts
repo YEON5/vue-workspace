@@ -36,6 +36,7 @@ declare module 'vue' {
     Lottie: typeof import('./src/components/ui/Lottie.vue')['default']
     OutsetBox: typeof import('./src/components/ui/OutsetBox.vue')['default']
     PageHeader: typeof import('./src/components/ui/PageHeader.vue')['default']
+    Radio: typeof import('./src/components/ui/Radio.vue')['default']
     ResultView: typeof import('./src/components/ui/ResultView.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
