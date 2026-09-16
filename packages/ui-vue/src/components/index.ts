@@ -40,6 +40,8 @@ export { default as Filter } from './ui/Filter.vue';
 export { default as FormGroup } from './ui/FormGroup.vue';
 export { default as FormLabel } from './ui/FormLabel.vue';
 export { default as Radio } from './ui/Radio.vue';
+export { default as Segment } from './ui/Segment.vue';
+export { default as SegmentItem } from './ui/SegmentItem.vue';
 export { default as Select } from './ui/Select.vue';
 export { default as Switch } from './ui/Switch.vue';
 export { default as TextArea } from './ui/TextArea.vue';
