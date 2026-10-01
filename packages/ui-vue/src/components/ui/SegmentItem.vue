@@ -37,7 +37,7 @@ const inputClasses = computed(() => 'absolute inset-0 opacity-0 cursor-pointer')
 
 const textClasses = computed(() =>
   cn(
-    'pointer-events-none px-3 py-2 text-center whitespace-nowrap',
+    'pointer-events-none px-3 py-3 text-center whitespace-nowrap',
     TypoMap['label-m'],
     isChecked.value ? colorMap['primary'] : colorMap['secondary'],
   )

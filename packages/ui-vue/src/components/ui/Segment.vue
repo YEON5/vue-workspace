@@ -20,14 +20,20 @@ provide('segmentAnimated', props.animated);
 
 const trackClasses = computed(() =>
   cn(
-    'relative inline-flex w-full rounded-lg bg-gray-100 p-1',
+    'relative inline-flex w-full rounded-lg bg-gray-100 p-[6px]',
     props.class,
   )
 );
 
 // animated 모드 - 실제 선택된 SegmentItem의 위치/너비를 측정해 indicator를 이동시킴
 const trackRef = ref<HTMLElement | null>(null);
-const indicatorStyle = ref({ width: '0px', transform: 'translateX(0px)' });
+
+// X좌표 뿐만 아니라 Y좌표, width, height를 모두 추적
+const indicatorStyle = ref({ 
+  width: '0px', 
+  height: '0px', 
+  transform: 'translate(0px, 0px)' 
+});
 
 function updateIndicator() {
   if (!props.animated || !trackRef.value) return;
@@ -42,10 +48,12 @@ function updateIndicator() {
 
   const trackRect = trackRef.value.getBoundingClientRect();
   const itemRect = itemEl.getBoundingClientRect();
-
+  
+  // translate에 X좌표 뿐만 아니라 Y좌표, width, height를 모두 추적
   indicatorStyle.value = {
     width: `${itemRect.width}px`,
-    transform: `translateX(${itemRect.left - trackRect.left}px)`,
+    height: `${itemRect.height}px`,
+    transform: `translate(${itemRect.left - trackRect.left}px, ${itemRect.top - trackRect.top}px)`,
   };
 }
 
@@ -59,7 +67,7 @@ onMounted(() => nextTick(updateIndicator));
     <!-- animated일 때만 실제 슬라이딩 indicator 렌더링 -->
     <div
       v-if="animated"
-      class="absolute inset-y-1 left-0 rounded-md bg-white shadow-sm transition-transform duration-200 ease-out"
+      class="absolute top-0 left-0 rounded-md bg-white shadow-sm transition-all duration-200 ease-out"
       :style="indicatorStyle"
     />
     <slot />
