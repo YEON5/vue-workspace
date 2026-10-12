@@ -32,8 +32,9 @@ const { internalId, isChecked } = useRadioable(props, modelValue);
 const wrapperClasses = computed(() =>
   cn(
     'inline-flex items-center gap-3',
+    props.variant !== 'box' && 'self-start',
     props.disabled && 'opacity-50 select-none',
-    props.variant === 'box' && 'relative w-full h-[50px] justify-center',
+    props.variant === 'box' && 'relative w-full h-[50px] justify-center', // box
     props.class,
   )
 );
