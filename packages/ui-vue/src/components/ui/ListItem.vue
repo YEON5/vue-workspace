@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cn } from '#/utils/cn';
-import { computed } from 'vue';
+import { computed, inject, type ComputedRef } from 'vue';
 
 interface Props {
   class?: string;
@@ -8,8 +8,14 @@ interface Props {
 
 const props = defineProps<Props>();
 
+const hasDivide = inject<ComputedRef<boolean>>('listHasDivide', computed(() => false));
+
 const itemClasses = computed(() =>
-  cn('flex items-center justify-between gap-3 py-4', props.class)
+  cn(
+    'flex items-center justify-between gap-3',
+    hasDivide.value ? 'py-5' : 'py-3', // divide 있음 / 없음
+    props.class,
+  )
 );
 </script>
 

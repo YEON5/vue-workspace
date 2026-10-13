@@ -2,7 +2,7 @@
 import { BulletItem, BulletList, Container, Divider, Section, Typo } from '@ui/vue';
 import { ref } from 'vue';
 
-
+// pub data
 interface BulletItemNode {
   label: string;
   type: 'dot' | 'hyphen' | 'number';

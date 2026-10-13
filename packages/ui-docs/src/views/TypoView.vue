@@ -23,23 +23,6 @@ import { Box, Container, Divider, Flex, Section, Typo } from '@ui/vue';
         <Typo variant="caption-2">variant caption-2</Typo>
       </Flex>
 
-      <!-- <Flex wrap align="center" justify="start" gap="3" mb="5" p="4" rounded="md" class="bg-gray-100">
-        <Typo variant="body-l">variant body-l</Typo>
-        <Divider direction="vertical" />
-        <Typo variant="body-m">variant body-m</Typo>
-        <Divider direction="vertical" />
-        <Typo variant="body-s">variant body-s</Typo>
-        <Divider direction="vertical" />
-        <Typo variant="label-l">variant label-l</Typo>
-        <Divider direction="vertical" />
-        <Typo variant="label-m">variant label-m</Typo>
-        <Divider direction="vertical" />
-        <Typo variant="label-s">variant label-s</Typo>
-        <Divider direction="vertical" />
-        <Typo variant="caption-1">variant caption-1</Typo>
-        <Divider direction="vertical" />
-        <Typo variant="caption-2">variant caption-2</Typo>
-      </Flex> -->
       <Divider type="thin" my="10" />
       
       <!-- 말줄임 ellipsis -->

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, provide } from 'vue';
 
 
 // true(기본): 항목 "사이"에만 테두리 (첫 번째 예외) - divide-y와 동일
@@ -15,6 +15,9 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   divide: false,
 });
+
+// 하위 ListItem/ListItemLink가 패딩 분기에 사용
+provide('listHasDivide', computed(() => props.divide !== false));
 
 const listClasses = computed(() => ['flex', 'flex-col', 'list-none', props.class]);
 const dividePosition = computed(() => {

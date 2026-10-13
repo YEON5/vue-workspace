@@ -2,6 +2,7 @@
 import { Box, Container, Divider, Flex, Image, ScrollArea, Section, Typo } from '@ui/vue';
 import { ref } from 'vue';
 
+// pub data
 interface ImgList {
   src: string
   alt: string

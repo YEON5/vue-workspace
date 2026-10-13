@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { cn } from '#/utils/cn';
 import { IArrowRightS } from '#components';
-import { computed } from 'vue';
+import { computed, inject, type ComputedRef } from 'vue';
 
 interface Props {
   to?: string; // 있으면 RouterLink, 없으면 button
@@ -15,12 +15,15 @@ const props = withDefaults(defineProps<Props>(), {
   showArrow: true,
 });
 
+const hasDivide = inject<ComputedRef<boolean>>('listHasDivide', computed(() => false));
+
 // to가 있으면 RouterLink, 없으면 button으로 렌더링
 const tag = computed(() => (props.to ? 'RouterLink' : 'button'));
 
 const linkClasses = computed(() =>
   cn(
-    'flex items-center justify-between w-full gap-3 py-4 text-left transition-colors',
+    'flex items-center justify-between w-full gap-3 text-left transition-colors',
+    hasDivide.value ? 'py-5' : 'py-3', // divide 있음 / 없음
     !props.disabled && 'hover:bg-gray-50 focus-visible:bg-gray-50 focus-visible:outline-none',
     props.disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
   )
