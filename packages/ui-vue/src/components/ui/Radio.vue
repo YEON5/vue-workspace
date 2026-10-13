@@ -1,11 +1,8 @@
 <script setup lang="ts">
-// 사용 시 주의: 같은 그룹(하나만 선택 가능해야 하는 Radio들)은 반드시 동일한 name을 지정해야 함
-// - v-model 없이 checked만 쓸 때: name이 없으면 브라우저가 그룹을 인식 못해 전부 개별 선택됨
-// - v-model 사용 시: 시각적 동작은 name 없이도 되지만, 스크린리더가 그룹 정보를 인식하려면 name이 필요함 (접근성)
 import { useRadioable } from '#/composables/useRadioable';
 import { colorMap, TypoMap } from '#/types';
 import { cn } from '#/utils/cn';
-import { computed } from 'vue';
+import { computed, inject, type ComputedRef, type Ref } from 'vue';
 
 export type RadioVariant = 'basic' | 'box';
 
@@ -17,6 +14,7 @@ interface Props {
   variant?: RadioVariant;
   checked?: boolean;
   disabled?: boolean;
+  ariaLabel?: string;
   class?: string;
 }
 
@@ -26,15 +24,36 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
 });
 
-const modelValue = defineModel<unknown>();
-const { internalId, isChecked } = useRadioable(props, modelValue);
+// 단독 사용 시 자체 v-model
+const ownModel = defineModel<unknown>();
+
+// RadioGroup 안이면 그룹의 값/이름 사용
+const groupModel = inject<Ref<unknown> | null>('radioGroupModel', null);
+const groupName = inject<ComputedRef<string> | null>('radioGroupName', null);
+
+const currentModel = computed({
+  get: () => (groupModel ? groupModel.value : ownModel.value),
+  set: (v) => {
+    if (groupModel) groupModel.value = v;
+    else ownModel.value = v;
+  },
+});
+
+const inputName = computed(() => props.name ?? groupName?.value);
+
+const { internalId, isChecked } = useRadioable(props, currentModel);
+
+function handleChange() {
+  if (props.disabled) return;
+  currentModel.value = props.value;
+}
 
 const wrapperClasses = computed(() =>
   cn(
     'inline-flex items-center gap-3',
     props.variant !== 'box' && 'self-start',
     props.disabled && 'opacity-50 select-none',
-    props.variant === 'box' && 'relative w-full h-[50px] justify-center', // box
+    props.variant === 'box' && 'relative w-full h-[50px] justify-center',
     props.class,
   )
 );
@@ -63,13 +82,14 @@ const textClasses = computed(() => {
   <label :for="internalId" :class="wrapperClasses">
     <input
       :id="internalId"
-      v-model="modelValue"
       type="radio"
-      :name="name"
+      :name="inputName"
       :value="value"
       :checked="isChecked"
       :disabled="disabled"
+      :aria-label="ariaLabel"
       :class="inputClasses"
+      @change="handleChange"
     >
     <span v-if="label || $slots.default" :class="textClasses">
       <slot>{{ label }}</slot>

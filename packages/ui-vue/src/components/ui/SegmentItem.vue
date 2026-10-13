@@ -2,7 +2,7 @@
 import { useRadioable } from '#/composables/useRadioable';
 import { colorMap, TypoMap } from '#/types';
 import { cn } from '#/utils/cn';
-import { computed, inject } from 'vue';
+import { computed, inject, ref, type ComputedRef, type Ref } from 'vue';
 
 interface Props {
   id?: string;
@@ -16,24 +16,24 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
 });
 
-const modelValue = defineModel<unknown>();
-const { internalId, isChecked } = useRadioable(props, modelValue);
+// 부모 Segment가 내려준 선택값/그룹명/animated 여부
+const segmentModel = inject<Ref<unknown>>('segmentModel', ref());
+const groupName = inject<ComputedRef<string>>('segmentName', computed(() => ''));
+const isAnimated = inject<ComputedRef<boolean>>('segmentAnimated', computed(() => false));
 
-// 부모 Segment에서 내려준 name (Segment 하나가 하나의 라디오 그룹)
-const groupName = inject<string>('segmentName', '');
-// 부모가 animated 모드면, 자체 배경 대신 부모의 슬라이딩 indicator가 그 역할을 대신함
-const isAnimated = inject<boolean>('segmentAnimated', false);
+const { internalId, isChecked } = useRadioable(props, segmentModel);
 
 const wrapperClasses = computed(() =>
   cn(
     'relative z-[1] flex-1 inline-flex items-center justify-center rounded-md transition-colors',
-    !isAnimated && isChecked.value && 'bg-white shadow-sm',
+    // animated면 부모의 슬라이딩 indicator가 배경 역할을 대신함
+    !isAnimated.value && isChecked.value && 'bg-white shadow-sm',
     props.disabled && 'opacity-50 pointer-events-none',
     props.class,
   )
 );
 
-const inputClasses = computed(() => 'absolute inset-0 opacity-0 cursor-pointer');
+const inputClasses = 'absolute inset-0 opacity-0 cursor-pointer';
 
 const textClasses = computed(() =>
   cn(
@@ -48,11 +48,10 @@ const textClasses = computed(() =>
   <label :for="internalId" :class="wrapperClasses">
     <input
       :id="internalId"
-      v-model="modelValue"
+      v-model="segmentModel"
       type="radio"
       :name="groupName"
       :value="value"
-      :checked="isChecked"
       :disabled="disabled"
       :class="inputClasses"
     >

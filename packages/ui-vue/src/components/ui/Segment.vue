@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { cn } from '#/utils/cn';
-import { computed, nextTick, onMounted, provide, ref, useId, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, provide, ref, useId, watch } from 'vue';
 
 interface Props {
   name?: string; // 하위 SegmentItem들이 공유할 라디오 그룹명 (안 넘기면 자동 생성)
-  modelValue?: unknown; // indicator 위치 추적을 위해 선택값을 감시 (animated일 때 필요)
   animated?: boolean; // true면 선택 시 indicator가 부드럽게 슬라이딩 이동
   class?: string;
 }
@@ -13,43 +12,37 @@ const props = withDefaults(defineProps<Props>(), {
   animated: false,
 });
 
+const modelValue = defineModel<unknown>();
+
 const autoName = useId();
-const groupName = computed(() => props.name ?? autoName);
-provide('segmentName', groupName.value);
-provide('segmentAnimated', props.animated);
+provide('segmentName', computed(() => props.name ?? autoName));
+provide('segmentModel', modelValue);
+provide('segmentAnimated', computed(() => props.animated));
 
 const trackClasses = computed(() =>
-  cn(
-    'relative inline-flex w-full rounded-lg bg-gray-100 p-[6px]',
-    props.class,
-  )
+  cn('relative inline-flex w-full rounded-lg bg-gray-100 p-[6px]', props.class)
 );
 
-// animated 모드 - 실제 선택된 SegmentItem의 위치/너비를 측정해 indicator를 이동시킴
+// animated 모드 - 선택된 SegmentItem의 위치/크기를 측정해 indicator 이동
 const trackRef = ref<HTMLElement | null>(null);
+const ready = ref(false); // 첫 위치 계산이 끝난 뒤부터 transition 활성화
 
-// X좌표 뿐만 아니라 Y좌표, width, height를 모두 추적
-const indicatorStyle = ref({ 
-  width: '0px', 
-  height: '0px', 
-  transform: 'translate(0px, 0px)' 
+const indicatorStyle = ref({
+  width: '0px',
+  height: '0px',
+  transform: 'translate(0px, 0px)',
 });
 
 function updateIndicator() {
   if (!props.animated || !trackRef.value) return;
 
-  // 현재 checked 상태인 input을 트랙 내부에서 찾음
   const checkedInput = trackRef.value.querySelector<HTMLInputElement>('input:checked');
-  if (!checkedInput) return;
-
-  // input의 부모 label이 곧 SegmentItem의 wrapper
-  const itemEl = checkedInput.closest('label') as HTMLElement | null;
+  const itemEl = checkedInput?.closest('label') as HTMLElement | null;
   if (!itemEl) return;
 
   const trackRect = trackRef.value.getBoundingClientRect();
   const itemRect = itemEl.getBoundingClientRect();
-  
-  // translate에 X좌표 뿐만 아니라 Y좌표, width, height를 모두 추적
+
   indicatorStyle.value = {
     width: `${itemRect.width}px`,
     height: `${itemRect.height}px`,
@@ -57,17 +50,36 @@ function updateIndicator() {
   };
 }
 
-// 선택값이 바뀌거나(다른 SegmentItem 클릭), 마운트 직후 위치를 계산
-watch(() => props.modelValue, () => nextTick(updateIndicator));
-onMounted(() => nextTick(updateIndicator));
+let resizeObserver: ResizeObserver | null = null;
+
+watch(modelValue, () => nextTick(updateIndicator));
+
+onMounted(async () => {
+  await nextTick();
+  updateIndicator();
+  // 첫 위치를 잡은 다음 프레임부터 transition을 켜서, 처음에 날아오는 현상 방지
+  requestAnimationFrame(() => {
+    ready.value = true;
+  });
+
+  // 창 크기 변경 시 indicator 위치 재계산
+  if (trackRef.value && typeof ResizeObserver !== 'undefined') {
+    resizeObserver = new ResizeObserver(updateIndicator);
+    resizeObserver.observe(trackRef.value);
+  }
+});
+
+onBeforeUnmount(() => resizeObserver?.disconnect());
 </script>
 
 <template>
   <div ref="trackRef" :class="trackClasses">
-    <!-- animated일 때만 실제 슬라이딩 indicator 렌더링 -->
     <div
       v-if="animated"
-      class="absolute top-0 left-0 rounded-md bg-white shadow-sm transition-all duration-200 ease-out"
+      :class="cn(
+        'absolute top-0 left-0 rounded-md bg-white shadow-sm',
+        ready && 'transition-all duration-200 ease-out',
+      )"
       :style="indicatorStyle"
     />
     <slot />

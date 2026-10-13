@@ -15,6 +15,7 @@ interface Props {
   variant?: CheckboxVariant;
   checked?: boolean;
   disabled?: boolean;
+  ariaLabel?: string;
   class?: string;
 }
 
@@ -108,6 +109,7 @@ const textClasses = computed(() => {
         :value="value"
         :checked="isChecked"
         :disabled="disabled"
+        :aria-label="ariaLabel"
         :class="inputClasses"
       >
       <ICheck :class="iconClasses" />
@@ -121,6 +123,7 @@ const textClasses = computed(() => {
         :value="value"
         :checked="isChecked"
         :disabled="disabled"
+        :aria-label="ariaLabel"
         :class="inputClasses"
       >
     </template>
