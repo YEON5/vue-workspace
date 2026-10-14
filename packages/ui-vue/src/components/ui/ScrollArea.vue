@@ -6,7 +6,7 @@ import { computed } from 'vue';
 export type BleedSide = boolean | 'left' | 'right';
 
 interface Props extends SpacingProps {
-  snap?: boolean; // 스와이프할 때 이미지 시작점에 달라붙는 스냅 효과
+  snap?: boolean; // 스와이프할 때 이미지 시작점에 달라붙는 스냅 효과 (snap은 메인베너, 이미지 컴포넌트에서 사용)
   snapAlign?: 'start' | 'center' | 'end';
   bleed?: BleedSide; // 화면 끝까지 밀어낼 방향 (true=양쪽, 'left'/'right'=한쪽만, false=사용 안 함)
   class?: string;
@@ -55,11 +55,11 @@ const scrollClasses = computed(() =>
 
 <style scoped>
 /* 브라우저별 스크롤바 숨김 처리 */
-/* .hide-scrollbar {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .hide-scrollbar::-webkit-scrollbar {
-  display: none; 
-} */
+  display: none;
+}
 </style>

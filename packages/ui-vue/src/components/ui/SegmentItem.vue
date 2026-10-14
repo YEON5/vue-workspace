@@ -28,16 +28,16 @@ const wrapperClasses = computed(() =>
     'relative z-[1] flex-1 inline-flex items-center justify-center rounded-md transition-colors',
     // animated면 부모의 슬라이딩 indicator가 배경 역할을 대신함
     !isAnimated.value && isChecked.value && 'bg-white shadow-sm',
-    props.disabled && 'opacity-50 pointer-events-none',
+    props.disabled && 'opacity-50',
     props.class,
   )
 );
 
-const inputClasses = 'absolute inset-0 opacity-0 cursor-pointer';
+const inputClasses = 'absolute inset-0 opacity-0';
 
 const textClasses = computed(() =>
   cn(
-    'pointer-events-none px-3 py-3 text-center whitespace-nowrap',
+    'px-3 py-3 text-center whitespace-nowrap',
     TypoMap['label-m'],
     isChecked.value ? colorMap['primary'] : colorMap['secondary'],
   )

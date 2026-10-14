@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Container, Divider, Filter, Flex, ICheck, IRefresh, ISearch, Section, Typo } from '@ui/vue';
+import { Container, Divider, Filter, Flex, ICheck, IRefresh, ISearch, ScrollArea, Section, Typo } from '@ui/vue';
 import { ref, type Component } from 'vue';
 
 // pub data
@@ -13,8 +13,10 @@ interface FilterItem {
 const filterData = ref<FilterItem[]>([
   { label: 'Filter11', value: 'Filter11' },
   { label: 'Filter21', value: 'Filter21' },
-  { label: 'Filter31', value: 'Filter31', disabled: true },
-  { label: 'Filter41', value: 'Filter41', icon: IRefresh, iconAlign: 'right' },
+  { label: 'Filter31', value: 'Filter31' },
+  { label: 'Filter41', value: 'Filter41' },
+  { label: 'Filter51', value: 'Filter51', disabled: true },
+  { label: 'Filter61', value: 'Filter61', icon: IRefresh, iconAlign: 'right' },
 ]);
 const selectedFilter = ref<string[]>(['Filter11']);
 </script>
@@ -25,7 +27,10 @@ const selectedFilter = ref<string[]>(['Filter11']);
       <Typo variant="heading-l" pb="9">Filter</Typo>
 
       <!-- filter data -->
-      <Flex gap="4">
+      <ScrollArea
+        bleed="right"
+        class="gap-4"
+      >
         <Filter
           v-for="filter in filterData"
           :key="filter.value"
@@ -39,7 +44,23 @@ const selectedFilter = ref<string[]>(['Filter11']);
           </template>
           {{ filter.label }}
         </Filter>
-      </Flex>
+      </ScrollArea>
+
+      <!-- <Flex gap="4">
+        <Filter
+          v-for="filter in filterData"
+          :key="filter.value"
+          v-model="selectedFilter"
+          :value="filter.value"
+          :disabled="filter.disabled"
+          :icon-align="filter.iconAlign"
+        >
+          <template v-if="filter.icon" #icon>
+            <component :is="filter.icon" class="size-[16px] ml-2" />
+          </template>
+          {{ filter.label }}
+        </Filter>
+      </Flex> -->
 
       <Divider type="thin" my="10" />
 

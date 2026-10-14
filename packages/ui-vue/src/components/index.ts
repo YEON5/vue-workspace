@@ -50,6 +50,12 @@ export { default as TextAreaFloating } from './ui/TextAreaFloating.vue';
 export { default as TextInput } from './ui/TextInput.vue';
 export { default as TextInputFloating } from './ui/TextInputFloating.vue';
 
+// ui - 모듈
+export { default as Tab } from './ui/Tab.vue';
+export { default as TabList } from './ui/TabList.vue';
+export { default as TabPanel } from './ui/TabPanel.vue';
+export { default as Tabs } from './ui/Tabs.vue';
+
 // ui - 기타
 export { default as Lottie } from './ui/Lottie.vue';
 export { default as ResultView } from './ui/ResultView.vue';

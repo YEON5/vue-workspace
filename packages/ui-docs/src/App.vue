@@ -105,8 +105,12 @@ const isSidebarOpen = ref(false);
     bottom: 0;
     left: 0;
     z-index: 50;
+    display: flex;
+    flex-direction: column;
     width: 256px;
     padding: 28px 20px;
+    box-sizing: border-box;
+    overflow: hidden;
     border-right: 1px solid #e5e7eb;
     background-color: #ffffff;
     transition: transform 0.3s ease-in-out;
@@ -125,6 +129,7 @@ const isSidebarOpen = ref(false);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-shrink: 0;
       margin-bottom: 32px;
 
       h1 {
@@ -151,6 +156,12 @@ const isSidebarOpen = ref(false);
       display: flex;
       flex-direction: column;
       gap: 16px;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 16px;
 
       a {
         text-decoration: none;

@@ -42,7 +42,7 @@ const selectedAccount = ref<string[]>(['account1', 'account2']);
       <Typo variant="heading-l" pb="9">Checkbox</Typo>
 
       <!-- checkbox data -->
-      <Flex gap="6" role="group" aria-label="체크박스 예시">
+      <Flex wrap gap="6" role="group" aria-label="체크박스 예시">
         <Checkbox
           v-for="item in checkboxData"
           :key="item.value"

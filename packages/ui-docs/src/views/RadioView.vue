@@ -41,7 +41,7 @@ const selectedAccount = ref('account2');
       <Typo variant="heading-l" pb="9">Radio</Typo>
 
       <!-- radio data -->
-      <RadioGroup v-model="radioSelect" aria-label="라디오 예시" gap="6">
+      <RadioGroup v-model="radioSelect" aria-label="라디오 예시" wrap gap="6">
         <Radio
           v-for="item in radioData"
           :key="item.value"
