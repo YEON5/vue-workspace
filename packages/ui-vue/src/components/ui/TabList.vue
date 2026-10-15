@@ -33,7 +33,7 @@ const isPill = computed(() => props.variant === 'pill');
 
 const listClasses = computed(() =>
   cn(
-    'relative flex w-full',
+    'tab-list relative flex w-full',
     props.variant === 'line' && 'shadow-[inset_0_-1px_0_theme(colors.gray.200)]',
     isPill.value && 'gap-3',
     props.scrollable && 'overflow-x-auto overflow-y-hidden whitespace-nowrap hide-scrollbar',

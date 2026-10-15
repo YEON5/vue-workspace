@@ -23,7 +23,7 @@ const action = ref('option1');
       <Typo variant="heading-l" pb="9">Segment</Typo>
 
       <!-- Segment data -->
-      <Segment v-model="segmentSelect" aria-label="세그먼트 예시">
+      <Segment v-model="segmentSelect" aria-label="세그먼트">
         <SegmentItem
           v-for="opt in segmentOptions"
           :key="opt.value"

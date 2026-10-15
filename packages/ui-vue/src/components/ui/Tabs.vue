@@ -18,7 +18,7 @@ provide('tabModel', modelValue);
 <template>
   <div
     :class="cn(
-      'w-full',
+      'tabs w-full',
       props.class
     )">
     <slot />
