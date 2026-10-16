@@ -49,7 +49,8 @@ const iconClasses = computed(() =>
       :class="headClasses"
       @click="toggle"
     >
-      <span class="flex min-w-0 flex-1 items-center gap-4">
+      <!-- prefix 슬롯이 있을 때만 gap 적용 -->
+      <span :class="['flex min-w-0 flex-1 items-center', $slots.prefix && 'gap-4']">
         <span v-if="$slots.prefix" class="shrink-0 inline-flex">
           <slot name="prefix" />
         </span>
