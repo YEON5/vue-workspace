@@ -51,6 +51,10 @@ export { default as TextInput } from './ui/TextInput.vue';
 export { default as TextInputFloating } from './ui/TextInputFloating.vue';
 
 // ui - 모듈
+export { default as Accordion } from './ui/Accordion.vue';
+export { default as AccordionContent } from './ui/AccordionContent.vue';
+export { default as AccordionHead } from './ui/AccordionHead.vue';
+export { default as AccordionItem } from './ui/AccordionItem.vue';
 export { default as Tab } from './ui/Tab.vue';
 export { default as TabList } from './ui/TabList.vue';
 export { default as TabPanel } from './ui/TabPanel.vue';
