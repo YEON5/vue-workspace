@@ -15,6 +15,11 @@ const CollapseTest = ref(false);
       <Collapse v-model="CollapseOpen" class="rounded-lg border border-gray-300 p-5">
         <!-- <CollapseHead open-text="접기" close-text="더보기"> -->
         <CollapseHead text="더보기">
+          <!-- 
+            이미지 또는 아이콘 필요시 Image 컴포넌트 / 아이콘 컴포넌트 (IMy)
+            <Image src="..." alt="" class="size-5 shrink-0" />
+            <IMy class="size-5 shrink-0" aria-hidden="true" />
+          -->
           <Typo variant="body-m">타이틀</Typo>
         </CollapseHead>
 
