@@ -58,10 +58,16 @@ export { default as AccordionItem } from './ui/AccordionItem.vue';
 export { default as Collapse } from './ui/Collapse.vue';
 export { default as CollapseContent } from './ui/CollapseContent.vue';
 export { default as CollapseHead } from './ui/CollapseHead.vue';
+export { default as Popover } from './ui/Popover.vue';
+export { default as PopoverContent } from './ui/PopoverContent.vue';
+export { default as PopoverTrigger } from './ui/PopoverTrigger.vue';
 export { default as Tab } from './ui/Tab.vue';
 export { default as TabList } from './ui/TabList.vue';
 export { default as TabPanel } from './ui/TabPanel.vue';
 export { default as Tabs } from './ui/Tabs.vue';
+export { default as Tooltip } from './ui/Tooltip.vue';
+export { default as TooltipContent } from './ui/TooltipContent.vue';
+export { default as TooltipTrigger } from './ui/TooltipTrigger.vue';
 
 // ui - 기타
 export { default as Lottie } from './ui/Lottie.vue';

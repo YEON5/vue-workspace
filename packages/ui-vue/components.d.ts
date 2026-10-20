@@ -43,6 +43,9 @@ declare module 'vue' {
     Lottie: typeof import('./src/components/ui/Lottie.vue')['default']
     OutsetBox: typeof import('./src/components/ui/OutsetBox.vue')['default']
     PageHeader: typeof import('./src/components/ui/PageHeader.vue')['default']
+    Popover: typeof import('./src/components/ui/Popover.vue')['default']
+    PopoverContent: typeof import('./src/components/ui/PopoverContent.vue')['default']
+    PopoverTrigger: typeof import('./src/components/ui/PopoverTrigger.vue')['default']
     Radio: typeof import('./src/components/ui/Radio.vue')['default']
     RadioGroup: typeof import('./src/components/ui/RadioGroup.vue')['default']
     ResultView: typeof import('./src/components/ui/ResultView.vue')['default']
@@ -66,6 +69,9 @@ declare module 'vue' {
     TextInput: typeof import('./src/components/ui/TextInput.vue')['default']
     TextInputFloating: typeof import('./src/components/ui/TextInputFloating.vue')['default']
     TextInputMotion: typeof import('./src/components/ui/TextInputMotion.vue')['default']
+    Tooltip: typeof import('./src/components/ui/Tooltip.vue')['default']
+    TooltipContent: typeof import('./src/components/ui/TooltipContent.vue')['default']
+    TooltipTrigger: typeof import('./src/components/ui/TooltipTrigger.vue')['default']
     Typo: typeof import('./src/components/ui/Typo.vue')['default']
   }
 }
