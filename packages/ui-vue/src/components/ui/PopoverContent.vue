@@ -114,7 +114,7 @@ const contentClasses = computed(() =>
           :aria-label="closeLabel"
           @click="close"
         >
-          <ICloseB class="size-5" aria-hidden="true" />
+          <ICloseB class="size-6" aria-hidden="true" />
         </IconButton>
 
         <slot />

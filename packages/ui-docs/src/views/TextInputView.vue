@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, Container, Divider, Flex, FormGroup, FormLabel, ISearch, Section, TextButton, TextInput, Typo } from '@ui/vue';
+import { Container, Divider, Flex, FormGroup, FormLabel, IconButton, ISearch, Section, TextButton, TextInput, Typo } from '@ui/vue';
 import { ref, useId } from 'vue';
 
 
@@ -130,13 +130,13 @@ const bizNum1Id = useId()
             placeholder="검색어 입력"
           >
             <template #suffix>
-              <Button
-                variant="icon"
-                class="p-2 mr-2"
+              <IconButton
+                class="mr-2"
+                aria-label="검색"
                 @click="handleSearch"
               >
-                <ISearch class="size-[24px]" />
-              </Button>
+                <ISearch class="size-[24px]" aria-hidden="true" />
+              </IconButton>
             </template>
           </TextInput>
         </FormGroup>
@@ -228,16 +228,15 @@ const bizNum1Id = useId()
               :id="addressId"
               v-model="formData.labelSearch"
               placeholder="검색어 입력"
-              aria-label="주소 검색"
             >
               <template #suffix>
-                <Button
-                  variant="icon"
-                  class="p-2 mr-2"
+                <IconButton
+                  class="mr-2"
+                  aria-label="주소 검색"
                   @click="handleSearch"
                 >
-                  <ISearch class="size-[24px]" />
-                </Button>
+                  <ISearch class="size-[24px]" aria-hidden="true" />
+                </IconButton>
               </template>
             </TextInput>
             <TextInput

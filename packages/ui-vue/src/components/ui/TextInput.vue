@@ -4,7 +4,7 @@ import { TypoMap, bgColorMap, borderColorMap, colorMap } from '#/types';
 import { cn } from '#/utils/cn';
 import { IInputDelete } from '#components';
 import { computed, inject, ref, useSlots, type Ref } from 'vue';
-import Button from './Button.vue';
+import IconButton from './IconButton.vue';
 
 export type InputType = 'text' | 'password' | 'tel' | 'numeric';
 export type InputAlign = 'left' | 'center' | 'right';
@@ -120,15 +120,14 @@ const inputClasses = computed(() =>
       class="flex items-center gap-1.5 absolute right-3 top-1/2 -translate-y-1/2"
     >
       <!-- clear button (입력값 삭제) -->
-      <Button
+      <IconButton
         v-if="clearable && modelValue && isFocused && !disabled && !readonly"
-        variant="icon"
+        size="sm"
         aria-label="입력 내용 지우기"
-        class="p-1"
         @click="handleClear"
       >
-        <IInputDelete class="size-[20px]" />
-      </Button>
+        <IInputDelete class="size-[20px]" aria-hidden="true" />
+      </IconButton>
 
       <!-- input 안에 버튼 및 내용 추가 slot -->
       <slot name="suffix" />
