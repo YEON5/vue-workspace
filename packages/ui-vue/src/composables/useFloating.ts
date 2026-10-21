@@ -37,9 +37,23 @@ function getScrollParents(el: HTMLElement): EventTarget[] {
   return list;
 }
 
+// 화면 끝에서 눌리지 않은 '자연 크기'와 클래스(max-w-*)의 최대 너비를 측정
+// left를 0으로, 인라인 maxWidth를 비운 상태에서 읽고 바로 원복 (페인트 전에 끝남)
+function measure(f: HTMLElement) {
+  const { left, maxWidth } = f.style;
+  f.style.left = '0px';
+  f.style.maxWidth = '';
+  const cssMax = getComputedStyle(f).maxWidth;
+  const w = f.offsetWidth;
+  const h = f.offsetHeight;
+  f.style.left = left;
+  f.style.maxWidth = maxWidth;
+  return { w, h, cssMax: cssMax.endsWith('px') ? parseFloat(cssMax) : Infinity };
+}
+
 export function useFloating(options: Options) {
   const { anchor, floating, open } = options;
-  const padding = options.padding ?? 8;
+  const padding = options.padding ?? 8; // 화면 가장자리 여백(px)
 
   const style = ref<Record<string, string>>({ ...HIDDEN });
   const placement = ref<Placement>(toValue(options.placement ?? 'bottom-start'));
@@ -58,12 +72,15 @@ export function useFloating(options: Options) {
     const ar = a.getBoundingClientRect();
     const vw = document.documentElement.clientWidth; // 세로 스크롤바 제외
     const vh = window.innerHeight;
-    const fw = Math.max(f.offsetWidth, matchWidth ? ar.width : 0);
-    const fh = f.offsetHeight;
+
+    const natural = measure(f);
+    const fw = Math.max(natural.w, matchWidth ? ar.width : 0);
+    const fh = natural.h;
 
     const [wantedSide, align] = wanted.split('-') as [Side, ('start' | 'end')?];
     let side = wantedSide;
-
+    
+    // 트리거를 기준으로 뷰포트 안에서 상/하/좌/우로 각각 얼마나 여유 공간이 있는지
     const space: Record<Side, number> = {
       top: ar.top - gap - padding,
       bottom: vh - ar.bottom - gap - padding,
@@ -77,12 +94,19 @@ export function useFloating(options: Options) {
 
     let top: number;
     let left: number;
+    let maxWidth: number | null = null;
+
     if (isVertical(side)) {
       top = side === 'bottom' ? ar.bottom + gap : ar.top - fh - gap;
       left = align === 'start' ? ar.left : align === 'end' ? ar.right - fw : ar.left + ar.width / 2 - fw / 2;
       left = clamp(left, padding, vw - fw - padding); // shift: 가로 방향만 보정
     } else {
-      left = side === 'right' ? ar.right + gap : ar.left - fw - gap;
+      // right/left: 남은 공간(여백 제외)보다 넓으면 그만큼만 쓰고, 클래스 max-w도 함께 지킴
+      const available = Math.max(space[side], 0);
+      maxWidth = Math.min(natural.cssMax, available);
+      const effW = Math.min(fw, maxWidth);
+
+      left = side === 'right' ? ar.right + gap : ar.left - effW - gap;
       top = align === 'start' ? ar.top : align === 'end' ? ar.bottom - fh : ar.top + ar.height / 2 - fh / 2;
       top = clamp(top, padding, vh - fh - padding); // shift: 세로 방향만 보정
     }
@@ -94,6 +118,7 @@ export function useFloating(options: Options) {
       visibility: 'visible',
     };
     if (matchWidth) next.minWidth = `${Math.round(ar.width)}px`;
+    if (maxWidth !== null) next.maxWidth = `${Math.floor(maxWidth)}px`;
 
     placement.value = (align ? `${side}-${align}` : side) as Placement;
     anchorCenter.value = { x: ar.left + ar.width / 2 - left, y: ar.top + ar.height / 2 - top };

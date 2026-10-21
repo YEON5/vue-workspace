@@ -104,7 +104,7 @@ const contentClasses = computed(() =>
         :style="style"
         :class="contentClasses"
       > 
-        <!-- 말풍선 꼬리 -->
+        <!-- 말풍선 화살표 -->
         <span v-if="arrow" aria-hidden="true" :class="arrowClasses" :style="arrowStyle" />
 
         <!-- 닫기 x 버튼 -->
