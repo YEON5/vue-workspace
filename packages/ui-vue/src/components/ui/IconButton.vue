@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRadius, type RadiusProps } from '#/composables/useRadius';
 import { useSpacing, type SpacingProps } from '#/composables/useSpacing';
-import type { IconButtonSize } from '#/types';
+import { colorMap, type IconButtonSize } from '#/types';
 import { cn } from '#/utils/cn';
 import { computed } from 'vue';
 
@@ -29,6 +29,7 @@ const classes = computed(() =>
   cn(
     'inline-flex shrink-0 items-center justify-center bg-transparent p-0 transition-colors',
     sizeMap[props.size],
+    `hover:${colorMap['primary']}`, // icon hover 필요시
     props.disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
     spacingClasses.value,
     radiusClasses.value,
