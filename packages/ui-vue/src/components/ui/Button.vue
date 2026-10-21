@@ -39,7 +39,7 @@ const sizeMap: Record<ButtonSize, string> = {
 };
 
 // style
-const styleMap: Record<Exclude<ButtonVariant, 'icon'>, Partial<Record<ColorToken, { base: string; hover?: string }>>> = {
+const styleMap: Record<ButtonVariant, Partial<Record<ColorToken, { base: string; hover?: string }>>> = {
   fill: {
     primary:   { base: 'bg-mint-500 text-white', hover: 'hover:bg-mint-600' },
     secondary: { base: 'bg-gray-800 text-white', hover: 'hover:bg-gray-900' },
@@ -57,23 +57,19 @@ const styleMap: Record<Exclude<ButtonVariant, 'icon'>, Partial<Record<ColorToken
   },
 };
 
-const currentStyle = computed(() =>
-  props.variant !== 'icon' ? styleMap[props.variant]?.[props.color] : undefined
-);
+const currentStyle = computed(() => styleMap[props.variant]?.[props.color]);
 
 const classes = computed(() =>
   cn(
     'inline-flex items-center justify-center transition-colors',
     props.disabled && 'opacity-50 cursor-not-allowed pointer-events-none', // 비활성화 클래스 주입
     props.iconAlign === 'top' ? 'flex-col gap-1' : 'flex-row gap-1.5',
-    props.variant !== 'icon' && sizeMap[props.size],
-    props.variant !== 'icon' // 기본(base) 스타일 주입
-      ? currentStyle.value?.base
-      : 'p-0 bg-transparent',
-    props.variant !== 'icon' && !props.disabled && currentStyle.value?.hover, // disabled가 아닐 때만 hover 스타일 주입
-    props.full && props.variant !== 'icon' && 'w-full',
+    sizeMap[props.size],
+    currentStyle.value?.base,
+    !props.disabled && currentStyle.value?.hover,
+    props.full && 'w-full',
     spacingClasses.value,
-    props.variant !== 'icon' && radiusClasses.value,
+    radiusClasses.value,
     props.class,
   )
 );

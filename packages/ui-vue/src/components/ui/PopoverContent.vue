@@ -3,7 +3,7 @@ import { borderColorMap, type Placement } from '#/types';
 import { cn } from '#/utils/cn';
 import { ICloseB } from '#components';
 import { computed, inject, nextTick, ref, watch, type Ref } from 'vue';
-import Button from './Button.vue';
+import IconButton from './IconButton.vue';
 
 // Teleport가 root라 attrs가 자동 전달되지 않으므로 직접 바인딩
 defineOptions({ inheritAttrs: false });
@@ -108,17 +108,14 @@ const contentClasses = computed(() =>
         <span v-if="arrow" aria-hidden="true" :class="arrowClasses" :style="arrowStyle" />
 
         <!-- 닫기 x 버튼 -->
-        <Button
+        <IconButton
           v-if="closable"
-          variant="icon"
-          class="absolute right-2 top-2 size-8"
+          class="absolute right-2 top-2"
           :aria-label="closeLabel"
           @click="close"
         >
-          <template #icon>
-            <ICloseB class="size-5" aria-hidden="true" />
-          </template>
-        </Button>
+          <ICloseB class="size-5" aria-hidden="true" />
+        </IconButton>
 
         <slot />
       </div>

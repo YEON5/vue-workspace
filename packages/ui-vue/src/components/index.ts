@@ -19,6 +19,7 @@ export { default as Section } from './ui/Section.vue';
 
 // ui - 버튼/텍스트
 export { default as Button } from './ui/Button.vue';
+export { default as IconButton } from './ui/IconButton.vue';
 export { default as TextButton } from './ui/TextButton.vue';
 export { default as Typo } from './ui/Typo.vue';
 

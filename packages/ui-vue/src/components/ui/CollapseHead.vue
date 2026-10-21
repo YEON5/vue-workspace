@@ -3,6 +3,7 @@ import { cn } from '#/utils/cn';
 import { IArrowSelect } from '#components';
 import { computed, inject, type ComputedRef } from 'vue';
 import Button from './Button.vue';
+import IconButton from './IconButton.vue';
 
 interface Props {
   text?: string;       // 상태와 관계없이 고정되는 텍스트
@@ -39,21 +40,30 @@ const iconClasses = computed(() =>
     </div>
 
     <Button
-      :variant="hasText ? 'transparent' : 'icon'"
-      :color="hasText ? 'secondary' : undefined"
-      :size="hasText ? 'sm' : undefined"
+      v-if="hasText"
+      variant="transparent"
+      color="secondary"
+      size="sm"
       icon-align="right"
-      :class="cn('shrink-0', !hasText && 'size-8')"
-      class="hover:bg-transparent"
+      class="shrink-0 hover:bg-transparent"
       :aria-expanded="isOpen"
       :aria-controls="contentId"
-      :aria-label="hasText ? undefined : (isOpen ? openLabel : closeLabel)"
       @click="toggle"
     >
-      <template v-if="hasText">{{ buttonText }}</template>
+      {{ buttonText }}
       <template #icon>
         <IArrowSelect :class="iconClasses" aria-hidden="true" />
       </template>
     </Button>
+
+    <IconButton
+      v-else
+      :aria-label="isOpen ? openLabel : closeLabel"
+      :aria-expanded="isOpen"
+      :aria-controls="contentId"
+      @click="toggle"
+    >
+      <IArrowSelect :class="iconClasses" aria-hidden="true" />
+    </IconButton>
   </div>
 </template>

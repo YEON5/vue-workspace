@@ -24,7 +24,7 @@ const open2 = ref(false);
 
       <Divider class="h-0" my="10" />
 
-      <!-- Button 컴포넌트 사용한 경우 / arrow 말풍선 꼬리 / closable 내부 닫기 버튼 -->
+      <!-- Button 컴포넌트 사용한 경우 :as="Button" / arrow 말풍선 꼬리 / closable 내부 닫기 버튼 -->
       <Popover v-slot="{ close }" v-model="open2" placement="right">
         <PopoverTrigger :as="Button" variant="fill" size="md">Popover 내용 보기</PopoverTrigger>
   

@@ -36,6 +36,7 @@ declare module 'vue' {
     FloatingTextInput: typeof import('./src/components/ui/FloatingTextInput.vue')['default']
     FormGroup: typeof import('./src/components/ui/FormGroup.vue')['default']
     FormLabel: typeof import('./src/components/ui/FormLabel.vue')['default']
+    IconButton: typeof import('./src/components/ui/IconButton.vue')['default']
     Image: typeof import('./src/components/ui/Image.vue')['default']
     List: typeof import('./src/components/ui/List.vue')['default']
     ListItem: typeof import('./src/components/ui/ListItem.vue')['default']
