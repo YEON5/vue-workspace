@@ -1,9 +1,11 @@
 ---
 name: git-sync
-description: 변경사항을 원격 저장소에 올리거나(add/commit/pull/push), 메인 브랜치를 합치거나, merge conflict를 해결해 달라는 요청을 받았을 때 사용한다.
+description: 변경사항을 원격 저장소에 올리거나(add/commit/pull/push), 메인 브랜치를 합치거나, merge conflict를 해결해 달라는 요청을 받았을 때 사용한다. 코드 정리·검증까지 요청하면 git-simplify를 쓴다.
 ---
 
 # Git 동기화 (add → commit → pull → push)
+
+> 코드 정리나 검증까지 요청받았다면 이 스킬 대신 git-simplify를 쓴다. git-simplify는 정리·검증이 끝난 뒤 이 스킬의 작업 사이클로 이어진다.
 
 ## 메인 브랜치 확인
 작업 전에 이 저장소의 메인 브랜치를 아래 순서로 정한다. 앞에서 정해지면 뒤는 보지 않는다.
