@@ -25,9 +25,9 @@ const { internalId, isChecked } = useRadioable(props, segmentModel);
 
 const wrapperClasses = computed(() =>
   cn(
-    'relative z-[1] flex-1 inline-flex items-center justify-center rounded-md transition-colors',
+    'relative z-[1] flex-1 inline-flex items-center justify-center rounded-min transition-colors',
     // animated면 부모의 슬라이딩 indicator가 배경 역할을 대신함
-    !isAnimated.value && isChecked.value && 'bg-white shadow-sm',
+    !isAnimated.value && isChecked.value && 'surface-elevated-01 shadow-xs',
     props.disabled && 'opacity-50',
     props.class,
   )
@@ -37,8 +37,8 @@ const inputClasses = 'absolute inset-0 opacity-0';
 
 const textClasses = computed(() =>
   cn(
-    'px-3 py-3 text-center whitespace-nowrap',
-    TypoMap['label-m'],
+    'px-5 py-5 text-center whitespace-nowrap',
+    TypoMap['label-md'],
     isChecked.value ? colorMap['primary'] : colorMap['secondary'],
   )
 );

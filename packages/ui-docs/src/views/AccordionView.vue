@@ -48,7 +48,7 @@ const activeItem = ref<string[]>(['multipleA']);
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Accordion</Typo>
+      <Typo variant="heading-lg" pb="15">Accordion</Typo>
 
       <!-- accordion data -->
       <Accordion v-model="activeItem" type="multiple">
@@ -83,7 +83,7 @@ const activeItem = ref<string[]>(['multipleA']);
         </AccordionItem>
       </Accordion>
 
-      <Divider class="h-0" my="10" />
+      <Divider class="h-0" my="17" />
 
       <!-- single -->
       <Accordion>
@@ -97,7 +97,7 @@ const activeItem = ref<string[]>(['multipleA']);
         </AccordionItem>
       </Accordion>
 
-      <Divider class="h-0" my="10" />
+      <Divider class="h-0" my="17" />
 
       <!-- multiple -->
       <Accordion type="multiple">
@@ -111,7 +111,7 @@ const activeItem = ref<string[]>(['multipleA']);
         </AccordionItem>
       </Accordion>
 
-      <Divider class="h-0" my="10" />
+      <Divider class="h-0" my="17" />
       
       <!-- icon 추가 -->
       <Accordion type="multiple">
@@ -135,7 +135,7 @@ const activeItem = ref<string[]>(['multipleA']);
         </AccordionItem>
       </Accordion>
 
-      <Divider class="h-0" my="10" />
+      <Divider class="h-0" my="17" />
 
       <!-- accordion 중첩 -->
       <Accordion>
@@ -145,8 +145,8 @@ const activeItem = ref<string[]>(['multipleA']);
             <!-- inner accordion -->
             <Accordion type="multiple">
               <AccordionItem value="multipleInnerA">
-                <AccordionHead class="pl-4">multipleInner 제목</AccordionHead>
-                <AccordionContent class="pl-4">multipleInner 내용</AccordionContent>
+                <AccordionHead class="pl-7">multipleInner 제목</AccordionHead>
+                <AccordionContent class="pl-7">multipleInner 내용</AccordionContent>
               </AccordionItem>
             </Accordion>
             <!-- //inner accordion -->

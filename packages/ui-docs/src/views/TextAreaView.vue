@@ -22,10 +22,10 @@ const formSelect = 'formSelect'
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Select</Typo>
+      <Typo variant="heading-lg" pb="15">Select</Typo>
 
-      <Flex direction="col" gap="6">
-        <FormGroup label="레이블" pb="5" :input-id="formSelect">
+      <Flex direction="col" gap="10">
+        <FormGroup label="레이블" pb="9" :input-id="formSelect">
           <Select
             :id="formSelect"
             v-model="selectValue"
@@ -34,11 +34,11 @@ const formSelect = 'formSelect'
         </FormGroup>
       </Flex>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
-      <Typo variant="heading-l" pb="9">TextArea</Typo>
+      <Typo variant="heading-lg" pb="15">TextArea</Typo>
 
-      <Flex direction="col" gap="6">
+      <Flex direction="col" gap="10">
         <FormGroup
           label="레이블"
           info-msg="300자 이내로 입력해주세요"
@@ -61,7 +61,7 @@ const formSelect = 'formSelect'
         </FormGroup>
 
         <!-- info msg / count 나란히 배치 (예외케이스) -->
-        <Flex direction="col" gap="3">
+        <Flex direction="col" gap="5">
           <FormLabel>레이블</FormLabel>
           <TextArea 
             v-model="formData.labelTextarea"
@@ -69,8 +69,8 @@ const formSelect = 'formSelect'
             :max-length="100" 
           />
           <Flex align="center" justify="between">
-            <Typo variant="body-s" color="caption">100자 이내로 입력해주세요</Typo>
-            <Typo as="span" variant="body-s" color="caption">{{ formData.labelTextarea.length }}/100</Typo>
+            <Typo variant="body-sm" color="caption">100자 이내로 입력해주세요</Typo>
+            <Typo as="span" variant="body-sm" color="caption">{{ formData.labelTextarea.length }}/100</Typo>
           </Flex>
         </Flex>
         

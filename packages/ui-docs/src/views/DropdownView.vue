@@ -6,7 +6,7 @@ import { Container, Divider, IconButton, IMy, Section, Tooltip, TooltipContent, 
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Tooltip</Typo>
+      <Typo variant="heading-lg" pb="15">Tooltip</Typo>
 
       <!-- 아이콘 버튼: 이름은 aria-label, 보충 설명은 tooltip -->
       <Tooltip placement="top-start">
@@ -16,7 +16,7 @@ import { Container, Divider, IconButton, IMy, Section, Tooltip, TooltipContent, 
         <TooltipContent arrow class="max-w-[150px]">1회 이체 한도는 최대 1천만원입니다.</TooltipContent>
       </Tooltip>
 
-      <Divider class="h-0" my="10" />
+      <Divider class="h-0" my="17" />
 
       <!-- 일반 텍스트: tabindex가 자동으로 붙음 -->
       <Tooltip placement="right">

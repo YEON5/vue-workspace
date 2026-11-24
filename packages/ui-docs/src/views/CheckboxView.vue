@@ -39,10 +39,10 @@ const selectedAccount = ref<string[]>(['account1', 'account2']);
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Checkbox</Typo>
+      <Typo variant="heading-lg" pb="15">Checkbox</Typo>
 
       <!-- checkbox data -->
-      <Flex wrap gap="6" role="group" aria-label="체크박스 예시">
+      <Flex wrap gap="10" role="group" aria-label="체크박스 예시">
         <Checkbox
           v-for="item in checkboxData"
           :key="item.value"
@@ -54,10 +54,10 @@ const selectedAccount = ref<string[]>(['account1', 'account2']);
         </Checkbox>
       </Flex>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- basic -->
-      <Flex direction="col" gap="6">
+      <Flex direction="col" gap="10">
         <Checkbox v-model="basicChk" value="basic1" aria-label="CheckboxBasic 라벨 없음" />
         <Checkbox v-model="basicChk" value="basic2">CheckboxBasic1</Checkbox>
         <Checkbox checked>CheckboxBasic2</Checkbox>
@@ -65,10 +65,10 @@ const selectedAccount = ref<string[]>(['account1', 'account2']);
         <Checkbox disabled checked>CheckboxBasic4</Checkbox>
       </Flex>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- single -->
-      <Flex direction="col" gap="6">
+      <Flex direction="col" gap="10">
         <Checkbox variant="single" aria-label="CheckboxSingle 라벨 없음" />
         <Checkbox variant="single">CheckboxSingle1</Checkbox>
         <Checkbox variant="single" checked>CheckboxSingle2</Checkbox>
@@ -76,30 +76,30 @@ const selectedAccount = ref<string[]>(['account1', 'account2']);
         <Checkbox variant="single" disabled checked>CheckboxSingle4</Checkbox>
       </Flex>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- box -->
-      <Flex direction="col" gap="3">
+      <Flex direction="col" gap="5">
         <Checkbox variant="box">CheckboxBox1</Checkbox>
         <Checkbox variant="box" checked>CheckboxBox2</Checkbox>
         <Checkbox variant="box" disabled>CheckboxBox3</Checkbox>
         <Checkbox variant="box" disabled checked>CheckboxBox4</Checkbox>
       </Flex>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- 확장형 (카드) -->
-      <Flex wrap gap="4" role="group" aria-label="계좌 선택">
+      <Flex wrap gap="7" role="group" aria-label="계좌 선택">
         <Checkbox
           v-for="chk in accountData"
           :key="chk.value"
           v-model="selectedAccount"
           :value="chk.value"
           :disabled="chk.disabled"
-          class="flex-1 min-w-[240px] py-7 pl-6 pr-10 border border-gray-500 rounded-lg items-start has-[:checked]:border-mint-500"
+          class="flex-1 min-w-[240px] py-11 pl-10 pr-17 border border-neutral rounded-sm items-start has-[:checked]:border-primary"
         >
-          <Flex direction="col" gap="3">
-            <Typo variant="label-l" class="font-bold">{{ chk.name }}</Typo>
+          <Flex direction="col" gap="5">
+            <Typo variant="label-lg" class="font-bold">{{ chk.name }}</Typo>
             <Typo color="tertiary">{{ chk.number }}</Typo>
             <Typo color="tertiary">출금가능금액 <strong>{{ chk.amount }}</strong></Typo>
           </Flex>

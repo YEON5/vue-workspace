@@ -1,0 +1,653 @@
+{
+  "gap": {
+    "1": {
+      "$type": "number",
+      "$value": 2,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43703",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:b11b1fec77eae357e887aa9f69247e8e158c437f/-1:-1",
+          "targetVariableName": "number/2",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "2": {
+      "$type": "number",
+      "$value": 4,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43704",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:87ba7d808d096e18137ce903aa74cb7e0fceaa79/-1:-1",
+          "targetVariableName": "number/3",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "3": {
+      "$type": "number",
+      "$value": 8,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43705",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:beefb19dca7ddc0de13695ba03c5ba2d74916470/-1:-1",
+          "targetVariableName": "number/5",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "4": {
+      "$type": "number",
+      "$value": 12,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43706",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:a465d5c75b612c81c4ce654ab9f9ebbd7d3cd67f/-1:-1",
+          "targetVariableName": "number/7",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "5": {
+      "$type": "number",
+      "$value": 16,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43707",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:626f73e44eef3bb390bd6c5c8e976b6e4f4e953a/-1:-1",
+          "targetVariableName": "number/9",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "6": {
+      "$type": "number",
+      "$value": 20,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43708",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:3682433f34c8c93745e901429c8e35dfd53716bf/-1:-1",
+          "targetVariableName": "number/10",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "7": {
+      "$type": "number",
+      "$value": 24,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43709",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:4ca63a48343382208c4d5d67a6ecf82e0ff3e46a/-1:-1",
+          "targetVariableName": "number/11",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "8": {
+      "$type": "number",
+      "$value": 32,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43710",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:a77fc92f5dcdb0436ba860ee790d62014808ccda/-1:-1",
+          "targetVariableName": "number/13",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "9": {
+      "$type": "number",
+      "$value": 40,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43711",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:d0426467daa219a104423892b9540e4f49e03dc5/-1:-1",
+          "targetVariableName": "number/15",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "10": {
+      "$type": "number",
+      "$value": 48,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43712",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:3a86e217a6bf097ab5d6e9c9d73a2797b653e675/-1:-1",
+          "targetVariableName": "number/17",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "11": {
+      "$type": "number",
+      "$value": 64,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43713",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:afba48d84b8a7255470d8dee6a4077069a304deb/-1:-1",
+          "targetVariableName": "number/19",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "12": {
+      "$type": "number",
+      "$value": 80,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43714",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:7d279cfa1cc3114b50952ed22116d2895231746d/-1:-1",
+          "targetVariableName": "number/21",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    }
+  },
+  "padding": {
+    "1": {
+      "$type": "number",
+      "$value": 2,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43715",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:b11b1fec77eae357e887aa9f69247e8e158c437f/-1:-1",
+          "targetVariableName": "number/2",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "2": {
+      "$type": "number",
+      "$value": 4,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43716",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:87ba7d808d096e18137ce903aa74cb7e0fceaa79/-1:-1",
+          "targetVariableName": "number/3",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "3": {
+      "$type": "number",
+      "$value": 8,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43717",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:beefb19dca7ddc0de13695ba03c5ba2d74916470/-1:-1",
+          "targetVariableName": "number/5",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "4": {
+      "$type": "number",
+      "$value": 10,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43727",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:86baa88c44e4dcc3a8aaac4309494e19df9bb592/-1:-1",
+          "targetVariableName": "number/6",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "5": {
+      "$type": "number",
+      "$value": 12,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43718",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:a465d5c75b612c81c4ce654ab9f9ebbd7d3cd67f/-1:-1",
+          "targetVariableName": "number/7",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "6": {
+      "$type": "number",
+      "$value": 16,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43719",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:626f73e44eef3bb390bd6c5c8e976b6e4f4e953a/-1:-1",
+          "targetVariableName": "number/9",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "7": {
+      "$type": "number",
+      "$value": 20,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43720",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:3682433f34c8c93745e901429c8e35dfd53716bf/-1:-1",
+          "targetVariableName": "number/10",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "8": {
+      "$type": "number",
+      "$value": 24,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43721",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:4ca63a48343382208c4d5d67a6ecf82e0ff3e46a/-1:-1",
+          "targetVariableName": "number/11",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "9": {
+      "$type": "number",
+      "$value": 32,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43722",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:a77fc92f5dcdb0436ba860ee790d62014808ccda/-1:-1",
+          "targetVariableName": "number/13",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "10": {
+      "$type": "number",
+      "$value": 40,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43723",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:d0426467daa219a104423892b9540e4f49e03dc5/-1:-1",
+          "targetVariableName": "number/15",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    }
+  },
+  "radius": {
+    "min": {
+      "$type": "number",
+      "$value": 4,
+      "$description": "Applies to component height values of 18 or less.\n",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:3179:39698",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:87ba7d808d096e18137ce903aa74cb7e0fceaa79/-1:-1",
+          "targetVariableName": "number/3",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "xsmall": {
+      "$type": "number",
+      "$value": 6,
+      "$description": "Applies to component height values from 20 to 28.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:3179:39700",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:7fdd6defbaa499048c5d788ab9843a6a28aa960d/-1:-1",
+          "targetVariableName": "number/4",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "small": {
+      "$type": "number",
+      "$value": 8,
+      "$description": "Applies to component height values from 30 to 36.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:3179:39701",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:beefb19dca7ddc0de13695ba03c5ba2d74916470/-1:-1",
+          "targetVariableName": "number/5",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "medium": {
+      "$type": "number",
+      "$value": 10,
+      "$description": "Applies to component height values from 38 to 44.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:3179:39702",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:86baa88c44e4dcc3a8aaac4309494e19df9bb592/-1:-1",
+          "targetVariableName": "number/6",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "large": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "Applies to component height values from 48 to 52.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:3179:39703",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:a465d5c75b612c81c4ce654ab9f9ebbd7d3cd67f/-1:-1",
+          "targetVariableName": "number/7",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "xlarge": {
+      "$type": "number",
+      "$value": 14,
+      "$description": "Applies to component height values from 56.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:3179:39704",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:06950d4e1d74ee94d182e0e54fabf7ca573a407c/-1:-1",
+          "targetVariableName": "number/8",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "max": {
+      "$type": "number",
+      "$value": 16,
+      "$description": "Applies to component height values of 64 or higher.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:3179:39706",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:626f73e44eef3bb390bd6c5c8e976b6e4f4e953a/-1:-1",
+          "targetVariableName": "number/9",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "full": {
+      "$type": "number",
+      "$value": 1000,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:3179:39710",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:4b05bfca04242e3e2fd9fe9e7545cfc52efef9f0/-1:-1",
+          "targetVariableName": "number/max",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    }
+  },
+  "size": {
+    "min": {
+      "$type": "number",
+      "$value": 8,
+      "$description": "8px / Both width and height can be expressed.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43740",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:beefb19dca7ddc0de13695ba03c5ba2d74916470/-1:-1",
+          "targetVariableName": "number/5",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "xxxsmall": {
+      "$type": "number",
+      "$value": 16,
+      "$description": "16px / Both width and height can be expressed.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43742",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:626f73e44eef3bb390bd6c5c8e976b6e4f4e953a/-1:-1",
+          "targetVariableName": "number/9",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "xxsmall": {
+      "$type": "number",
+      "$value": 20,
+      "$description": "20px / Both width and height can be expressed.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43743",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:3682433f34c8c93745e901429c8e35dfd53716bf/-1:-1",
+          "targetVariableName": "number/10",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "xsmall": {
+      "$type": "number",
+      "$value": 24,
+      "$description": "24px / Both width and height can be expressed.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43744",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:4ca63a48343382208c4d5d67a6ecf82e0ff3e46a/-1:-1",
+          "targetVariableName": "number/11",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "small": {
+      "$type": "number",
+      "$value": 32,
+      "$description": "32px / Both width and height can be expressed.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43745",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:a77fc92f5dcdb0436ba860ee790d62014808ccda/-1:-1",
+          "targetVariableName": "number/13",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "medium": {
+      "$type": "number",
+      "$value": 40,
+      "$description": "40px / Both width and height can be expressed.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43746",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:d0426467daa219a104423892b9540e4f49e03dc5/-1:-1",
+          "targetVariableName": "number/15",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "large": {
+      "$type": "number",
+      "$value": 48,
+      "$description": "48px / Both width and height can be expressed.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43747",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:3a86e217a6bf097ab5d6e9c9d73a2797b653e675/-1:-1",
+          "targetVariableName": "number/17",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "xlarge": {
+      "$type": "number",
+      "$value": 56,
+      "$description": "56px / Both width and height can be expressed.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:863:43750",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:c27ea78383c10fdff7da071824e5ebe22d57f006/-1:-1",
+          "targetVariableName": "number/18",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    },
+    "xxlarge": {
+      "$type": "number",
+      "$value": 64,
+      "$description": "64px / Both width and height can be expressed.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:11476:96277",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:afba48d84b8a7255470d8dee6a4077069a304deb/-1:-1",
+          "targetVariableName": "number/19",
+          "targetVariableSetId": "VariableCollectionId:557df9f3a0af6f6bb640ac13d39736581dc7bbb7/-1:-1",
+          "targetVariableSetName": "primitive"
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "value-set"
+  }
+}

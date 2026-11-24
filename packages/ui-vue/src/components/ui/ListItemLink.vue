@@ -22,9 +22,9 @@ const tag = computed(() => (props.to ? 'RouterLink' : 'button'));
 
 const linkClasses = computed(() =>
   cn(
-    'flex items-center justify-between w-full gap-3 text-left transition-colors',
-    hasDivide.value ? 'py-5' : 'py-3', // divide 있음 / 없음
-    !props.disabled && 'hover:bg-gray-50 focus-visible:bg-gray-50 focus-visible:outline-none',
+    'flex items-center justify-between w-full gap-5 text-left transition-colors',
+    hasDivide.value ? 'py-9' : 'py-5', // divide 있음 / 없음
+    !props.disabled && 'hover:action-neutral-hover focus-visible:action-neutral-hover focus-visible:outline-hidden',
     props.disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
   )
 );
@@ -40,7 +40,7 @@ const linkClasses = computed(() =>
       :class="linkClasses"
     >
       <slot />
-      <IArrowRightS v-if="showArrow" class="size-5 shrink-0" />
+      <IArrowRightS v-if="showArrow" class="size-9 shrink-0" />
     </component>
   </li>
 </template>

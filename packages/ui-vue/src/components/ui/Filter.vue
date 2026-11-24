@@ -34,7 +34,7 @@ const wrapperClasses = computed(() =>
 // pill 형태 - input이 박스 전체를 차지, 텍스트가 그 위에 겹침 (Checkbox의 box variant와 동일한 방식)
 const inputClasses = computed(() =>
   cn(
-    'peer absolute inset-0 size-full appearance-none rounded-full border bg-white',
+    'peer absolute inset-0 size-full appearance-none rounded-full border element-white',
     !isChecked.value && borderColorMap['secondary'],
     isChecked.value && [borderColorMap['primary'], bgColorMap['primary']],
   )
@@ -42,8 +42,8 @@ const inputClasses = computed(() =>
 
 const textClasses = computed(() =>
   cn(
-    'relative inline-flex items-center h-[34px] z-[1] px-5',
-    TypoMap['label-m'],
+    'relative inline-flex items-center h-[34px] z-[1] px-9',
+    TypoMap['label-md'],
     isChecked.value ? colorMap['white'] : colorMap['secondary'],
   )
 );

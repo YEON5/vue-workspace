@@ -23,7 +23,7 @@ const { spacingClasses } = useSpacing(props);
 const classes = computed(() => 
   cn(
     'flex flex-col flex-1 w-full mx-auto px-[var(--layout-px)]',
-    props.padded && 'py-8',
+    props.padded && 'py-13',
     props.centered && 'items-center justify-center',
     spacingClasses.value,
     props.class,

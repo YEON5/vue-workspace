@@ -12,7 +12,7 @@ const props = defineProps<Props>();
 const depth = inject<number>('bulletDepth', 0);
 const type = inject<'dot' | 'hyphen' | 'number'>('bulletType', 'dot'); // BulletList에서 내려준 type을 그대로 상속받음 (기본값 dot)
 
-const textClass = computed(() => (depth === 0 ? TypoMap['label-m'] : TypoMap['label-s']));
+const textClass = computed(() => (depth === 0 ? TypoMap['label-md'] : TypoMap['label-sm']));
 
 const itemClasses = computed(() =>
   cn(

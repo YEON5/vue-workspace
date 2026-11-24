@@ -5,16 +5,16 @@ import { Container, Flex, IMy, Section, Tag, Typo } from '@ui/vue';
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Tag</Typo>
+      <Typo variant="heading-lg" pb="15">Tag</Typo>
       
-      <Flex gap="5">
+      <Flex gap="9">
         <Tag variant="solid" color="success">완료</Tag>
         <Tag variant="solid" color="warning">주의</Tag>
         <Tag variant="outline" type="rounded" color="error">실패</Tag>
         <Tag variant="outline" type="rounded" color="success">완료</Tag>
         <Tag variant="solid" color="info">
           <template #icon>
-            <IMy class="size-4" />
+            <IMy class="size-7" />
           </template>
           모집중
         </Tag>

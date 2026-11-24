@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TypoMap, bgColorMap, borderColorMap, colorMap } from '#/types';
+import { TypoMap, colorMap } from '#/types';
 import { cn } from '#/utils/cn';
 import { IArrowSelect } from '#components';
 import { computed, inject, ref, type Ref } from 'vue';
@@ -38,28 +38,28 @@ const wrapperClasses = computed(() =>
 
 const selectClasses = computed(() =>
   cn(
-    'w-full h-[56px] px-5 pr-12 border rounded-lg outline-none transition-colors appearance-none',
-    TypoMap['label-m'],
+    'w-full h-[56px] px-9 pr-20 border rounded-sm outline-hidden transition-colors appearance-none',
+    TypoMap['label-md'],
 
     !props.disabled && [
       colorMap['secondary'],
-      bgColorMap['white'],
-      borderColorMap['tertiary']
+      'input-surface',
+      'input-border'
     ],
     
     // 값이 없을 때(placeholder 상태)는 텍스트 색상을 흐리게 처리
     !modelValue.value && colorMap['caption'], // placeholder
     
-    hasError.value && !props.disabled && borderColorMap['error'], // error
+    hasError.value && !props.disabled && 'input-border-error', // error
 
     // disabled일 때만
     props.disabled && [
       colorMap['disabled'],
-      bgColorMap['disabled'],
-      borderColorMap['disabled'],
+      'input-surface-disabled',
+      'input-border-disabled',
       'cursor-not-allowed'
     ],
-    !props.disabled && 'focus:border-mint-500',
+    !props.disabled && 'focus:input-border-active',
   )
 );
 </script>
@@ -89,8 +89,8 @@ const selectClasses = computed(() =>
     </select>
 
     <!-- 커스텀 드롭다운 화살표 아이콘 -->
-    <div class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
-      <IArrowSelect class="size-5" />
+    <div class="pointer-events-none absolute right-7 top-1/2 -translate-y-1/2">
+      <IArrowSelect class="size-9" />
     </div>
   </div>
 </template>

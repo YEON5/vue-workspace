@@ -4,7 +4,7 @@ import { Container, Section, Typo } from '@ui/vue';
 
 <template>
   <Container>
-    <Typo variant="heading-l" pb="9">Guide</Typo>
+    <Typo variant="heading-lg" pb="15">Guide</Typo>
 
     <Section>가이드 페이지</Section>
   </Container>

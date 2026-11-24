@@ -65,20 +65,20 @@ function close() {
 // popover 말풍선 화살표
 const arrowClasses = computed(() =>
   cn(
-    'absolute rotate-45 bg-white',
+    'absolute rotate-45 surface-elevated-02',
     borderColorMap['tertiary'],
     {
-      bottom: '-top-2 border-l border-t',
-      top: '-bottom-2 border-r border-b',
-      right: '-left-2 border-l border-b',
-      left: '-right-2 border-r border-t',
+      bottom: '-top-3 border-l border-t',
+      top: '-bottom-3 border-r border-b',
+      right: '-left-3 border-l border-b',
+      left: '-right-3 border-r border-t',
     }[side.value],
   )
 );
 
 const contentClasses = computed(() =>
   cn(
-    'z-50 rounded-lg border bg-white shadow-lg focus:outline-none',
+    'z-50 rounded-sm border surface-elevated-02 shadow-lg focus:outline-hidden',
     props.closable && 'relative',
     borderColorMap['tertiary'],
     props.class,
@@ -110,11 +110,11 @@ const contentClasses = computed(() =>
         <!-- 닫기 x 버튼 -->
         <IconButton
           v-if="closable"
-          class="absolute right-2 top-2"
+          class="absolute right-3 top-3"
           :aria-label="closeLabel"
           @click="close"
         >
-          <ICloseB class="size-6" aria-hidden="true" />
+          <ICloseB class="size-10" aria-hidden="true" />
         </IconButton>
 
         <slot />

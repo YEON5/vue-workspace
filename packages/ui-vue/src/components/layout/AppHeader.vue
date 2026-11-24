@@ -31,10 +31,10 @@ const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
     :class="[
       'sticky top-0 z-50 flex-none w-full transition-colors duration-200',
       'h-[54px] pt-[env(safe-area-inset-top)]',
-      transparent ? 'bg-transparent' : 'bg-background border-b border-border',
+      transparent ? 'bg-transparent' : 'background-default border-b border-neutral-light',
     ]"
   >
-    <div class="relative flex items-center h-full px-4 gap-2">
+    <div class="relative flex items-center h-full px-7 gap-3">
       <!-- left area -->
       <div
         class="flex items-center"
@@ -44,7 +44,7 @@ const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
           <button
             v-for="(btn, index) in normalizeBtn(leftBtn)"
             :key="btn.label ?? index"
-            class="p-2 -ml-2"
+            class="p-3 -ml-3"
             :aria-label="btn.label"
             @click="btn.action"
           >
@@ -61,7 +61,7 @@ const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
       <!-- title area -->
       <div
         :class="[
-          'text-lg font-medium text-foreground truncate',
+          'text-body-lg font-medium text-bolder truncate',
           align === 'center'
             ? 'absolute z-50 inset-x-0 mx-auto text-center px-[80px] pointer-events-none'
             : 'flex-1 min-w-0 text-left',
@@ -72,14 +72,14 @@ const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
 
       <!-- right area -->
       <div 
-        class="flex items-center justify-end gap-3"
+        class="flex items-center justify-end gap-5"
         :class="align === 'center' ? 'flex-1 min-w-0' : 'flex-none'"
       >
         <template v-if="rightBtn">
           <button
             v-for="(btn, index) in normalizeBtn(rightBtn)"
             :key="btn.label ?? index"
-            class="p-2 -mr-2"
+            class="p-3 -mr-3"
             :aria-label="btn.label"
             @click="btn.action"
           >

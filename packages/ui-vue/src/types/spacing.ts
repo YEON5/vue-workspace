@@ -1,26 +1,13 @@
 // src/types/spacing.ts
-// 피그마 spacing 토큰과 1:1 대응
-// 토큰 추가/변경 시 SpacingToken 타입과 SPACING_TOKENS 만 수정
+// 피그마 primitive number 토큰과 1:1 대응 (p-9 = gap-9 = mt-9 = 16px)
+// 토큰 추가/변경은 Figma export → npm run tokens -w @ui/style 로 자동 반영
+import { SPACING_SCALE } from './tokens.generated';
 
-export type SpacingToken =
-  | 'none' // 0px
-  | '1'    // 2px
-  | '2'    // 4px
-  | '3'    // 8px
-  | '4'    // 12px
-  | '5'    // 16px
-  | '6'    // 20px
-  | '7'    // 24px
-  | '8'    // 32px
-  | '9'    // 40px
-  | '10'   // 48px
-  | '11'   // 60px
-  | '12'   // 72px
-  | '13';  // 80px
+// 토큰 목록·px 값은 tokens.generated.ts (@ui/style design-tokens.json에서 자동 생성)
+// 'none'은 p-0 등 0 간격 (Tailwind 기본 클래스)
+export type SpacingToken = 'none' | keyof typeof SPACING_SCALE;
 
-export const SPACING_TOKENS: SpacingToken[] = [
-  'none', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'
-];
+export const SPACING_TOKENS = ['none', ...Object.keys(SPACING_SCALE)] as SpacingToken[];
 
 export const SPACING_PREFIXES = [
   'p', 'pt', 'pb', 'pl', 'pr', 'px', 'py',

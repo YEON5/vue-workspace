@@ -38,10 +38,10 @@ const selectedAccount = ref('account2');
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Radio</Typo>
+      <Typo variant="heading-lg" pb="15">Radio</Typo>
 
       <!-- radio data -->
-      <RadioGroup v-model="radioSelect" aria-label="라디오 예시" wrap gap="6">
+      <RadioGroup v-model="radioSelect" aria-label="라디오 예시" wrap gap="10">
         <Radio
           v-for="item in radioData"
           :key="item.value"
@@ -52,10 +52,10 @@ const selectedAccount = ref('account2');
         </Radio>
       </RadioGroup>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- basic: 상태 확인용 (checked props) -->
-      <RadioGroup aria-label="basic 상태 예시" direction="col" gap="3">
+      <RadioGroup aria-label="basic 상태 예시" direction="col" gap="5">
         <Radio aria-label="라벨 없음" />
         <Radio>Radio1</Radio>
         <Radio>Radio2</Radio>
@@ -63,39 +63,39 @@ const selectedAccount = ref('account2');
         <Radio checked disabled>Radio4</Radio>
       </RadioGroup>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- basic: v-model -->
-      <RadioGroup v-model="selectedOption" aria-label="옵션 선택" direction="col" gap="3">
+      <RadioGroup v-model="selectedOption" aria-label="옵션 선택" direction="col" gap="5">
         <Radio value="option1" aria-label="옵션 1" />
         <Radio value="option2">Radio1</Radio>
         <Radio value="option3">Radio2</Radio>
         <Radio value="option4" disabled>Radio3</Radio>
       </RadioGroup>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- box: 상태 확인용 (checked props) -->
-      <RadioGroup aria-label="box 상태 예시" direction="col" gap="3">
+      <RadioGroup aria-label="box 상태 예시" direction="col" gap="5">
         <Radio variant="box">Radio1</Radio>
         <Radio variant="box">Radio2</Radio>
         <Radio variant="box" disabled>Radio3</Radio>
         <Radio variant="box" disabled checked>Radio4</Radio>
       </RadioGroup>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- 확장형 (카드) -->
-      <RadioGroup v-model="selectedAccount" aria-label="계좌 선택" wrap gap="4">
+      <RadioGroup v-model="selectedAccount" aria-label="계좌 선택" wrap gap="7">
         <Radio
           v-for="rdi in accountData"
           :key="rdi.value"
           :value="rdi.value"
           :disabled="rdi.disabled"
-          class="flex-1 min-w-[240px] py-7 pl-6 pr-10 border border-gray-500 rounded-lg items-start has-[:checked]:border-mint-500"
+          class="flex-1 min-w-[240px] py-11 pl-10 pr-17 border border-neutral rounded-sm items-start has-[:checked]:border-primary"
         >
-          <Flex direction="col" gap="3">
-            <Typo variant="label-l" class="font-bold">{{ rdi.name }}</Typo>
+          <Flex direction="col" gap="5">
+            <Typo variant="label-lg" class="font-bold">{{ rdi.name }}</Typo>
             <Typo color="tertiary">{{ rdi.number }}</Typo>
             <Typo color="tertiary">출금가능금액 <strong>{{ rdi.amount }}</strong></Typo>
           </Flex>

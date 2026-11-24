@@ -39,10 +39,10 @@ const tabClasses = computed(() => {
     // z-[1]: pill의 슬라이딩 배경(z-0) 위에 글자가 보이도록
     'relative z-[1] inline-flex items-center justify-center transition-colors cursor-pointer select-none',
     !isPill && (isFull.value ? 'flex-1' : 'shrink-0'),
-    !isPill && TypoMap['body-m'],
+    !isPill && TypoMap['body-md'],
 
     // line
-    !isPill && 'h-[48px] px-4',
+    !isPill && 'h-[48px] px-7',
     !isPill && (isSelected.value ? [colorMap['primary'], 'font-bold'] : colorMap['secondary']),
     // animated가 아닐 때 탭 자체의 하단 보더 처리
     !isPill && !isAnimated.value && [
@@ -51,10 +51,10 @@ const tabClasses = computed(() => {
     ],
 
     // pill
-    isPill && ['h-[34px] flex-none px-5 rounded-full border', TypoMap['body-s']],
-    isPill && !isSelected.value && ['border-gray-300 bg-white', colorMap['secondary']],
+    isPill && ['h-[34px] flex-none px-9 rounded-full border', TypoMap['body-sm']],
+    isPill && !isSelected.value && ['border-neutral background-default', colorMap['secondary']],
     // animated면 배경은 TabList의 indicator가 담당, 아니면 탭 자체가 채워짐
-    isPill && isSelected.value && 'text-white',
+    isPill && isSelected.value && 'text-inverse-static',
     isPill && isSelected.value && (isAnimated.value
       ? 'border-transparent'
       : [bgColorMap['primary'], borderColorMap['primary']]),

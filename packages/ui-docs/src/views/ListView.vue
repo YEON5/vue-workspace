@@ -31,7 +31,7 @@ const linkList: LinkItem[] = [
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">List</Typo>
+      <Typo variant="heading-lg" pb="15">List</Typo>
 
       <!-- 기본형 -->
       <List>
@@ -40,9 +40,9 @@ const linkList: LinkItem[] = [
         </ListItem>
       </List>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
-      <Typo variant="body-l" pb="4">좌우 정렬형</Typo>
+      <Typo variant="body-lg" pb="7">좌우 정렬형</Typo>
 
       <List divide>
         <ListItem v-for="(info, i) in infoList" :key="i">
@@ -51,7 +51,7 @@ const linkList: LinkItem[] = [
         </ListItem>
       </List>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <List divide="top">
         <ListItem v-for="(info, i) in infoList" :key="i">
@@ -60,7 +60,7 @@ const linkList: LinkItem[] = [
         </ListItem>
       </List>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <List divide="bottom">
         <ListItem v-for="(info, i) in infoList" :key="i">
@@ -69,9 +69,9 @@ const linkList: LinkItem[] = [
         </ListItem>
       </List>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
-      <Typo variant="body-l" pb="4">링크형</Typo>
+      <Typo variant="body-lg" pb="7">링크형</Typo>
 
       <List>
         <ListItemLink

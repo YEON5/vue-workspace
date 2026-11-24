@@ -1,44 +1,23 @@
 // src/types/typo.ts
 import type { ColorToken } from './color';
-
-export type TypoToken =
-  | 'display'
-  | 'heading-xl'
-  | 'heading-l'
-  | 'heading-m'
-  | 'heading-s'
-  | 'body-l'
-  | 'body-m'
-  | 'body-s'
-  | 'label-l'
-  | 'label-m'
-  | 'label-s'
-  | 'label-xs'
-  | 'caption-1'
-  | 'caption-2';
+import { FONT_SIZE_SCALE } from './tokens.generated';
 
 export type TypoAlign =
   | 'left'
   | 'center'
   | 'right';
 
-// 크기 + 굵기 + line-height + letter-spacing
-export const TypoMap: Record<TypoToken, string> = {
-  'display': 'text-4xl font-bold tracking-[-0.1px]',
-  'heading-xl': 'text-3xl font-bold tracking-[-0.1px]',
-  'heading-l': 'text-2xl font-bold tracking-[-0.2px]',
-  'heading-m': 'text-xl font-bold tracking-[-0.2px]',
-  'heading-s': 'text-lg font-bold tracking-[-0.2px]',
-  'body-l':    'text-lg font-medium tracking-[-0.2px]',
-  'body-m':    'text-md font-normal tracking-[-0.2px]',
-  'body-s':    'text-sm font-normal tracking-[-0.2px]',
-  'label-l':   'text-lg font-medium tracking-[-0.2px]',
-  'label-m':   'text-md font-normal tracking-[-0.2px]',
-  'label-s':   'text-sm font-normal tracking-[-0.2px]',
-  'label-xs':  'text-xs font-normal tracking-[-0.2px]',
-  'caption-1': 'text-xs font-normal tracking-[-0.2px]',
-  'caption-2': 'text-xxs font-normal tracking-[-0.2px]',
-};
+// variant = 디자인 토큰 font-size 이름 (사용: <Typo variant="body-lg">)
+// 크기 → 굵기 조합은 @ui/style tokens.rules.json typography에서 지정 → tokens.generated.ts FONT_SIZE_SCALE (굵기가 있는 크기만 variant)
+type FontSizeScale = typeof FONT_SIZE_SCALE;
+export type TypoToken = { [K in keyof FontSizeScale]: FontSizeScale[K] extends { weight: string } ? K : never }[keyof FontSizeScale];
+
+// 크기 + 굵기 + 행간(1.5)
+export const TypoMap = Object.fromEntries(
+  Object.entries(FONT_SIZE_SCALE)
+    .filter(([, v]) => 'weight' in v)
+    .map(([size, v]) => [size, `text-${size} font-${(v as { weight: string }).weight} leading-normal`])
+) as Record<TypoToken, string>;
 
 // 정렬
 export const textAlignMap: Record<TypoAlign, string> = {

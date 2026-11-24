@@ -45,6 +45,7 @@ export default defineConfig({
     }
   },
   server: {
+    port: 5810, // 흔한 3000/5173 충돌 회피 (ui-docs: 5820)
     watch: {
       // '!'는 무시(ignore)를 취소하라는 뜻입니다.
       // 즉, packages 폴더 내부의 변화를 절대 무시하지 말라는 강력한 명령입니다.

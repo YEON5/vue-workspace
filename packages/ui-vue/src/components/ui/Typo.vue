@@ -16,7 +16,7 @@ interface Props extends SpacingProps {
 
 const props = withDefaults(defineProps<Props>(), {
   as: 'p',
-  variant: 'body-m',
+  variant: 'body-md',
   color: 'body',
   ellipsis: false,
 });

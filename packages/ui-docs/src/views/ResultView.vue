@@ -15,7 +15,7 @@ const handleBannerClick = () => {
     description="처리 결과를 확인해주세요."
   >
     <template #action>
-      <Flex align="center" gap="3">
+      <Flex align="center" gap="5">
         <TextButton size="md" color="secondary" class="underline">텍스트 버튼</TextButton>
         <Divider direction="vertical" />
         <TextButton size="md" color="secondary" class="underline">텍스트 버튼</TextButton>
@@ -23,8 +23,8 @@ const handleBannerClick = () => {
     </template>
 
     <template #extra>
-      <Box class="p-4 bg-muted rounded-lg text-center">
-        <Typo variant="body-m">문의사항은 고객센터로 연락주세요.</Typo>
+      <Box class="p-7 surface-neutral-subtler rounded-sm text-center">
+        <Typo variant="body-md">문의사항은 고객센터로 연락주세요.</Typo>
       </Box>
     </template>
     

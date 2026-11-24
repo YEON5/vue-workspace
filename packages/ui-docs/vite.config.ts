@@ -35,7 +35,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 3000,
+    port: 5820, // 흔한 3000/5173 충돌 회피 (ui-vue: 5810)
     watch: {
       // packages 폴더(특히 ui-vue) 내부 변경 감지
       ignored: ['!**/packages/**'],

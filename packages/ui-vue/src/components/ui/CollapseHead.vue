@@ -29,12 +29,12 @@ const buttonText = computed(() =>
 const hasText = computed(() => !!(props.text || props.openText || props.closeText));
 
 const iconClasses = computed(() =>
-  cn('size-5 transition-transform duration-200', isOpen.value && 'rotate-180')
+  cn('size-9 transition-transform duration-200', isOpen.value && 'rotate-180')
 );
 </script>
 
 <template>
-  <div :class="cn('collapse-head flex items-center justify-between gap-3', props.class)">
+  <div :class="cn('collapse-head flex items-center justify-between gap-5', props.class)">
     <div class="min-w-0 flex-1">
       <slot />
     </div>

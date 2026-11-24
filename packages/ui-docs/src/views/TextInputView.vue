@@ -52,9 +52,9 @@ const bizNum1Id = useId()
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Text Input</Typo>
+      <Typo variant="heading-lg" pb="15">Text Input</Typo>
 
-      <Flex direction="col" gap="6">
+      <Flex direction="col" gap="10">
         <FormGroup
           label="레이블"
           info-msg="정보 메시지"
@@ -115,11 +115,11 @@ const bizNum1Id = useId()
         </FormGroup>
       </Flex>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
-      <Typo variant="heading-s" class="pb-5">폼 조합</Typo>
+      <Typo variant="heading-sm" class="pb-9">폼 조합</Typo>
 
-      <Flex direction="col" gap="6">
+      <Flex direction="col" gap="10">
         <FormGroup
           label="검색"
           :input-id="searchId"
@@ -131,7 +131,7 @@ const bizNum1Id = useId()
           >
             <template #suffix>
               <IconButton
-                class="mr-2"
+                class="mr-3"
                 aria-label="검색"
                 @click="handleSearch"
               >
@@ -148,9 +148,9 @@ const bizNum1Id = useId()
             placeholder="인증번호 입력"
           >
             <template #suffix>
-              <div class="flex items-center gap-2 mr-3">
+              <div class="flex items-center gap-3 mr-5">
                 <!-- 타이머 -->
-                <span class="text-destructive text-sm font-medium">02:59</span>
+                <span class="text-danger text-body-sm font-medium">02:59</span>
                 <Divider direction="vertical" />
                 <TextButton 
                   size="sm" 
@@ -182,24 +182,24 @@ const bizNum1Id = useId()
             placeholder="금액 입력"
           >
             <template #suffix>
-              <span class="text-md text-gray-900 mr-3">원</span>
+              <span class="text-body-md text-subtle mr-5">원</span>
             </template>
           </TextInput>
         </FormGroup>
       </Flex>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- 입력폼 조합 -->
-      <Flex direction="col" gap="6">
+      <Flex direction="col" gap="10">
         <FormGroup
           label="레이블"
           required
           info-msg="정보 메시지"
         >
-          <Flex align="center" gap="3">
+          <Flex align="center" gap="5">
             <TextInput class="flex-1" placeholder="placeholder" />
-            <span class="text-gray-500">-</span>
+            <span class="text-subtler">-</span>
             <TextInput class="flex-1" placeholder="placeholder" />
           </Flex>
         </FormGroup>
@@ -211,9 +211,9 @@ const bizNum1Id = useId()
           error-msg="에러 메시지"
           :input-id="idNum"
         >
-          <Flex align="center" gap="3">
+          <Flex align="center" gap="5">
             <TextInput :id="idNum" class="flex-1" :max-length="6" placeholder="앞 6자리" aria-label="주민등록번호 앞 6자리" />
-            <span class="text-gray-500">-</span>
+            <span class="text-subtler">-</span>
             <TextInput type="password" class="flex-1" :max-length="7" placeholder="뒤 7자리" aria-label="주민등록번호 뒤 7자리" />
           </Flex>
         </FormGroup>
@@ -223,7 +223,7 @@ const bizNum1Id = useId()
           required
           :input-id="addressId"
         >
-          <Flex direction="col" gap="3">
+          <Flex direction="col" gap="5">
             <TextInput
               :id="addressId"
               v-model="formData.labelSearch"
@@ -231,7 +231,7 @@ const bizNum1Id = useId()
             >
               <template #suffix>
                 <IconButton
-                  class="mr-2"
+                  class="mr-3"
                   aria-label="주소 검색"
                   @click="handleSearch"
                 >
@@ -248,7 +248,7 @@ const bizNum1Id = useId()
         </FormGroup>
 
         <FormGroup label="카드번호" :input-id="cardNum1Id">
-          <Flex align="center" gap="2">
+          <Flex align="center" gap="3">
             <TextInput :id="cardNum1Id" v-model="formData.cardNum[0]" type="numeric" class="flex-1" align="center" :max-length="4" :clearable="false" aria-label="카드번호 첫번째 4자리" />
             <span>-</span>
             <TextInput v-model="formData.cardNum[1]" type="password" inputmode="numeric" class="flex-1" align="center" :max-length="4" :clearable="false" aria-label="카드번호 두번째 4자리" />
@@ -260,7 +260,7 @@ const bizNum1Id = useId()
         </FormGroup>
 
         <!-- <FormGroup label="카드번호" :input-id="cardNum1Id">
-          <Flex align="center" gap="2">
+          <Flex align="center" gap="3">
             <template v-for="i in 4" :key="i">
               <TextInput
                 :id="i === 1 ? cardNum1Id : undefined"
@@ -272,7 +272,7 @@ const bizNum1Id = useId()
                 :clearable="false"
                 :aria-label="`카드번호 ${i}번째 4자리`"
               />
-              <span v-if="i < 4" class="text-gray-400">-</span>
+              <span v-if="i < 4" class="text-disabled">-</span>
             </template>
           </Flex>
         </FormGroup> -->
@@ -291,7 +291,7 @@ const bizNum1Id = useId()
         </FormGroup>
 
         <FormGroup label="유효기간" class="flex-1" :input-id="expiryMonthId">
-          <Flex align="center" gap="2">
+          <Flex align="center" gap="3">
             <TextInput
               :id="expiryMonthId"
               v-model="formData.expiryMonth"
@@ -316,7 +316,7 @@ const bizNum1Id = useId()
         </FormGroup>
 
         <FormGroup label="사업자등록번호" :input-id="bizNum1Id">
-          <Flex align="center" gap="3">
+          <Flex align="center" gap="5">
             <TextInput :id="bizNum1Id" v-model="formData.bizNum1" class="w-[80px]" align="center" :max-length="3" :clearable="false" aria-label="사업자등록번호 첫번째" />
             <span>-</span>
             <TextInput v-model="formData.bizNum2" class="w-[70px]" align="center" :max-length="2" :clearable="false" aria-label="사업자등록번호 두번째" />
@@ -332,11 +332,11 @@ const bizNum1Id = useId()
               <FormLabel :for-id="forId">레이블</FormLabel>
               <!-- <TextButton size="sm" color="black" icon-align="right">
                 <template #icon>
-                  <IArrowRightS class="size-4 text-black" />
+                  <IArrowRightS class="size-7 text-bolder" />
                 </template>
                 버튼
               </TextButton> -->
-              <Typo variant="body-s" color="tertiary">오른쪽 문구 및 버튼 필요시</Typo>
+              <Typo variant="body-sm" color="tertiary">오른쪽 문구 및 버튼 필요시</Typo>
             </Flex>
           </template>
 

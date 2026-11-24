@@ -83,7 +83,7 @@ const isSidebarOpen = ref(false);
 .app-layout {
   display: flex;
   height: 100dvh;
-  background-color: #f9fafb;
+  background-color: var(--color-background-subtler);
   overflow: hidden;
 
   /* 모바일 오버레이 */
@@ -91,7 +91,7 @@ const isSidebarOpen = ref(false);
     position: fixed;
     inset: 0;
     z-index: 40;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--color-surface-dimmed);
 
     @media (min-width: 768px) {
       display: none;
@@ -111,8 +111,8 @@ const isSidebarOpen = ref(false);
     padding: 28px 20px;
     box-sizing: border-box;
     overflow: hidden;
-    border-right: 1px solid #e5e7eb;
-    background-color: #ffffff;
+    border-right: 1px solid var(--color-border-neutral-light);
+    background-color: var(--color-surface-elevated-01);
     transition: transform 0.3s ease-in-out;
     transform: translateX(-100%); /* 모바일 기본: 숨김 */
 
@@ -143,7 +143,7 @@ const isSidebarOpen = ref(false);
         background: transparent;
         font-size: 24px;
         line-height: 1;
-        color: #6b7280;
+        color: var(--color-text-subtler);
         cursor: pointer;
 
         @media (min-width: 768px) {
@@ -165,13 +165,13 @@ const isSidebarOpen = ref(false);
 
       a {
         text-decoration: none;
-        color: #374151;
+        color: var(--color-text-subtle);
         transition: color 0.2s;
 
         &:hover,
         &.router-link-active {
           font-weight: 600;
-          color: #10b981; /* 활성화 색상 (원하는 색상으로 변경 가능) */
+          color: var(--color-text-primary); /* 활성화 색상 */
         }
       }
     }
@@ -189,8 +189,8 @@ const isSidebarOpen = ref(false);
       display: flex;
       align-items: center;
       padding: 12px 16px;
-      border-bottom: 1px solid #e5e7eb;
-      background-color: #ffffff;
+      border-bottom: 1px solid var(--color-border-neutral-light);
+      background-color: var(--color-surface-elevated-01);
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
       z-index: 30;
 
@@ -206,7 +206,7 @@ const isSidebarOpen = ref(false);
         padding: 4px;
         border: none;
         background: transparent;
-        color: #374151;
+        color: var(--color-text-subtle);
         cursor: pointer;
 
         svg {

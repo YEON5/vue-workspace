@@ -50,7 +50,7 @@ function handleChange() {
 
 const wrapperClasses = computed(() =>
   cn(
-    'inline-flex items-center gap-3',
+    'inline-flex items-center gap-5',
     props.variant !== 'box' && 'self-start',
     props.disabled && 'opacity-50 select-none',
     props.variant === 'box' && 'relative w-full h-[50px] justify-center',
@@ -71,7 +71,7 @@ const textClasses = computed(() => {
 
   return cn(
     'chk-txt',
-    TypoMap['label-m'],
+    TypoMap['label-md'],
     colorClass,
     props.variant === 'box' && 'relative z-[1] whitespace-nowrap',
   );
@@ -105,9 +105,9 @@ const textClasses = computed(() => {
   height: 24px;
   flex-shrink: 0;
   appearance: none;
-  border: 1px solid var(--gray-500);
+  border: 1px solid var(--color-element-neutral);
   border-radius: 9999px;
-  background-color: #fff;
+  background-color: var(--color-element-white);
 
   // radio dot
   &::after {
@@ -118,36 +118,36 @@ const textClasses = computed(() => {
     width: 10px;
     height: 10px;
     border-radius: 9999px;
-    background-color: var(--gray-300);
+    background-color: var(--color-element-neutral-light);
     transform: translate(-50%, -50%);
   }
 
   // checked
   &:checked {
-    border-color: var(--mint-500);
+    border-color: var(--color-element-primary);
 
     &::after {
-      background-color: var(--mint-500);
+      background-color: var(--color-element-primary);
     }
 
     // checked & disabled
     &:disabled {
-      border-color: var(--mint-300);
-      background-color: #fff;
+      border-color: var(--color-primary-30);
+      background-color: var(--color-element-white);
 
       &::after {
-        background-color: var(--mint-300);
+        background-color: var(--color-primary-30);
       }
     }
   }
 
   // disabled(unchecked)
   &:disabled:not(:checked) {
-    border-color: var(--gray-300);
-    background-color: var(--gray-100);
+    border-color: var(--color-border-disabled);
+    background-color: var(--color-surface-disabled);
 
     &::after {
-      background-color: var(--gray-200);
+      background-color: var(--color-element-disabled);
     }
   }
 }
@@ -159,9 +159,9 @@ const textClasses = computed(() => {
   width: 100%;
   height: 100%;
   appearance: none;
-  border: 1px solid var(--gray-500);
+  border: 1px solid var(--color-element-neutral);
   border-radius: 8px;
-  background-color: #fff;
+  background-color: var(--color-element-white);
 
   &::after {
     display: none; // 박스형은 dot 숨김
@@ -169,25 +169,25 @@ const textClasses = computed(() => {
 
   // checked
   &:checked {
-    border-color: var(--mint-500);
+    border-color: var(--color-element-primary);
 
     + .chk-txt {
-      color: var(--mint-500);
+      color: var(--color-element-primary);
     }
 
     // checked & disabled
     &:disabled {
-      border-color: var(--mint-300);
+      border-color: var(--color-primary-30);
 
       + .chk-txt {
-        color: var(--mint-300);
+        color: var(--color-primary-30);
       }
     }
   }
 
   &:disabled:not(:checked) {
-    border-color: var(--gray-300);
-    background-color: var(--gray-100);
+    border-color: var(--color-border-disabled);
+    background-color: var(--color-surface-disabled);
   }
 }
 </style>

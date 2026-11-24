@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useFocusContainer } from '#/composables/useFocusContainer';
 import { useSpacing, type SpacingProps } from '#/composables/useSpacing';
-import { TypoMap, bgColorMap, borderColorMap, colorMap } from '#/types';
+import { TypoMap, colorMap } from '#/types';
 import { cn } from '#/utils/cn';
 import { IInputDelete } from '#components';
 import { computed, inject, onBeforeUnmount, ref, useId, useSlots, watch, type Ref } from 'vue';
@@ -115,11 +115,11 @@ const labelColorClass = computed(() => {
 });
 const labelClasses = computed(() =>
   cn(
-    'absolute left-5 transition-all duration-200 pointer-events-none',
+    'absolute left-9 transition-all duration-200 pointer-events-none',
     labelColorClass.value,
     isFloated.value
       ? cn('top-[7px]', TypoMap['label-xs']) // 위로 작아지며 올라감
-      : cn('top-1/2 -translate-y-1/2', TypoMap['label-m']), // 정중앙 배치 (Placeholder 형태)
+      : cn('top-1/2 -translate-y-1/2', TypoMap['label-md']), // 정중앙 배치 (Placeholder 형태)
   )
 );
 const wrapperClasses = computed(() =>
@@ -127,26 +127,26 @@ const wrapperClasses = computed(() =>
 );
 const inputClasses = computed(() =>
   cn(
-    'w-full h-[60px] px-5 border rounded-lg outline-none transition-colors',
+    'w-full h-[60px] px-9 border rounded-sm outline-hidden transition-colors',
     props.label ? 'pt-[22px]' : '', // label이 있을 때만 padding-top 추가
-    TypoMap['label-m'],
+    TypoMap['label-md'],
 
     !props.disabled && [
       colorMap['secondary'],
-      bgColorMap['white'],
-      borderColorMap['tertiary']
+      'input-surface',
+      'input-border'
     ],
-    props.readonly && !props.disabled && 'bg-gray-100',
-    hasError.value && !props.disabled && borderColorMap['error'],
+    props.readonly && !props.disabled && 'input-surface-gray',
+    hasError.value && !props.disabled && 'input-border-error',
 
     props.disabled && [
       colorMap['disabled'],
-      bgColorMap['disabled'],
-      borderColorMap['disabled'],
+      'input-surface-disabled',
+      'input-border-disabled',
       'cursor-not-allowed'
     ],
-    !props.disabled && !props.readonly && 'focus:border-mint-500',
-    (props.clearable || slots.suffix) && 'pr-10',
+    !props.disabled && !props.readonly && 'focus:input-border-active',
+    (props.clearable || slots.suffix) && 'pr-17',
 
     {
       'text-left': props.align === 'left',
@@ -165,7 +165,7 @@ const inputClasses = computed(() =>
     @focusout="handleFocusOut"
   >
     <label v-if="label" :for="internalId" :class="labelClasses">
-      {{ label }}<span v-if="required" class="text-md text-destructive ml-[2px]">*</span>
+      {{ label }}<span v-if="required" class="text-body-md text-danger ml-[2px]">*</span>
     </label>
 
     <input
@@ -185,7 +185,7 @@ const inputClasses = computed(() =>
 
     <div
       v-if="clearable || slots.suffix"
-      class="flex items-center gap-1.5 absolute right-3 top-1/2 -translate-y-1/2"
+      class="flex items-center gap-4 absolute right-5 top-1/2 -translate-y-1/2"
     >
       <!-- clear button (입력값 삭제) -->
       <IconButton

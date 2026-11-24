@@ -13,9 +13,9 @@ const formData = ref({
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Textinput Floating</Typo>
+      <Typo variant="heading-lg" pb="15">Textinput Floating</Typo>
 
-      <Flex direction="col" gap="6">
+      <Flex direction="col" gap="10">
         <FormGroup
           info-msg="정보메세지"
         >
@@ -59,11 +59,11 @@ const formData = ref({
         </FormGroup>
       </Flex>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
-      <Typo variant="heading-l" pb="9">TextArea Floating</Typo>
+      <Typo variant="heading-lg" pb="15">TextArea Floating</Typo>
 
-      <Flex direction="col" gap="6">
+      <Flex direction="col" gap="10">
         <FormGroup
           info-msg="300자 이내로 입력해주세요"
         >

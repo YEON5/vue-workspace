@@ -1,24 +1,23 @@
 {
   "name": "@ui/style",
   "version": "1.0.0",
-  "main": "tailwind.config.js",
   "private": true,
   "exports": {
-    ".": "./tailwind.config.js",
     "./dist/style.css": "./dist/style.css",
     "./tokens-config": "./src/tokens-config.js"
   },
   "scripts": {
+    "tokens:convert": "node scripts/convert-tokens.js",
     "generate:tokens": "node scripts/generate-tokens.js",
+    "tokens": "npm run tokens:convert && npm run generate:tokens",
     "dev": "concurrently \"node scripts/watch-tokens.js\" \"tailwindcss -i ./src/style.css -o ./dist/style.css --watch\"",
-    "build": "npm run generate:tokens && tailwindcss -i ./src/style.css -o ./dist/style.css --minify"
+    "build": "npm run tokens && tailwindcss -i ./src/style.css -o ./dist/style.css --minify"
   },
   "devDependencies": {
-    "autoprefixer": "^10.5.0",
+    "@tailwindcss/cli": "^4.1.0",
     "chokidar": "^3.6.0",
     "concurrently": "^9.0.0",
-    "postcss": "^8.5.14",
-    "tailwindcss": "3.4",
+    "tailwindcss": "^4.1.0",
     "tailwindcss-animate": "^1.0.7"
   }
 }

@@ -16,8 +16,8 @@ const contentId = inject<string>('accordionContentId', '');
 
 const contentClasses = computed(() =>
   cn(
-    'pt-3 pb-6',
-    TypoMap['body-m'],
+    'pt-5 pb-10',
+    TypoMap['body-md'],
     props.class
   )
 );

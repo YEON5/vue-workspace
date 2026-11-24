@@ -33,6 +33,7 @@ declare module 'vue' {
     Divider: typeof import('./src/components/ui/Divider.vue')['default']
     Dropdown: typeof import('./src/components/ui/Dropdown.vue')['default']
     DropdownContent: typeof import('./src/components/ui/DropdownContent.vue')['default']
+    DropdownItem: typeof import('./src/components/ui/DropdownItem.vue')['default']
     DropdownTrigger: typeof import('./src/components/ui/DropdownTrigger.vue')['default']
     Filter: typeof import('./src/components/ui/Filter.vue')['default']
     Flex: typeof import('./src/components/ui/Flex.vue')['default']

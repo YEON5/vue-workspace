@@ -82,7 +82,7 @@ const iconClasses = computed(() => {
 });
 
 const textClasses = computed(() => {
-  let colorClass = colorMap['secondary']; // text 기본 색상
+  let colorClass: string = colorMap['secondary']; // text 기본 색상 (아래에서 토큰 외 클래스 text-primary-30도 대입)
 
   if (props.variant === 'box' && isChecked.value) {
     colorClass = props.disabled ? 'text-mint-300' : colorMap['primary'];
@@ -91,7 +91,7 @@ const textClasses = computed(() => {
   }
 
   return cn(
-    TypoMap['label-m'],
+    TypoMap['label-md'],
     colorClass,
     props.variant === 'box' && 'relative',
   );

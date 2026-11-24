@@ -29,7 +29,7 @@ const { internalId, isChecked } = useCheckable(props, modelValue);
 
 const wrapperClasses = computed(() =>
   cn(
-    'inline-flex items-center gap-3',
+    'inline-flex items-center gap-5',
     props.disabled && 'opacity-50',
     props.class,
   )
@@ -40,7 +40,7 @@ const trackClasses = computed(() =>
 );
 
 const textClasses = computed(() =>
-  cn(TypoMap['label-m'], colorMap['secondary'])
+  cn(TypoMap['label-md'], colorMap['secondary'])
 );
 </script>
 
@@ -87,7 +87,7 @@ const textClasses = computed(() =>
   width: 44px;
   height: 26px;
   border-radius: 9999px;
-  background-color: var(--gray-300);
+  background-color: var(--color-element-neutral-light);
   line-height: 26px;
   transition: background-color 0.2s ease;
 }
@@ -102,7 +102,7 @@ const textClasses = computed(() =>
   top: 50%;
   font-size: 10px;
   font-weight: 700;
-  color: #fff;
+  color: var(--color-text-inverse-static);
   transition: opacity 0.2s ease;
   transform: translateY(-50%);
 }
@@ -114,7 +114,7 @@ const textClasses = computed(() =>
 
 .switch-text--off {
   right: 6px;
-  color: var(--gray-800);
+  color: var(--color-text-subtle);
   opacity: 1; // 꺼진 상태에서 노출
 }
 
@@ -124,13 +124,13 @@ const textClasses = computed(() =>
   height: 20px;
   margin: 3px;
   border-radius: 100%;
-  background-color: #fff;
+  background-color: var(--color-element-white-static);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s ease;
 }
 
 .switch-input:checked + .switch-track {
-  background-color: var(--mint-500);
+  background-color: var(--color-element-primary);
 }
 
 .switch-input:checked + .switch-track .switch-thumb {
@@ -150,10 +150,10 @@ const textClasses = computed(() =>
 }
 
 .switch-input:disabled + .switch-track {
-  background-color: var(--gray-200);
+  background-color: var(--color-element-disabled);
 }
 
 .switch-input:disabled:checked + .switch-track {
-  background-color: var(--mint-300);
+  background-color: var(--color-primary-30);
 }
 </style>

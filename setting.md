@@ -163,6 +163,7 @@ settings.json파일에 아래 내용 복사해주세요.
   /* Tailwind CSS 및 Emmet 자동완성 설정 */
   "tailwindCSS.rootFontSize": 10,
   "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.experimental.configFile": "packages/ui-style/src/style.css", // v4: tailwind.config.js 대신 CSS 진입점
   "editor.quickSuggestions": {
     "strings": true
   },

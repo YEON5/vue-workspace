@@ -22,7 +22,7 @@ const panelId = computed(() => `${baseId}-panel-${String(props.value)}`);
 
 const panelClasses = computed(() =>
   cn(
-    'w-full pt-6 focus:outline-none focus-visible:outline',
+    'w-full pt-10 focus:outline-hidden focus-visible:outline-solid',
     spacingClasses.value,
     props.class
   )

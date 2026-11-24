@@ -24,7 +24,7 @@ provide('bulletType', props.type);
 const listClasses = computed(() =>
   cn(
     'flex flex-col list-none',
-    depth === 0 ? 'gap-2' : 'gap-2 pl-1 my-[8px]', // 2depth 부터는 1depth 문구만큼 들여쓰기 + 상하 여백
+    depth === 0 ? 'gap-3' : 'gap-3 pl-2 my-[8px]', // 2depth 부터는 1depth 문구만큼 들여쓰기 + 상하 여백
     props.type === 'number' && '[counter-reset:bullet-idx]',
     props.class,
   )

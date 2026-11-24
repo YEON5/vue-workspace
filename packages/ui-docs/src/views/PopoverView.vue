@@ -10,26 +10,26 @@ const open2 = ref(false);
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Popover</Typo>
+      <Typo variant="heading-lg" pb="15">Popover</Typo>
 
       <!-- Button 컴포넌트 안쓴 경우 PopoverTrigger 직접 구현 -->
       <Popover v-model="open1" placement="top-start">
-        <PopoverTrigger class="rounded-full border border-gray-300 px-5 py-3">내용 보기</PopoverTrigger>
+        <PopoverTrigger class="rounded-full border border-neutral-light px-9 py-5">내용 보기</PopoverTrigger>
 
-        <PopoverContent arrow class="max-w-[220px] p-4" aria-label="팝오버 내용">
+        <PopoverContent arrow class="max-w-[220px] p-7" aria-label="팝오버 내용">
           팝오버 내용입니다.
           <Button variant="fill" size="sm">버튼 fill</Button>
         </PopoverContent>
       </Popover>
 
-      <Divider class="h-0" my="10" />
+      <Divider class="h-0" my="17" />
 
       <!-- Button 컴포넌트 사용한 경우 :as="Button" / arrow 말풍선 꼬리 / closable 내부 닫기 버튼 -->
       <Popover v-slot="{ close }" v-model="open2" placement="right">
         <PopoverTrigger :as="Button" variant="fill" size="md">Popover 내용 보기</PopoverTrigger>
   
-        <PopoverContent arrow closable class="max-w-[220px] p-4" aria-label="팝오버 내용">
-          <Box class="mb-4">
+        <PopoverContent arrow closable class="max-w-[220px] p-7" aria-label="팝오버 내용">
+          <Box class="mb-7">
             팝오버 내용입니다.
             <TextButton size="sm" color="black" @click="close">여기를 클릭해도 닫힘</TextButton>
           </Box>

@@ -1,0 +1,73 @@
+{
+  "version": 2,
+  "source": { "fileName": "PDS_v2", "format": "figma-dtcg" },
+
+  "defaultModes": ["value-set", "light", "small"],
+
+  "abbreviations": {
+    "xxxsmall": "3xs", "xxsmall": "2xs", "xsmall": "xs", "small": "sm",
+    "medium": "md", "large": "lg", "xlarge": "xl", "xxlarge": "2xl", "xxxlarge": "3xl"
+  },
+
+  "sources": [
+    { "collection": "color",      "files": { "value-set": "color-value-set.tokens.json" } },
+    { "collection": "primitive",  "files": { "value-set": "primitive-value-set.tokens.json" } },
+    { "collection": "mode",       "files": { "light": "light.tokens.json", "dark": "dark.tokens.json" } },
+    { "collection": "responsive", "files": { "small": "small.tokens.json", "medium": "medium.tokens.json", "large": "large.tokens.json" } },
+    { "collection": "semantic",   "files": { "value-set": "semantic-value-set.tokens.json" } }
+  ],
+
+  "mappings": [
+    { "from": "primitive/color/{mode}/{group}/{key}", "to": "color.{group}.{key}", "type": "color" },
+    { "from": "primitive/number/{key}",               "to": "spacing.{key}",       "type": "dimension" },
+    { "from": "primitive/typo/letter-spacing/{key}",  "to": "vars.letter-spacing-{key}", "type": "dimension" },
+
+    { "from": "mode/color/{group}/{key}",    "to": "semantic.{group}.{key}",        "type": "color" },
+    { "from": "mode/border-width/{key}",     "to": "vars.border-width-{key}",       "type": "dimension" },
+    { "from": "mode/shadow/{key}",           "to": "vars.shadow-{key}",             "type": "dimension" },
+
+    { "from": "responsive/font-size/{group}/{key}", "to": "fontSize.{group}-{key}",  "type": "dimension" },
+    { "from": "responsive/font-weight/{key}",       "to": "fontWeight.{key}",        "type": "fontWeight", "abbreviate": false },
+    { "from": "responsive/grid/columns",            "to": "vars.grid-columns",       "type": "number" },
+    { "from": "responsive/grid/{key}",              "to": "vars.grid-{key}",         "type": "dimension" },
+    { "from": "responsive/padding-card/{key}",      "to": "vars.padding-card-{key}", "type": "dimension" },
+    { "from": "responsive/gap-layout/{key}",        "to": "vars.gap-layout-{key}",   "type": "dimension" },
+
+    { "from": "semantic/radius/{key}", "to": "radius.{key}",      "type": "dimension" },
+    { "from": "semantic/size/{key}",   "to": "vars.size-{key}",   "type": "dimension" }
+  ],
+
+  "utilities": {
+    "scopes": { "FRAME_FILL": "background", "SHAPE_FILL": "background", "ALL_FILLS": "background", "STROKE": "border", "STROKE_COLOR": "border", "TEXT_FILL": "text" },
+    "groups": { "icon": "text", "link": "text", "alpha": "prefixed", "graphic": "prefixed" }
+  },
+
+  "typography": {
+    "display-lg": "bold",    "display-md": "bold",   "display-sm": "bold",
+    "heading-xl": "bold",    "heading-lg": "bold",   "heading-md": "bold",  "heading-sm": "bold", "heading-xs": "bold", "heading-2xs": "bold",
+    "body-lg":    "medium",  "body-md":    "regular", "body-sm":   "regular", "body-xs":   "regular",
+    "label-lg":   "medium",  "label-md":   "regular", "label-sm":  "regular", "label-xs":  "regular"
+  },
+
+  "ignore": [
+    "color/**",
+    "primitive/number/max",
+    "primitive/typo/font/type",
+    "semantic/radius/full",
+    "semantic/gap/**",
+    "semantic/padding/**"
+  ],
+
+  "notes": {
+    "color/**": "원본 팔레트. primitive가 참조만 하므로 클래스로 만들지 않음 (참조는 실제 값으로 저장)",
+    "primitive/color/{mode}": "light/dark 팔레트를 하나의 토큰으로 합침 (light = 기본값, dark = $extensions.modes.dark)",
+    "primitive/number": "간격은 primitive number 단계로 통일 (p-9, gap-9, mt-9 = 16px)",
+    "primitive/number/max": "1000px. 간격 단계에서 제외",
+    "semantic/radius/full": "Tailwind 기본 rounded-full 사용 (정사각형은 원, 직사각형은 알약 모양)",
+    "utilities": "semantic 색상 클래스 = Figma 경로(color/ 제외). CSS 속성은 변수의 Figma 용도(scopes)로 결정: 채우기→배경, 선→테두리, 텍스트→글자색. 용도가 여러 개면 배경이 기본이고 다른 속성은 border-·text- 접두어. groups는 예외: icon·link는 글자색(아이콘은 currentColor), alpha·graphic은 항상 접두어(bg-·text-·border-·shadow-)",
+    "abbreviations": "크기 단어를 Tailwind식 줄임말로 (xs, 2xs, 3xs / sm, md, lg / xl, 2xl, 3xl). font-weight(regular·medium·bold)는 제외",
+    "primitive/typo/font/type": "body 폰트는 style.css에서 웹폰트 이름(\"Pretendard Variable\")으로 지정",
+    "semantic/gap, semantic/padding": "단계가 서로 달라 primitive number로 통일",
+    "typography": "Typo variant = font-size 토큰 이름 → font-weight 토큰 이름. Figma Text Styles(크기+굵기 조합)는 Variables export에 없어서 직접 지정. 여기 적은 크기만 variant가 되고, 토큰에 없는 크기·굵기는 오류. 행간은 1.5 고정(typo.ts leading-normal)"
+  }
+}

@@ -24,8 +24,8 @@ const wrapperClasses = computed(() =>
 );
 const headClasses = computed(() =>
   cn(
-    'flex items-center justify-between w-full gap-3 py-5 text-left transition-colors',
-    TypoMap['body-m'],
+    'flex items-center justify-between w-full gap-5 py-9 text-left transition-colors',
+    TypoMap['body-md'],
     isOpen.value && 'font-medium', // active 상태
     !isDisabled.value && 'cursor-pointer',
     isDisabled.value && 'opacity-50',
@@ -34,7 +34,7 @@ const headClasses = computed(() =>
 );
 
 const iconClasses = computed(() =>
-  cn('size-5 shrink-0 transition-transform duration-200', isOpen.value && 'rotate-180')
+  cn('size-9 shrink-0 transition-transform duration-200', isOpen.value && 'rotate-180')
 );
 </script>
 
@@ -50,7 +50,7 @@ const iconClasses = computed(() =>
       @click="toggle"
     >
       <!-- prefix 슬롯이 있을 때만 gap 적용 -->
-      <span :class="['flex min-w-0 flex-1 items-center', $slots.prefix && 'gap-4']">
+      <span :class="['flex min-w-0 flex-1 items-center', $slots.prefix && 'gap-7']">
         <span v-if="$slots.prefix" class="shrink-0 inline-flex">
           <slot name="prefix" />
         </span>

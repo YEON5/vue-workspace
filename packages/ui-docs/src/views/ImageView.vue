@@ -22,13 +22,13 @@ const imgData = ref<ImgList[]>([
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Image</Typo>
+      <Typo variant="heading-lg" pb="15">Image</Typo>
       <!-- images scroll data -->
       <ScrollArea
         snap
         snap-align="center"
         bleed="right"
-        class="gap-4"
+        class="gap-7"
       >
         <Image
           v-for="img in bannerData"
@@ -41,7 +41,7 @@ const imgData = ref<ImgList[]>([
         />
       </ScrollArea>
       
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- images data -->
       <Flex wrap>
@@ -55,7 +55,7 @@ const imgData = ref<ImgList[]>([
         />
       </Flex>
         
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <Box>
         <Image
@@ -67,7 +67,7 @@ const imgData = ref<ImgList[]>([
         />
       </Box>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <Box>
         <Image

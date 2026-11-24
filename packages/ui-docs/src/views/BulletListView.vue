@@ -31,7 +31,7 @@ const bulletData = ref<BulletItemNode[]>([
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">BulletList</Typo>
+      <Typo variant="heading-lg" pb="15">BulletList</Typo>
 
       <!-- bullet data -->
       <BulletList
@@ -54,7 +54,7 @@ const bulletData = ref<BulletItemNode[]>([
         </BulletItem>
       </BulletList>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
       
       <!-- 도트형 -->
       <BulletList type="dot">
@@ -72,7 +72,7 @@ const bulletData = ref<BulletItemNode[]>([
         <BulletItem>Bullet dot 세 번째 항목입니다.</BulletItem>
       </BulletList>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- 하이픈형 -->
       <BulletList type="hyphen">
@@ -80,7 +80,7 @@ const bulletData = ref<BulletItemNode[]>([
         <BulletItem>Bullet hyphen 두 번째 항목입니다.</BulletItem>
       </BulletList>
             
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
  
       <!-- 숫자형 -->
       <BulletList type="number">

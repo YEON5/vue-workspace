@@ -12,7 +12,7 @@ const subtab = ref('PillTab1');
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Tab</Typo>
+      <Typo variant="heading-lg" pb="15">Tab</Typo>
 
       <!-- 기본형 -->
       <Tabs v-model="tab1">
@@ -34,7 +34,7 @@ const subtab = ref('PillTab1');
         <TabPanel value="TabItem5">TabPanel5 내용입니다.</TabPanel>
       </Tabs>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- 애니메이션 언더바 (animated) -->
       <!-- scrollable는 클릭 시 가운데 정렬이 기본값, 왼쪽끝 정렬은 alignAction="left" -->
@@ -56,7 +56,7 @@ const subtab = ref('PillTab1');
         <TabPanel value="TabItem6">animated TabPanel6 내용입니다.</TabPanel>
       </Tabs>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- tab in tab -->
       <Tabs v-model="tabIntab">

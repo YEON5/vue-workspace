@@ -21,7 +21,7 @@ setHeader({
   title: "Header 타이틀",
   leftBtn: { icon: IArrowLeft, label: '뒤로가기', action: () => alert('뒤로가기 클릭') },
   rightBtn: [
-    { icon: IMy, iconClass: 'text-red-500', label: '마이페이지', action: () => console.log('마이페이지 클릭') },
+    { icon: IMy, iconClass: 'text-danger', label: '마이페이지', action: () => console.log('마이페이지 클릭') },
     { icon: IMenu, label: '전체메뉴 보기', action: () => console.log('전체메뉴 클릭') }
   ]
 });
@@ -32,16 +32,16 @@ setHeader({
   <AppLayout>
     <Container>
       <PageHeader
-        title="본문페이지 <span class='text-mint-500'>타이틀</span> 텍스트"
+        title="본문페이지 <span class='text-primary'>타이틀</span> 텍스트"
         description="본문페이지 설명 텍스트 입니다.<br>줄바꿈도 가능해요" 
-        pb="6"
+        pb="10"
       />
 
       <!-- 다국어 또는 admin 등록 시 template으로 -->
       <!-- <PageHeader
       >
         <template #title>
-          본문페이지 <span class="text-mint-700">타이틀</span> 텍스트
+          본문페이지 <span class="text-primary-70">타이틀</span> 텍스트
         </template>
         <template #description>
           본문페이지 설명 텍스트 입니다.<br>
@@ -53,15 +53,15 @@ setHeader({
 
       <Section>Section component</Section>
       
-      <Divider my="8" class="bg-red-500" />
+      <Divider my="13" class="element-danger" />
       
       <Section as="article">Section component</Section>
 
       <Divider full />
 
-      <OutsetBox mt="6">
-        <Section class="bg-gray-100">
-          <Box as="article" py="7" px="5">음수마진박스</Box>
+      <OutsetBox mt="10">
+        <Section class="surface-neutral-subtle">
+          <Box as="article" py="11" px="9">음수마진박스</Box>
         </Section>
       </OutsetBox>
     </Container>
@@ -83,7 +83,7 @@ setHeader({
       description="처리 결과를 확인해주세요."
     >
       <template #action>
-        <Flex align="center" gap="3">
+        <Flex align="center" gap="5">
           <TextButton size="md" color="secondary" class="underline">텍스트 버튼</TextButton>
           <Divider direction="vertical" />
           <TextButton size="md" color="secondary" class="underline">텍스트 버튼</TextButton>
@@ -91,8 +91,8 @@ setHeader({
       </template>
 
       <template #extra>
-        <Box class="p-4 bg-muted rounded-lg text-center">
-          <Typo variant="body-m">문의사항은 고객센터로 연락주세요.</Typo>
+        <Box class="p-7 surface-neutral-subtler rounded-sm text-center">
+          <Typo variant="body-md">문의사항은 고객센터로 연락주세요.</Typo>
         </Box>
       </template>
       

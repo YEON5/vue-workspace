@@ -20,7 +20,7 @@ provide('segmentModel', modelValue);
 provide('segmentAnimated', computed(() => props.animated));
 
 const trackClasses = computed(() =>
-  cn('relative inline-flex w-full rounded-lg bg-gray-100 p-[6px]', props.class)
+  cn('relative inline-flex w-full rounded-sm surface-neutral-subtle p-[6px]', props.class)
 );
 
 // animated 모드 - 선택된 SegmentItem의 위치/크기를 측정해 indicator 이동
@@ -77,7 +77,7 @@ onBeforeUnmount(() => resizeObserver?.disconnect());
     <div
       v-if="animated"
       :class="cn(
-        'absolute top-0 left-0 rounded-md bg-white shadow-sm',
+        'absolute top-0 left-0 rounded-min surface-elevated-01 shadow-xs',
         ready && 'transition-all duration-200 ease-out',
       )"
       :style="indicatorStyle"

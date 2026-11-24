@@ -31,29 +31,29 @@ const { radiusClasses } = useRadius(props);
 
 // size map (높이, 패딩, 기본 폰트 사이즈)
 const sizeMap: Record<ButtonSize, string> = {
-  xs:  `h-7 px-2 ${TypoMap['label-xs']} rounded-md`,
-  sm:  `h-8 px-3 ${TypoMap['label-s']} rounded-md`,
-  md:  `h-9 px-4 ${TypoMap['label-m']} rounded-lg`,
-  lg:  `h-10 px-6 ${TypoMap['label-l']} rounded-lg`,
-  cta: `flex-1 h-[56px] ${TypoMap['label-l']} rounded-xl`,
+  xs:  `h-11 px-3 ${TypoMap['label-xs']} rounded-min`,
+  sm:  `h-13 px-5 ${TypoMap['label-sm']} rounded-min`,
+  md:  `h-15 px-7 ${TypoMap['label-md']} rounded-sm`,
+  lg:  `h-17 px-10 ${TypoMap['label-lg']} rounded-sm`,
+  cta: `flex-1 h-[56px] ${TypoMap['label-lg']} rounded-lg`,
 };
 
 // style
 const styleMap: Record<ButtonVariant, Partial<Record<ColorToken, { base: string; hover?: string }>>> = {
   fill: {
-    primary:   { base: 'bg-mint-500 text-white', hover: 'hover:bg-mint-600' },
-    secondary: { base: 'bg-gray-800 text-white', hover: 'hover:bg-gray-900' },
-    tertiary:  { base: 'bg-gray-100 text-gray-900', hover: 'hover:bg-gray-200' },
+    primary:   { base: 'button-primary-fill text-inverse-static', hover: 'hover:button-primary-fill-hover' },
+    secondary: { base: 'element-neutral-darker text-inverse-static', hover: 'hover:element-black-static' },
+    tertiary:  { base: 'surface-neutral-subtle text-basic', hover: 'hover:action-neutral-pressed' },
   },
   outline: {
-    primary:   { base: 'border border-mint-500 text-mint-500 bg-white', hover: 'hover:bg-mint-50' },
-    secondary: { base: 'border border-gray-300 text-gray-900 bg-white', hover: 'hover:bg-gray-50' },
-    tertiary:  { base: 'border border-gray-200 text-gray-500 bg-white', hover: 'hover:bg-gray-50' },
+    primary:   { base: 'border button-secondary-border text-secondary button-secondary-fill', hover: 'hover:button-secondary-fill-hover' },
+    secondary: { base: 'border button-tertiary-border text-basic button-tertiary-fill', hover: 'hover:button-tertiary-fill-hover' },
+    tertiary:  { base: 'border button-tertiary-border text-subtler button-tertiary-fill', hover: 'hover:button-tertiary-fill-hover' },
   },
   transparent: {
-    primary:   { base: 'text-mint-500 bg-transparent', hover: 'hover:bg-mint-50' },
-    secondary: { base: 'text-gray-900 bg-transparent', hover: 'hover:bg-gray-100' },
-    tertiary:  { base: 'text-gray-500 bg-transparent', hover: 'hover:bg-gray-50' },
+    primary:   { base: 'text-primary button-text-fill', hover: 'hover:button-text-fill-hover' },
+    secondary: { base: 'text-basic button-text-fill', hover: 'hover:action-neutral-hover' },
+    tertiary:  { base: 'text-subtler button-text-fill', hover: 'hover:action-neutral-hover' },
   },
 };
 
@@ -63,7 +63,7 @@ const classes = computed(() =>
   cn(
     'inline-flex items-center justify-center transition-colors',
     props.disabled && 'opacity-50 cursor-not-allowed pointer-events-none', // 비활성화 클래스 주입
-    props.iconAlign === 'top' ? 'flex-col gap-1' : 'flex-row gap-1.5',
+    props.iconAlign === 'top' ? 'flex-col gap-2' : 'flex-row gap-4',
     sizeMap[props.size],
     currentStyle.value?.base,
     !props.disabled && currentStyle.value?.hover,

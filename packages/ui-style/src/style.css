@@ -1,87 +1,68 @@
+@import 'tailwindcss' source(none); /* 자동 스캔 끄고 아래 @source 경로만 스캔 (v3 content와 동일) */
 @import './design-tokens.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ─────────────────────────────────────────────────────────
+   클래스를 스캔할 소스 경로 (v3 tailwind.config.js의 content)
+   경로는 이 파일(src/style.css) 기준
+   ───────────────────────────────────────────────────────── */
+/* @ui/style 자체 소스 */
+@source './**/*.{js,ts,jsx,tsx,vue}';
+/* Vue UI 컴포넌트 */
+@source '../../ui-vue/src';
+@source '../../ui-vue/index.html';
+/* Vue UI docs */
+@source '../../ui-docs/src';
+@source '../../ui-docs/index.html';
+/* Markup pages */
+@source '../../markup/pages';
+@source '../../markup/index.html';
 
+/* 동적 클래스(safelist)는 design-tokens.css에 토큰 목록으로 자동 생성됩니다 */
+
+/* ─────────────────────────────────────────────────────────
+   기본 스타일 (v4에서 바뀐 기본값을 디자인 토큰으로 지정)
+   ───────────────────────────────────────────────────────── */
 @layer base {
-  /* html {
-    font-size: 62.5%;
-  } */
-  
-  body {
-    font-family: "Pretendard", sans-serif;
-    font-size: var(--text-md);
-    color: var(--gray-black);
+  /* v4 기본 border 색은 currentColor → 기본 테두리 (color.ts borderColorMap.default) */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border-neutral-light);
   }
 
-  :root {
-    --background: 255 255 255;
-    --foreground: 2 8 23;
-    --card: 255 255 255;
-    --card-foreground: 2 8 23;
-    --popover: 255 255 255;
-    --popover-foreground: 2 8 23;
-    --primary: 15 23 42;
-    --primary-foreground: 248 250 252;
-    --secondary: 241 245 249;
-    --secondary-foreground: 15 23 42;
-    --muted: 241 245 249;
-    --muted-foreground: 100 116 139;
-    --accent: 241 245 249;
-    --accent-foreground: 15 23 42;
-    --destructive: 239 68 68;
-    --destructive-foreground: 248 250 252;
-    --border: 226 232 240;
-    --input: 226 232 240;
-    --ring: 2 8 23;
-    --chart-1: 234 88 12;
-    --chart-2: 13 148 136;
-    --chart-3: 15 118 110;
-    --chart-4: 234 179 8;
-    --chart-5: 249 115 22;
-    --radius: 0.5rem;
+  /* v4 기본 placeholder 색은 글자색 50% → color.ts caption */
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-text-subtler);
   }
 
-  .dark {
-    --background: 2 8 23;
-    --foreground: 248 250 252;
-    --card: 2 8 23;
-    --card-foreground: 248 250 252;
-    --popover: 2 8 23;
-    --popover-foreground: 248 250 252;
-    --primary: 248 250 252;
-    --primary-foreground: 15 23 42;
-    --secondary: 30 41 59;
-    --secondary-foreground: 248 250 252;
-    --muted: 30 41 59;
-    --muted-foreground: 148 163 184;
-    --accent: 30 41 59;
-    --accent-foreground: 248 250 252;
-    --destructive: 127 29 29;
-    --destructive-foreground: 248 250 252;
-    --border: 30 41 59;
-    --input: 30 41 59;
-    --ring: 203 213 225;
+  /* v4 기본 버튼 커서는 default → v3처럼 pointer */
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
   }
 }
 
 @layer base {
-   * {
-    @apply border-border;
-  }
+  /* html font-size: tokens-config.js UNIT이 "rem"이면 design-tokens.css에 62.5% 자동 추가 */
   body {
-    @apply bg-background text-foreground;
+    font-family: "Pretendard Variable", "Pretendard", sans-serif;
+    font-size: var(--text-body-md); /* typo.ts body-m */
+    font-weight: var(--font-weight-regular); /* typo.ts body-m */
+    color: var(--color-text-basic); /* color.ts body */
+    background-color: var(--color-background-default); /* color.ts bgColorMap.base */
   }
 
   :root {
     /* Container 모바일/태블릿 좌우 여백 (기존 px-6 크기) */
-    --layout-px: 20px; 
+    --layout-px: 20px;
   }
   @media (min-width: 1024px) {
     :root {
       /* Container 데스크탑 좌우 여백 (기존 px-8 크기) */
-      --layout-px: 24px; 
+      --layout-px: 24px;
     }
   }
 }

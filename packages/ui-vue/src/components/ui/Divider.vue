@@ -18,17 +18,17 @@ const props = withDefaults(defineProps<Props>(), {
 const { spacingClasses } = useSpacing(props);
 const classes = computed(() =>
   cn(
-    'bg-gray-300 shrink-0',
+    'divider-neutral shrink-0',
     // horizontal
     props.direction === 'horizontal' && [
       props.full ? 'block w-auto -mx-[var(--layout-px)]' : 'w-full',
-      props.type === 'thin' && 'h-px my-7',
-      props.type === 'base' && 'h-1 my-8',
-      props.type === 'bold' && 'h-2 my-9',
+      props.type === 'thin' && 'h-0 border-t my-11',
+      props.type === 'base' && 'h-0 border-t-2 my-13',
+      props.type === 'bold' && 'h-0 border-t-4 my-15',
     ],
     // vertical
     props.direction === 'vertical' && [
-      'inline-block align-middle w-px h-4 mx-2',
+      'inline-block align-middle w-0 border-l h-7 mx-3',
     ],
     spacingClasses.value,
     props.class,

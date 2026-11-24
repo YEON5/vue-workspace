@@ -43,4 +43,24 @@ export default [
       'vue/html-closing-bracket-newline': 'off',
     },
   },
+
+  // 3. Node 스크립트 (빌드·감시용 scripts/*.js): Node 전역 변수 허용
+  {
+    files: ['packages/*/scripts/**/*.js', 'packages/ui-style/src/tokens-config.js'],
+    languageOptions: {
+      globals: { console: 'readonly', process: 'readonly' },
+    },
+  },
+
+  // 4. @ui/style 스크립트는 CommonJS(require) 방식
+  {
+    files: ['packages/ui-style/scripts/**/*.js', 'packages/ui-style/src/tokens-config.js'],
+    languageOptions: {
+      sourceType: 'commonjs',
+      globals: { require: 'readonly', module: 'writable', __dirname: 'readonly' },
+    },
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
 ];

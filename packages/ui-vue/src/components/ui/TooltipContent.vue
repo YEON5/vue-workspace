@@ -44,12 +44,12 @@ const arrowStyle = computed(() => {
 // 말풍선 화살표
 const arrowClasses = computed(() =>
   cn(
-    'absolute rotate-45 bg-gray-800',
+    'absolute rotate-45 surface-inverse',
     {
-      bottom: '-top-2',
-      top: '-bottom-2',
-      right: '-left-2',
-      left: '-right-2',
+      bottom: '-top-3',
+      top: '-bottom-3',
+      right: '-left-3',
+      left: '-right-3',
     }[side.value],
   )
 );
@@ -57,7 +57,7 @@ const arrowClasses = computed(() =>
 // pointer-events-none: 마우스를 올려도 유지되지 않는 읽기 전용 설명
 const contentClasses = computed(() =>
   cn(
-    'pointer-events-none z-[60] max-w-xs rounded-md bg-gray-800 p-3 text-white',
+    'pointer-events-none z-[60] max-w-xs rounded-min surface-inverse p-5 text-basic-inverse',
     props.class,
   )
 );

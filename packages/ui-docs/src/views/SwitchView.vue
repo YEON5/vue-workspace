@@ -9,9 +9,9 @@ const darkMode = ref(false);
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Switch</Typo>
+      <Typo variant="heading-lg" pb="15">Switch</Typo>
 
-      <Flex direction="col" gap="6">
+      <Flex direction="col" gap="10">
         <Switch />
         <Switch checked>Switch</Switch>
 

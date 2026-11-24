@@ -40,16 +40,16 @@ const dividePosition = computed(() => {
 <style scoped>
 /* 기본(divide=true): 항목 "사이"에만 - 첫 번째 li는 제외 */
 ul[data-divide='between'] > :deep(li:not(:first-child)) {
-  border-top: 1px solid var(--gray-300);
+  border-top: 1px solid var(--color-divider-neutral);
 }
 
 /* top: 모든 li 위쪽에 테두리, 예외 없음 */
 ul[data-divide='top'] > :deep(li) {
-  border-top: 1px solid var(--gray-300);
+  border-top: 1px solid var(--color-divider-neutral);
 }
 
 /* bottom: 모든 li 아래쪽에 테두리, 예외 없음 */
 ul[data-divide='bottom'] > :deep(li) {
-  border-bottom: 1px solid var(--gray-300);
+  border-bottom: 1px solid var(--color-divider-neutral);
 }
 </style>

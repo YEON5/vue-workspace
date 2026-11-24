@@ -12,8 +12,8 @@ const hasDivide = inject<ComputedRef<boolean>>('listHasDivide', computed(() => f
 
 const itemClasses = computed(() =>
   cn(
-    'flex items-center justify-between gap-3',
-    hasDivide.value ? 'py-5' : 'py-3', // divide 있음 / 없음
+    'flex items-center justify-between gap-5',
+    hasDivide.value ? 'py-9' : 'py-5', // divide 있음 / 없음
     props.class,
   )
 );

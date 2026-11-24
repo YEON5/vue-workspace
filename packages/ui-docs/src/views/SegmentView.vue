@@ -20,7 +20,7 @@ const action = ref('option1');
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Segment</Typo>
+      <Typo variant="heading-lg" pb="15">Segment</Typo>
 
       <!-- Segment data -->
       <Segment v-model="segmentSelect" aria-label="세그먼트">
@@ -33,7 +33,7 @@ const action = ref('option1');
         </SegmentItem>
       </Segment>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- 기본형 -->
       <Segment v-model="period" aria-label="조회 기간">
@@ -42,7 +42,7 @@ const action = ref('option1');
         <SegmentItem value="month">월간</SegmentItem>
       </Segment>
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
       <!-- 애니메이션 indicator -->
       <Segment v-model="action" animated aria-label="거래 유형">

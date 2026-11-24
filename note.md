@@ -25,15 +25,14 @@ vue-workspace/
     │
     ├── 📂 ui-style/              # 🎨 디자인 시스템 토큰 및 공통 CSS 패키지
     │   ├── package.json
-    │   ├── tailwind.config.js    # Tailwind 설정 (디자인 토큰 동적 생성 및 주입)
-    │   ├── postcss.config.js
     │   ├── dist/
     │   │   └── style.css         # 빌드된 최종 CSS (모든 앱에서 공통 사용)
     │   ├── scripts/
     │   │   ├── generate-tokens.js # 토큰 자동 파싱 및 JS/CSS 변환 로직 (정규식 방어 포함)
     │   │   └── watch-tokens.js    # chokidar 기반 토큰 변경 실시간 감시자
     │   └── src/
-    │       ├── style.css          # ui-vue에서 사용할 tailwind style
+    │       ├── style.css          # Tailwind v4 진입점 (@import, @source, 토큰 주입)
+    │       ├── design-tokens.css  # @theme 토큰 변수 (자동 생성)
     │       ├── tokens-config.js   # PREFIX(접두사) 및 UNIT(px/rem) 중앙 통제소
     │       └── tokens/
     │           └── design-tokens.json # Figma(Tokens Studio) 원본 토큰

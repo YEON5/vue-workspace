@@ -61,7 +61,7 @@ function onKeydown(e: KeyboardEvent) {
 
 const contentClasses = computed(() =>
   cn(
-    'z-50 min-w-[160px] overflow-hidden rounded-lg border bg-white py-1 shadow-lg focus:outline-none',
+    'z-50 min-w-[160px] overflow-hidden rounded-sm border surface-elevated-02 py-2 shadow-lg focus:outline-hidden',
     borderColorMap['tertiary'],
     props.class,
   )

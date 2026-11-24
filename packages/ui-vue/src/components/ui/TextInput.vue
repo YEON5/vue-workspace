@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFocusContainer } from '#/composables/useFocusContainer';
-import { TypoMap, bgColorMap, borderColorMap, colorMap } from '#/types';
+import { TypoMap, colorMap } from '#/types';
 import { cn } from '#/utils/cn';
 import { IInputDelete } from '#components';
 import { computed, inject, ref, useSlots, type Ref } from 'vue';
@@ -61,28 +61,28 @@ const wrapperClasses = computed(() =>
 
 const inputClasses = computed(() =>
   cn(
-    'w-full h-[56px] px-5 border rounded-lg outline-none transition-colors',
-    TypoMap['label-m'],
+    'w-full h-[56px] px-9 border rounded-sm outline-hidden transition-colors',
+    TypoMap['label-md'],
 
     // 기본 스타일 (비활성화가 아닐 때만 DOM에 노출)
     !props.disabled && [
       colorMap['secondary'],
-      bgColorMap['white'],
-      borderColorMap['tertiary']
+      'input-surface',
+      'input-border'
     ],
-    `placeholder:${colorMap['caption']}`, // placeholder
-    props.readonly && !props.disabled && 'bg-gray-100', // readonly
-    hasError.value && !props.disabled && borderColorMap['error'], // error
+    'placeholder:text-subtler', // placeholder
+    props.readonly && !props.disabled && 'input-surface-gray', // readonly
+    hasError.value && !props.disabled && 'input-border-error', // error
 
     // disabled일 때만
     props.disabled && [
       colorMap['disabled'],
-      bgColorMap['disabled'],
-      borderColorMap['disabled'],
+      'input-surface-disabled',
+      'input-border-disabled',
       'cursor-not-allowed'
     ],
-    !props.disabled && !props.readonly && 'focus:border-mint-500', // focus border color
-    (props.clearable || slots.suffix) && 'pr-10',
+    !props.disabled && !props.readonly && 'focus:input-border-active', // focus border color
+    (props.clearable || slots.suffix) && 'pr-17',
 
     // input 텍스트 정렬
     {
@@ -117,7 +117,7 @@ const inputClasses = computed(() =>
     >
     <div
       v-if="clearable || slots.suffix"
-      class="flex items-center gap-1.5 absolute right-3 top-1/2 -translate-y-1/2"
+      class="flex items-center gap-4 absolute right-5 top-1/2 -translate-y-1/2"
     >
       <!-- clear button (입력값 삭제) -->
       <IconButton

@@ -31,7 +31,7 @@ const { errorMsgClasses, infoMsgClasses, showError, showInfo } = useFormField(pr
 
 const formFieldClasses = computed(() =>
   cn(
-    'relative flex flex-col gap-3 flex-1',
+    'relative flex flex-col gap-5 flex-1',
     spacingClasses.value,
     props.class
   )
@@ -53,14 +53,14 @@ const formFieldClasses = computed(() =>
     <slot />
 
     <!-- error msg -->
-    <Flex v-if="showError" align="center" gap="2">
-      <IInfo class="size-5" />
+    <Flex v-if="showError" align="center" gap="3">
+      <IInfo class="size-9" />
       <p :class="errorMsgClasses">{{ errorMsg }}</p>
     </Flex>
     
     <!-- info msg -->
-    <Flex v-else-if="showInfo" align="center" gap="2">
-      <IInfo class="size-5" />
+    <Flex v-else-if="showInfo" align="center" gap="3">
+      <IInfo class="size-9" />
       <p :class="infoMsgClasses">{{ infoMsg }}</p>
     </Flex>
   </div>

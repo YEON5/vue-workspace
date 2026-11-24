@@ -24,12 +24,12 @@ const selectedFilter = ref<string[]>(['Filter11']);
 <template>
   <Container>
     <Section>
-      <Typo variant="heading-l" pb="9">Filter</Typo>
+      <Typo variant="heading-lg" pb="15">Filter</Typo>
 
       <!-- filter data -->
       <ScrollArea
         bleed="right"
-        class="gap-4"
+        class="gap-7"
       >
         <Filter
           v-for="filter in filterData"
@@ -40,13 +40,13 @@ const selectedFilter = ref<string[]>(['Filter11']);
           :icon-align="filter.iconAlign"
         >
           <template v-if="filter.icon" #icon>
-            <component :is="filter.icon" class="size-[16px] ml-2" />
+            <component :is="filter.icon" class="size-[16px] ml-3" />
           </template>
           {{ filter.label }}
         </Filter>
       </ScrollArea>
 
-      <!-- <Flex gap="4">
+      <!-- <Flex gap="7">
         <Filter
           v-for="filter in filterData"
           :key="filter.value"
@@ -56,24 +56,24 @@ const selectedFilter = ref<string[]>(['Filter11']);
           :icon-align="filter.iconAlign"
         >
           <template v-if="filter.icon" #icon>
-            <component :is="filter.icon" class="size-[16px] ml-2" />
+            <component :is="filter.icon" class="size-[16px] ml-3" />
           </template>
           {{ filter.label }}
         </Filter>
       </Flex> -->
 
-      <Divider type="thin" my="10" />
+      <Divider type="thin" my="17" />
 
-      <Flex gap="4">
+      <Flex gap="7">
         <Filter v-model="selectedFilter" value="Filter1">Filter1</Filter>
         <Filter v-model="selectedFilter" value="Filter2">Filter2</Filter>
         <Filter v-model="selectedFilter" value="Filter3">
-          <template #icon><ISearch class="size-5 mr-2" /></template>
+          <template #icon><ISearch class="size-9 mr-3" /></template>
           Filter3
         </Filter>
         <Filter v-model="selectedFilter" value="Filter4" icon-align="right" disabled>
           Filter4
-          <template #icon><ICheck class="size-7" /></template>
+          <template #icon><ICheck class="size-11" /></template>
         </Filter>
       </Flex>
     </Section>

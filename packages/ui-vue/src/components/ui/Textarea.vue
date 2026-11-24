@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFocusContainer } from '#/composables/useFocusContainer';
-import { TypoMap, bgColorMap, borderColorMap, colorMap } from '#/types';
+import { TypoMap, colorMap } from '#/types';
 import { cn } from '#/utils/cn';
 import { computed, inject, ref, type Ref } from 'vue';
 
@@ -39,31 +39,31 @@ const { containerRef, handleFocusIn, handleFocusOut } = useFocusContainer();
 
 
 const wrapperClasses = computed(() =>
-  cn('flex flex-col gap-3', props.class)
+  cn('flex flex-col gap-5', props.class)
 );
 const textareaClasses = computed(() =>
   cn(
-    'block w-full px-5 py-4 border rounded-lg outline-none transition-colors',
-    TypoMap['label-m'],
+    'block w-full px-9 py-7 border rounded-sm outline-hidden transition-colors',
+    TypoMap['label-md'],
 
     // 기본 스타일
     !props.disabled && [
       colorMap['secondary'],
-      bgColorMap['white'],
-      borderColorMap['tertiary']
+      'input-surface',
+      'input-border'
     ],
-    `placeholder:${colorMap['caption']}`, // placeholder
-    props.readonly && !props.disabled && 'bg-gray-100', // readonly
-    hasError.value && !props.disabled && borderColorMap['error'], // error
+    'placeholder:text-subtler', // placeholder (color.ts caption과 같은 색)
+    props.readonly && !props.disabled && 'input-surface-gray', // readonly
+    hasError.value && !props.disabled && 'input-border-error', // error
 
     // disabled일 때만
     props.disabled && [
       colorMap['disabled'],
-      bgColorMap['disabled'],
-      borderColorMap['disabled'],
+      'input-surface-disabled',
+      'input-border-disabled',
       'cursor-not-allowed'
     ],
-    !props.disabled && !props.readonly && 'focus:border-mint-500', // focus border color
+    !props.disabled && !props.readonly && 'focus:input-border-active', // focus border color
 
     // resize option
     {
@@ -102,8 +102,8 @@ const textCount = computed(() => modelValue.value.length);
 
     <!-- 글자 수 표시 (showCount와 maxLength가 있을 때만 노출) -->
     <div v-if="showCount && maxLength" class="flex justify-end">
-      <span class="text-xs text-gray-500 shrink-0">
-        <span :class="{ 'text-destructive': textCount >= maxLength }">
+      <span class="text-body-xs text-subtler shrink-0">
+        <span :class="{ 'text-danger': textCount >= maxLength }">
           {{ textCount }}
         </span>
         / {{ maxLength }}

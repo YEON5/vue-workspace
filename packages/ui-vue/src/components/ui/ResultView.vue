@@ -47,7 +47,7 @@ const lottieConfig = computed(() => {
   <Container :padded="false" class="items-center pt-[100px]">
     <!-- <Container :padded="false" centered> -->
     
-    <Flex direction="col" align="center" gap="7" class="text-center">
+    <Flex direction="col" align="center" gap="11" class="text-center">
       <slot name="icon">
         <component
           :is="icon"
@@ -67,14 +67,14 @@ const lottieConfig = computed(() => {
       </slot>
 
       <!-- title / description -->
-      <Flex direction="col" gap="3">
-        <Typo variant="heading-l">
+      <Flex direction="col" gap="5">
+        <Typo variant="heading-lg">
           <slot name="title">{{ title }}</slot>
         </Typo>
   
         <Typo
           v-if="description || $slots.description"
-          variant="body-m"
+          variant="body-md"
           color="tertiary"  
         >
           <slot name="description">{{ description }}</slot>
@@ -83,15 +83,15 @@ const lottieConfig = computed(() => {
     </Flex>
 
     <!-- 완료 문구 아래 추가 요소 (클릭요소(action), 배너(banner), 안내 박스(extra) 등) -->
-    <div v-if="$slots.action" class="mt-8">
+    <div v-if="$slots.action" class="mt-13">
       <slot name="action" />
     </div>
 
-    <div v-if="$slots.extra" class="w-full mt-10">
+    <div v-if="$slots.extra" class="w-full mt-17">
       <slot name="extra" />
     </div>
 
-    <div v-if="$slots.banner" class="w-full mt-6">
+    <div v-if="$slots.banner" class="w-full mt-10">
       <slot name="banner" />
     </div>
   </Container>

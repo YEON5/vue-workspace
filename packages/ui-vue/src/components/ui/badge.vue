@@ -44,8 +44,8 @@ const classes = computed(() =>
     'inline-flex items-center justify-center rounded-full', 
     props.type === 'dot' 
       ? 'absolute w-[6px] h-[6px]'        // dot일 때만 absolute 띄움
-      : 'px-1.5 min-w-[20px] h-[20px]',   // count는 일반적인 흐름(relative/inline) 유지
-    props.type === 'count' && [TypoMap['caption-2'], 'text-white'],
+      : 'px-4 min-w-[20px] h-[20px]',   // count는 일반적인 흐름(relative/inline) 유지
+    props.type === 'count' && [TypoMap['body-xs'], 'text-inverse-static'],
     bgColorMap[props.color],
     spacingClasses.value,
     props.class,

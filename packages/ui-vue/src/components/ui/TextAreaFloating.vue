@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFocusContainer } from '#/composables/useFocusContainer';
-import { TypoMap, bgColorMap, borderColorMap, colorMap } from '#/types';
+import { TypoMap, colorMap } from '#/types';
 import { cn } from '#/utils/cn';
 import { computed, inject, onBeforeUnmount, ref, useId, watch, type Ref } from 'vue';
 
@@ -91,38 +91,38 @@ const labelColorClass = computed(() => {
 });
 const labelClasses = computed(() =>
   cn(
-    'absolute left-5 transition-all duration-200 pointer-events-none',
+    'absolute left-9 transition-all duration-200 pointer-events-none',
     labelColorClass.value,
     isFloated.value
       ? cn('top-[8px]', TypoMap['label-xs']) 
-      : cn('top-[12px]', TypoMap['label-m']), 
+      : cn('top-[12px]', TypoMap['label-md']), 
   )
 );
-const wrapperClasses = computed(() => cn('flex flex-col gap-3', props.class));
+const wrapperClasses = computed(() => cn('flex flex-col gap-5', props.class));
 const textareaClasses = computed(() =>
   cn(
-    'block w-full px-5 border rounded-lg outline-none transition-colors',
+    'block w-full px-9 border rounded-sm outline-hidden transition-colors',
     props.label ? 'pt-[28px] pb-[12px]' : 'py-[12px]', 
-    TypoMap['label-m'],
+    TypoMap['label-md'],
 
     // 기본 스타일
     !props.disabled && [
       colorMap['secondary'],
-      bgColorMap['white'],
-      borderColorMap['tertiary']
+      'input-surface',
+      'input-border'
     ],
-    `placeholder:${colorMap['caption']}`,
-    props.readonly && !props.disabled && 'bg-gray-100',
-    hasError.value && !props.disabled && borderColorMap['error'],
+    'placeholder:text-subtler',
+    props.readonly && !props.disabled && 'input-surface-gray',
+    hasError.value && !props.disabled && 'input-border-error',
 
     // disabled일 때만
     props.disabled && [
       colorMap['disabled'],
-      bgColorMap['disabled'],
-      borderColorMap['disabled'],
+      'input-surface-disabled',
+      'input-border-disabled',
       'cursor-not-allowed'
     ],
-    !props.disabled && !props.readonly && 'focus:border-mint-500',
+    !props.disabled && !props.readonly && 'focus:input-border-active',
 
     // resize option
     {
@@ -147,7 +147,7 @@ const textCount = computed(() => modelValue.value.length);
       @focusout="handleFocusOut"
     >
       <label v-if="label" :for="internalId" :class="labelClasses">
-        {{ label }}<span v-if="required" class="text-lg text-destructive ml-[2px]">*</span>
+        {{ label }}<span v-if="required" class="text-body-lg text-danger ml-[2px]">*</span>
       </label>
 
       <textarea
@@ -165,8 +165,8 @@ const textCount = computed(() => modelValue.value.length);
 
     <!-- 글자 수 표시 (showCount와 maxLength가 있을 때만 노출) -->
     <div v-if="showCount && maxLength" class="flex justify-end">
-      <span class="text-xs text-gray-500 shrink-0">
-        <span :class="{ 'text-destructive': textCount >= maxLength }">
+      <span class="text-body-xs text-subtler shrink-0">
+        <span :class="{ 'text-danger': textCount >= maxLength }">
           {{ textCount }}
         </span>
         / {{ maxLength }}

@@ -18,7 +18,7 @@ const { spacingClasses } = useSpacing(props);
  
 const wrapperClasses = computed(() =>
   cn(
-    'flex flex-col gap-3',
+    'flex flex-col gap-5',
     spacingClasses.value,
     props.class,
   )
@@ -26,14 +26,14 @@ const wrapperClasses = computed(() =>
  
 const titleClasses = computed(() =>
   cn(
-    'text-2xl font-bold text-foreground',
+    'text-heading-lg font-bold text-bolder',
     props.titleClass,
   )
 );
  
 const descriptionClasses = computed(() =>
   cn(
-    'text-md text-muted-foreground',
+    'text-body-md text-subtler',
     props.descriptionClass,
   )
 );
@@ -41,14 +41,14 @@ const descriptionClasses = computed(() =>
 
 <template>
   <div :class="wrapperClasses">
-    <Typo as="h2" variant="heading-l" :class="titleClasses">
+    <Typo as="h2" variant="heading-lg" :class="titleClasses">
       <slot name="title">
         <span v-html="title" />
       </slot>
     </Typo>
  
     <template v-if="description || $slots.description">
-      <Typo as="p" variant="body-m" color="caption" :class="descriptionClasses">
+      <Typo as="p" variant="body-md" color="caption" :class="descriptionClasses">
         <slot name="description">
           <span v-html="description" />
         </slot>
@@ -75,10 +75,10 @@ const classes = computed(() =>
       props.class
     ]"
   >
-    <h2 class="text-2xl font-bold">
+    <h2 class="text-heading-lg font-bold">
       <slot name="title">{{ title }}</slot>
     </h2>
-    <p class="text-sm text-muted-foreground">
+    <p class="text-body-sm text-subtler">
       <slot name="description">{{ description }}</slot>
     </p>
   </div>

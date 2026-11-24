@@ -16,17 +16,17 @@ export function useFormField(props: FormFieldProps) {
   const labelClasses = computed(() =>
     cn(
       'inline-flex items-center',
-      TypoMap['label-m'],
+      TypoMap['label-md'],
       props.disabled ? colorMap['disabled'] : colorMap['secondary'],
     )
   );
 
   const errorMsgClasses = computed(() =>
-    cn('text-xs', colorMap['error']),
+    cn('text-body-xs', colorMap['error']),
   );
 
   const infoMsgClasses = computed(() =>
-    cn('text-xs', colorMap['caption']),
+    cn('text-body-xs', colorMap['caption']),
   );
 
   // error가 있으면 errorMsg 우선, 없으면 infoMsg
