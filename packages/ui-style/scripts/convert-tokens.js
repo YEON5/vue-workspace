@@ -8,6 +8,7 @@ const TOKENS_DIR = path.resolve(__dirname, "../src/tokens");
 const EXPORT_DIR = path.join(TOKENS_DIR, "figma-export");
 const RULES = path.join(TOKENS_DIR, "tokens.rules.json");
 const OUTPUT = path.join(TOKENS_DIR, "design-tokens.json");
+const VARIABLES_FILE = path.join(TOKENS_DIR, "variables-tokens.json"); // Figma URL로 읽은 Variables (컬렉션·모드를 하나로 합친 파일)
 
 const rules = JSON.parse(fs.readFileSync(RULES, "utf-8"));
 const errors = [];
@@ -50,23 +51,38 @@ function resolvePath(figmaPath) {
   return null;
 }
 
-// ── 1. Figma export 읽기 (컬렉션·모드별 파일) ──
+// ── 1. Figma Variables 읽기 ──
+// 입력은 둘 중 하나 (tokens.rules.json source.input)
+//   "figma-export" (기본): figma-export/의 컬렉션·모드별 파일 (sources에 파일 지정)
+//   "variables-tokens"   : variables-tokens.json 하나 = { "컬렉션": { "모드": { 변수 트리 } } } (컬렉션·모드 이름이 파일 안에 있어 sources 불필요)
 const variables = []; // { figmaPath, mode, token }
-for (const { collection, files } of rules.sources) {
-  for (const [mode, file] of Object.entries(files)) {
-    const filePath = path.join(EXPORT_DIR, file);
-    if (!fs.existsSync(filePath)) {
-      errors.push(`파일 없음: figma-export/${file} (${collection} / ${mode})`);
-      continue;
+function walk(node, prefix, collection, mode) {
+  for (const [key, value] of Object.entries(node)) {
+    if (key.startsWith("$") || typeof value !== "object" || value === null) continue;
+    if ("$value" in value) variables.push({ figmaPath: `${collection}/${prefix}${key}`, mode, token: value });
+    else walk(value, `${prefix}${key}/`, collection, mode);
+  }
+}
+const INPUT = rules.source?.input ?? "figma-export";
+if (INPUT === "variables-tokens") {
+  if (!fs.existsSync(VARIABLES_FILE)) errors.push("파일 없음: variables-tokens.json (tokens.rules.json source.input = variables-tokens)");
+  else {
+    const all = JSON.parse(fs.readFileSync(VARIABLES_FILE, "utf-8"));
+    for (const [collection, modes] of Object.entries(all)) {
+      if (collection.startsWith("$")) continue;
+      for (const [mode, tree] of Object.entries(modes)) if (!mode.startsWith("$")) walk(tree, "", collection, mode);
     }
-    const json = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    (function walk(node, prefix) {
-      for (const [key, value] of Object.entries(node)) {
-        if (key.startsWith("$") || typeof value !== "object" || value === null) continue;
-        if ("$value" in value) variables.push({ figmaPath: `${collection}/${prefix}${key}`, mode, token: value });
-        else walk(value, `${prefix}${key}/`);
+  }
+} else {
+  for (const { collection, files } of rules.sources ?? []) {
+    for (const [mode, file] of Object.entries(files)) {
+      const filePath = path.join(EXPORT_DIR, file);
+      if (!fs.existsSync(filePath)) {
+        errors.push(`파일 없음: figma-export/${file} (${collection} / ${mode})`);
+        continue;
       }
-    })(json, "");
+      walk(JSON.parse(fs.readFileSync(filePath, "utf-8")), "", collection, mode);
+    }
   }
 }
 
@@ -78,9 +94,15 @@ function convertValue(type, token, figmaPath) {
   // 숫자를 문자열 변수로 만든 경우("12") 숫자로 읽음
   if ((type === "dimension" || type === "number") && typeof v === "string" && /^-?\d+(\.\d+)?$/.test(v.trim())) v = Number(v);
   switch (type) {
-    case "color":
+    case "color": {
       if (token.$type !== "color" || typeof v !== "object") break;
-      return { colorSpace: v.colorSpace, components: v.components, alpha: v.alpha ?? 1, hex: v.hex };
+      // hex는 DTCG에서 선택 필드 → 없으면 sRGB components(0~1)로 계산. sRGB가 아닌데 hex도 없으면 값을 만들 수 없으므로 오류
+      let hex = v.hex;
+      if (!hex && (v.colorSpace ?? "srgb") === "srgb" && Array.isArray(v.components) && v.components.length >= 3)
+        hex = "#" + v.components.slice(0, 3).map((n) => Math.round(Math.min(1, Math.max(0, n)) * 255).toString(16).padStart(2, "0")).join("");
+      if (!hex) { errors.push(`색상 값 읽기 실패: ${figmaPath} (colorSpace ${v.colorSpace}, hex 없음)`); return undefined; }
+      return { colorSpace: v.colorSpace, components: v.components, alpha: v.alpha ?? 1, hex };
+    }
     case "dimension":
       if (typeof v === "number") return { value: v, unit: "px" };
       if (v && typeof v === "object" && "value" in v) return v;

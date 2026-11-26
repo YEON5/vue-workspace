@@ -1,119 +1,120 @@
-# Vue 3 + Tailwind CSS Monorepo 디자인 시스템 구축 가이드
-디자인 시스템 토큰 관리 및 스타일 패키지(`@ui/style`)와
-Vue 3 애플리케이션 컴포넌트 패키지(`@ui/vue`)를 독립적으로 분리하여
-구성하는 최상위 등급의 멀티 패키지(Monorepo) 아키텍처 가이드입니다.
+# Vue 3 + Tailwind CSS v4 Monorepo 디자인 시스템
+피그마 디자인 토큰을 Tailwind 클래스로 바꾸는 스타일 패키지(`@ui/style`)와
+Vue 3 컴포넌트 패키지(`@ui/vue`), 컴포넌트 문서(`@ui/docs`)를 분리한 모노레포입니다.
+
+| 문서 | 내용 |
+|---|---|
+| `note.md` (이 문서) | 전체 구조, 실행 명령, 주요 설정 |
+| `setting.md` | 에디터·ESLint·Prettier 세팅 |
+| `packages/ui-style/tokens_note.md` | 디자인 토큰 파이프라인, 규칙 파일, 클래스 규칙, 다른 프로젝트 적용 |
+| `packages/ui-vue/component_note.md` | 컴포넌트에서 토큰 쓰기 (Typo, color, spacing, 다크모드) |
 
 
-## 1. 프로젝트 구조 (Directory Structure)
-최종적으로 구성되는 프로젝트의 핵심 디렉토리 구조입니다.
+## 1. 프로젝트 구조
 
 ```text
 vue-workspace/
-├── package.json                 # 루트 워크스페이스 (동시 실행 및 의존성 관리)
-├── note.md                      # 전체 모노레포 구축 가이드 문서
-├── eslint.config.mjs            # 전역 ESLint 설정
-├── node_modules/     
-│
-├── 📂 apps/                     # 개발         
+├── package.json                 # 루트 워크스페이스 (동시 실행·공통 개발 도구)
+├── eslint.config.mjs            # 전역 ESLint 설정 (Vue·TS + Node 스크립트)
+├── note.md · setting.md
 │
 └── 📂 packages/
+    ├── 📂 ui-public/            # 이미지, 폰트 (ui-vue·ui-docs의 publicDir)
     │
-    ├── 📂 ui-public/            # 이미지, 폰트 패키지
-    │   ├── fonts/               
-    │   ├── images/              
-    │   └── package.json
-    │
-    ├── 📂 ui-style/              # 🎨 디자인 시스템 토큰 및 공통 CSS 패키지
-    │   ├── package.json
-    │   ├── dist/
-    │   │   └── style.css         # 빌드된 최종 CSS (모든 앱에서 공통 사용)
+    ├── 📂 ui-style/             # 🎨 디자인 토큰 + Tailwind CSS
     │   ├── scripts/
-    │   │   ├── generate-tokens.js # 토큰 자동 파싱 및 JS/CSS 변환 로직 (정규식 방어 포함)
-    │   │   └── watch-tokens.js    # chokidar 기반 토큰 변경 실시간 감시자
-    │   └── src/
-    │       ├── style.css          # Tailwind v4 진입점 (@import, @source, 토큰 주입)
-    │       ├── design-tokens.css  # @theme 토큰 변수 (자동 생성)
-    │       ├── tokens-config.js   # PREFIX(접두사) 및 UNIT(px/rem) 중앙 통제소
-    │       └── tokens/
-    │           └── design-tokens.json # Figma(Tokens Studio) 원본 토큰
+    │   │   ├── convert-tokens.js   # figma-export → design-tokens.json (규칙 적용·검증)
+    │   │   ├── generate-tokens.js  # → design-tokens.css + ui-vue tokens.generated.ts
+    │   │   └── watch-tokens.js     # dev 중 변경 감시 → 자동 재생성
+    │   ├── src/
+    │   │   ├── tokens/
+    │   │   │   ├── figma-export/      # 피그마 Variables Export 원본 JSON
+    │   │   │   ├── tokens.rules.json  # ✏️ 프로젝트별 변환 규칙
+    │   │   │   └── design-tokens.json # 표준 토큰 (자동 생성)
+    │   │   ├── tokens-config.js    # ✏️ PREFIX · UNIT(px/rem) · MODES(다크·반응형)
+    │   │   ├── design-tokens.css   # @theme 토큰 (자동 생성)
+    │   │   └── style.css           # Tailwind v4 진입점
+    │   ├── dist/style.css          # 빌드 결과 (ui-vue·ui-docs에서 import)
+    │   └── tokens_note.md
     │
-    ├── 📂 ui-vue/                # 💻 Vue 3 UI 컴포넌트 라이브러리 패키지
-    │    ├── package.json          # @ui/style을 로컬 심볼릭 링크로 참조
-    │    ├── vite.config.ts        # 모노레포 HMR 핫릴로드 최적화 설정
-    │    ├── tsconfig.json
-    │    ├── scripts/
-    │    │   ├── generate-icons.js # svg 아이콘 자동화 components
-    │    │   └── watch-icons.js    # 아이콘 감지
-    │    └── src/
-    │        ├── assets/
-    │        │   └── icons/       # svg 아이콘 이미지
-    │        ├── components/      # Button, Divider, Container 등 공통 UI 컴포넌트 (cn/tailwind-merge 활용)
-    │        │   └── layout/      # UI 레이아웃 컴포넌트
-    │        │   └── ui/          # UI 컴포넌트
-    │        ├── composables/     # Typescript 
-    │        ├── types/           # Types
-    │        └── utils/
-    │            └── cn.ts        # 클래스명 병합 유틸리티 (Tailwind Variants)
+    ├── 📂 ui-vue/               # 💻 Vue 3 컴포넌트 라이브러리 (dev 5810)
+    │   ├── scripts/                # SVG 아이콘 컴포넌트 자동 생성·감시
+    │   ├── src/
+    │   │   ├── assets/icons/       # SVG 아이콘
+    │   │   ├── components/
+    │   │   │   ├── layout/         # AppLayout(다크모드 초기화)·AppHeader·AppFooter
+    │   │   │   └── ui/             # 공통 UI 컴포넌트
+    │   │   ├── composables/        # useSpacing·useRadius·useColorMode 등
+    │   │   ├── types/              # 토큰 타입 (tokens.generated.ts 자동 생성 + color.ts·typo.ts 등)
+    │   │   └── utils/cn.ts         # 클래스 병합 (tailwind-merge + 토큰 클래스 등록)
+    │   └── component_note.md
     │
-    ├── 📂 ui-docs/              # 퍼블리싱 IA, 컴포넌트 카탈로그
+    ├── 📂 ui-docs/              # 컴포넌트 카탈로그 (dev 5820, views/*.vue 자동 라우팅)
     │
-    └── 📂 markup/               # 퍼블리싱용 화면 산출물
-         └── pages/
-             ├── web/
-             ├── card/
-             └── trip/
+    └── 📂 markup/               # 퍼블리싱용 화면 산출물 (예정)
 ```
 
 ---
 
 
-## 2. 핵심 아키텍처 문제 해결 노트
+## 2. 실행 명령
 
-**2.1 대괄호 `[]` 임의 픽셀값 실시간 렌더링(HMR) 버그 픽스**
-모노레포 환경에서 `[20px]` 등의 임의 값이 즉각 렌더링되지 않는 문제를 해결하기 위해, `@ui/vue/vite.config.ts` 파일에 워커(Watcher) 강제 감시 옵션을 적용했습니다.
+루트(`vue-workspace/`)에서 실행합니다.
 
-```typescript
-// @ui/vue/vite.config.ts
-export default defineConfig({
-  // ...
-  server: {
-    watch: {
-      ignored: ['!**/packages/**'] // 상위 패키지 폴더의 변화를 절대 무시하지 않도록 강제
-    }
-  },
-  optimizeDeps: {
-    exclude: ['@ui/style'] // 로컬 패키지 캐싱 제외
-  }
-})
+```bash
+npm install          # 설치 (워크스페이스 패키지 링크 포함)
+
+npm run dev          # 전체: 토큰 감시 + Tailwind watch + ui-vue(5810) + ui-docs(5820)
+npm run dev:docs     # ui-docs만
+npm run dev:vue      # ui-vue만
+
+npm run build        # 토큰 변환·생성 → dist/style.css
+npm run tokens -w @ui/style   # 토큰 변환·생성만
 ```
 
-**2.2 단일 진실 공급원 (Single Source of Truth)**
-* `tokens-config.js`를 신설하여 전체 시스템의 **클래스 접두사(PREFIX)**와 **단위(px ↔ rem)**를 단 한 곳에서 통제하도록 설계했습니다.
-* 디자이너의 변칙적인 네이밍 컨벤션으로 인한 시스템 에러를 막기 위해 `generate-tokens.js` 내부에 정규식 이스케이프(`escapeRegExp`) 방어 로직을 구현했습니다.
-
+- dev 중에는 피그마 JSON(`figma-export/`), `tokens.rules.json`, `tokens-config.js`를 저장하면 토큰이 자동으로 다시 생성되고 화면에 반영됩니다.
+- 토큰 변환·생성에서 문제가 있으면 오류·경고와 고칠 곳이 출력됩니다 → `tokens_note.md`의 오류 표 참고.
 
 ---
 
 
-## 3. 로컬 개발 명령어 (Development)
-모든 설정이 완료된 후, 루트 디렉토리에서 아래의 명령어만으로 개발을 진행합니다.
+## 3. 핵심 구조
 
-**3.1 패키지 설치 및 링크 연결**
-```bash
-npm install
+**3.1 디자인 토큰 → Tailwind**
+
+```
+피그마 Variables Export (JSON)
+  → convert (tokens.rules.json)  → design-tokens.json (DTCG 2025.10)
+  → generate                     → design-tokens.css (@theme·색상 클래스) + tokens.generated.ts (ui-vue 타입·값)
+  → tailwindcss                  → dist/style.css
 ```
 
-**3.2 모노레포 실행**
-```bash
-npm run dev        # 전체 실행
-npm run dev:docs   # ui-docs만 (컴포넌트 확인 위주로 작업할 때)
-npm run dev:vue    # ui-vue만 (레이아웃만 확인할 때)
-```
+- 피그마 플러그인이나 Claude 없이도 저장소 안에서 처리됩니다.
+- 디자인 토큰에 있는 값만 쓰고, 추측해서 만들거나 대체하지 않습니다.
+- 컴포넌트 props 타입이 토큰에서 만들어지므로 토큰에 없는 이름은 vue-tsc 오류가 납니다.
 
-> 터미널 하나에서 `chokidar`의 토큰 감시, Tailwind CSS 빌드, Vite 화면 렌더링이 색상별로 구분되어 동시에 실행됩니다. 소스 코드를 수정하면 새로고침 없이 0.1초 만에 화면에 즉각 반영됩니다.
+**3.2 설정은 한 곳에서**
 
-**3.3 프로덕션 빌드 (배포용 CSS 및 토큰 재생성)**
-```bash
-npm run build
-npm run build -w packages/ui-style (개별 build)
-```
+| 바꿀 것 | 파일 |
+|---|---|
+| 클래스 접두사, 단위(px/rem), 다크·반응형 적용 방식 | `ui-style/src/tokens-config.js` |
+| 피그마 경로 → 클래스 이름, 제외, typo 굵기 | `ui-style/src/tokens/tokens.rules.json` |
+| 컴포넌트 color 역할 → 클래스 | `ui-vue/src/types/color.ts` |
+
+`UNIT`은 `"px"`/`"rem"`만 바꾸면 됩니다. rem이면 `html { font-size: 62.5% }`가 자동으로 들어갑니다.
+
+**3.3 모노레포 HMR**
+
+`ui-vue`·`ui-docs`의 `vite.config.ts`에서 packages 폴더 변경을 감시하고(`server.watch.ignored: ['!**/packages/**']`), ui-docs는 `@ui/vue`를 사전 번들링에서 제외해 컴포넌트 수정이 바로 반영됩니다.
+
+**3.4 다크모드**
+
+ui-vue `useColorMode`가 `<html>`에 `dark` 클래스를 붙이고, 색상 토큰 변수만 dark 값으로 바뀝니다. 자세한 사용법은 `component_note.md`.
+
+---
+
+
+## 4. 참고
+
+- **패키지 보안 점검**: `npm audit fix`는 패치 버전만 올려 안전합니다. `--force`(vite 5 → 8, vue-tsc 2 → 3 메이저 업그레이드)는 별도 작업으로 빌드·화면을 확인하며 진행합니다.
+- **dist/style.css의 CSS 경고**(`vertical-align`, `line-clamp`)는 Tailwind가 만든 정상 코드라 무시해도 됩니다.

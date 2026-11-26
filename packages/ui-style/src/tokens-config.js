@@ -1,10 +1,9 @@
 // ─────────────────────────────────────────────────────────
-// ✏️  Tailwind 클래스 접두사 설정 (단일 관리 포인트)
-// 이 값을 바꾸면 generate-tokens.js가 만드는 @theme 변수(--color-pds-*, --radius-pds-* ...)에 반영됩니다.
-//
-// 토큰 클래스에만 붙고 Tailwind 기본 클래스(flex, p-0 ...)에는 붙지 않습니다.
-// 현재: "pds"  →  bg-pds-primary-50, text-pds-basic, p-pds-9, rounded-pds-small ...
-// 빈 문자열: "" → bg-primary-50, text-basic, p-9, rounded-small ...
+// ✏️  CSS 변수 접두사 설정 (단일 관리 포인트)
+// CSS 변수 이름 맨 앞에만 붙고, 클래스 이름에는 붙지 않습니다.
+// "pds" → --pds-radius-min, --pds-spacing-9, --pds-text-body-lg, --pds-color-text-basic
+//         클래스는 그대로: rounded-min, p-9, text-body-lg, text-basic
+// ""    → --radius-min, --spacing-9, --text-body-lg, --color-text-basic
 // ─────────────────────────────────────────────────────────
 const PREFIX = ""; // 문자열 필요시 원하는 문자열 넣기
 

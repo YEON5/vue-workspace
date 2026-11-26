@@ -29,13 +29,13 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-border-neutral-light);
+    @apply border-neutral-light;
   }
 
   /* v4 기본 placeholder 색은 글자색 50% → color.ts caption */
   input::placeholder,
   textarea::placeholder {
-    color: var(--color-text-subtler);
+    @apply text-subtler;
   }
 
   /* v4 기본 버튼 커서는 default → v3처럼 pointer */
@@ -49,10 +49,8 @@
   /* html font-size: tokens-config.js UNIT이 "rem"이면 design-tokens.css에 62.5% 자동 추가 */
   body {
     font-family: "Pretendard Variable", "Pretendard", sans-serif;
-    font-size: var(--text-body-md); /* typo.ts body-m */
-    font-weight: var(--font-weight-regular); /* typo.ts body-m */
-    color: var(--color-text-basic); /* color.ts body */
-    background-color: var(--color-background-default); /* color.ts bgColorMap.base */
+    /* 토큰 클래스로 지정 (클래스에는 PREFIX가 붙지 않으므로 PREFIX를 켜도 그대로 동작) */
+    @apply text-body-md font-regular text-basic background-default; /* typo.ts body-m · color.ts body · bgColorMap.base */
   }
 
   :root {

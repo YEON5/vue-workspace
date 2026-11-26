@@ -1,6 +1,6 @@
 // Auto-generated from @ui/style design-tokens.json — do not edit manually
 // Run: npm run tokens -w @ui/style
-// 클래스 이름은 PREFIX(@ui/style tokens-config.js)가 붙기 전 기준입니다.
+// PREFIX(@ui/style tokens-config.js)는 CSS 변수에만 붙고 클래스 이름에는 붙지 않습니다.
 
 // spacing: p-*, m-*, gap-* … (primitive number, 값 = 기본 화면)
 export const SPACING_SCALE = {

@@ -5,6 +5,7 @@ const path = require("path");
 
 const TARGETS = [
   path.resolve(__dirname, "../src/tokens/figma-export"), // Figma에서 export한 원본 JSON
+  path.resolve(__dirname, "../src/tokens/variables-tokens.json"), // Figma URL로 읽은 Variables (있을 때)
   path.resolve(__dirname, "../src/tokens/tokens.rules.json"), // 변환 규칙
   path.resolve(__dirname, "../src/tokens-config.js"), // PREFIX · UNIT · MODES
 ];
@@ -21,7 +22,7 @@ function run() {
   }
 }
 
-console.log("👀 figma-export · tokens.rules.json · tokens-config.js 감시 중...");
+console.log("👀 figma-export · variables-tokens.json · tokens.rules.json · tokens-config.js 감시 중...");
 
 // 최초 1회 실행
 run();

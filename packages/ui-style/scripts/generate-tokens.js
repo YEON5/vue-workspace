@@ -28,11 +28,11 @@ const RULES = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../src/tokens/
 //   CSS 변수 = --color-{그룹}-{이름} (:root, 다크모드는 .dark에서 덮어씀)
 // ─────────────────────────────────────────────────────────────────────
 const THEME = {
-  color: (k) => `--color-${P}${k}`,
-  spacing: (k) => `--spacing-${P}${k}`,
-  radius: (k) => `--radius-${P}${k}`,
-  fontSize: (k) => `--text-${P}${k}`,
-  fontWeight: (k) => `--font-weight-${P}${k}`,
+  color: (k) => `--color-${k}`,
+  spacing: (k) => `--spacing-${k}`,
+  radius: (k) => `--radius-${k}`,
+  fontSize: (k) => `--text-${k}`,
+  fontWeight: (k) => `--font-weight-${k}`,
 };
 const VARS = (k) => `--${P}${k}`;
 
@@ -86,7 +86,7 @@ const PREFIXED_FORM = { background: "bg", border: "border", text: "text" };
 const TW_ROOTS = { text: "text", border: "border", bg: "background", shadow: null, ring: null, outline: null, fill: null, stroke: null, divide: null, accent: null, caret: null, decoration: null, placeholder: null, from: null, via: null, to: null, inset: null };
 const { scopes: SCOPE_PROP = {}, groups: GROUP_RULE = {} } = RULES.utilities ?? {};
 const utilities = []; // { cls, prop, varName }
-const semanticClass = (t) => `${t.group}-${P}${t.key}`;
+const semanticClass = (t) => `${t.group}-${t.key}`; // PREFIX는 CSS 변수에만 (클래스에는 안 붙음)
 // Figma 용도(scopes)가 없거나 ALL_SCOPES(미지정)일 때 이름으로 속성 추정
 const NAME_PROP = { text: "text", icon: "text", link: "text", border: "border", divider: "border" }; // 그룹 이름
 const guessProp = (t) => NAME_PROP[t.group] ?? (t.key.split("-").includes("border") ? "border" : null); // 이름 속 단어 (button-secondary-border)
@@ -114,10 +114,13 @@ function semanticUtilities(t) {
   return props.map((p, i) => ({ cls: i === 0 ? cls : `${PREFIXED_FORM[p]}-${cls}`, prop: p }));
 }
 
+// Tailwind 이름(클래스를 만드는 @theme 변수): --color-gray-50, --radius-min … (PREFIX 없음)
+const themeName = (t) => (t.category === "semantic" ? `--color-${t.group}-${t.key}` : THEME[t.category]?.(t.key));
+// 값이 들어 있는 CSS 변수: PREFIX가 있으면 맨 앞 (--pds-radius-min, --pds-color-text-basic), 없으면 Tailwind 이름 그대로
 const varName = (t) => {
   if (t.category === "vars") return VARS(t.key);
-  if (t.category === "semantic") return `--color-${P}${t.group}-${t.key}`;
-  return THEME[t.category]?.(t.key);
+  if (t.category === "semantic") return `--${P}color-${t.group}-${t.key}`;
+  return P ? `--${P}${themeName(t).slice(2)}` : themeName(t);
 };
 for (const t of list) if (!varName(t)) throw new Error(`알 수 없는 카테고리: ${t.path}`);
 
@@ -130,10 +133,35 @@ for (const t of list.filter((t) => t.category === "semantic")) {
   t.inTheme = !u; // 접두어 그룹은 @theme --color-* 로
   for (const x of u ?? []) utilities.push({ ...x, varName: varName(t) });
 }
+// ── 색상 클래스 이름 겹침 처리 (토큰 값이 항상 이기도록) ──
+const collectionOf = (t) => (t.token.$extensions?.source ?? "").split("/")[0];
+const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+// 1) semantic 클래스(Figma 경로)와 팔레트 클래스가 같으면 그 팔레트 토큰에만 컬렉션 이름을 붙임 (semantic 이름 유지: text-primary / 팔레트 text-daisyui-primary)
+const semanticClasses = new Set(utilities.map((u) => u.cls));
+const clashesWith = (key) => ["bg", "text", "border"].map((p) => `${p}-${key}`).filter((c) => semanticClasses.has(c));
+const renamed = list.filter((t) => t.category === "color" && clashesWith(t.key).length);
+for (const t of renamed) t.key = `${slug(collectionOf(t))}-${t.key}`;
+if (renamed.length) console.warn(`⚠ semantic 클래스와 이름이 겹쳐 팔레트에 컬렉션 이름을 붙였습니다: ${renamed.map((t) => t.key).join(", ")}`);
+// 2) semantic 클래스가 Tailwind 기본 색 클래스와 같으면(text-white) 같은 이름 규칙이 둘 생겨 Tailwind 값이 이김
+//    → 그 클래스만 Tailwind 색 이름공간(--text-color-white 등)으로 토큰 값을 지정. bg-white 등 Tailwind 기본 클래스는 그대로 사용 가능
+const twColors = (() => {
+  try {
+    const css = fs.readFileSync(require.resolve("tailwindcss/theme.css", { paths: [__dirname] }), "utf-8");
+    return new Set([...css.matchAll(/--color-([\w-]+):/g)].map((m) => m[1]));
+  } catch { return new Set(); }
+})();
+const ownColors = new Set(list.filter((t) => t.category === "color").map((t) => t.key));
+const TW_NAMESPACE = { bg: "background-color", text: "text-color", border: "border-color" };
+const twOverrides = utilities.filter((u) => {
+  const m = u.cls.match(/^(bg|text|border)-(.+)$/);
+  return m && TW_NAMESPACE[m[1]] && twColors.has(m[2]) && !ownColors.has(m[2]);
+});
+for (const u of twOverrides) u.twVar = `--${TW_NAMESPACE[u.cls.split("-")[0]]}-${u.cls.slice(u.cls.indexOf("-") + 1)}`;
+
 const theme = list.filter((t) => t.category !== "vars" && (t.category !== "semantic" || t.inTheme));
 
-// semantic 클래스가 @theme 색상 클래스와 이름이 같으면(예: text-primary = semantic text/primary 이면서 --color-primary의 text-) 둘 중 하나가 조용히 덮어씀 → 오류
-const themeColorClasses = new Set(theme.filter((t) => t.category === "color" || t.inTheme).flatMap((t) => ["bg", "text", "border"].map((p) => `${p}-${P}${t.key}`)));
+// 남은 충돌(semantic 클래스 ↔ 접두어 그룹 alpha·graphic 등)은 둘 중 하나가 조용히 덮어쓰므로 오류
+const themeColorClasses = new Set(theme.filter((t) => t.category === "color" || t.inTheme).flatMap((t) => ["bg", "text", "border"].map((p) => `${p}-${t.key}`)));
 const clashes = utilities.filter((u) => themeColorClasses.has(u.cls)).map((u) => u.cls);
 if (clashes.length) throw new Error(`semantic 클래스와 색상 클래스 이름이 겹칩니다: ${clashes.join(", ")} — tokens.rules.json mappings에서 한쪽 이름을 바꾸세요`);
 const vars = list.filter((t) => t.category === "vars" || (t.category === "semantic" && !t.inTheme));
@@ -144,19 +172,20 @@ const changedIn = (mode) => list.filter((t) => resolve(t, mode) !== resolve(t, n
 const hasSpacing = theme.some((t) => t.category === "spacing");
 // font-size 이름이 Tailwind 기본(text-sm, text-4xl …)과 같으면 Tailwind 기본 line-height가 함께 붙음 → 끔
 const TW_TEXT = ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl", "8xl", "9xl"];
-const twTextLineHeights = list.filter((t) => t.category === "fontSize" && !P && TW_TEXT.includes(t.key)).map((t) => `  --text-${t.key}--line-height: initial;\n`).join("");
-const keysOf = (category) => list.filter((t) => t.category === category).map((t) => `${P}${t.key}`);
+const twTextLineHeights = list.filter((t) => t.category === "fontSize" && TW_TEXT.includes(t.key)).map((t) => `  --text-${t.key}--line-height: initial;\n`).join("");
+const keysOf = (category) => list.filter((t) => t.category === category).map((t) => t.key);
+const autoZero = hasSpacing && !byPath.has("spacing.0"); // spacing 0 자동 추가 (safelist에도 포함)
 
 let css = `/* Auto-generated from design-tokens.json — do not edit manually */
 /* Run: npm run tokens */
 
 /* static: 사용 여부와 관계없이 모든 토큰을 CSS 변수로 출력 (컴포넌트 <style>에서 var()로 참조) */
 @theme static {
-${hasSpacing ? "  --spacing-*: initial; /* Tailwind 기본 간격 계산(p-14 = 3.5rem) 끄고 토큰 단계만 사용 */\n" : ""}${hasSpacing && !byPath.has("spacing.0") ? `  --spacing-${P}0: 0px; /* 토큰에 0 단계가 없어도 p-0·m-0·gap-0 사용 */\n` : ""}${twTextLineHeights}${decl(theme, null)}
-}
-
+${hasSpacing ? "  --spacing-*: initial; /* Tailwind 기본 간격 계산(p-14 = 3.5rem) 끄고 토큰 단계만 사용 */\n" : ""}${autoZero && !P ? `  --spacing-0: 0px; /* 토큰에 0 단계가 없어도 p-0·m-0·gap-0 사용 */\n` : ""}${twTextLineHeights}${P ? "" : decl(theme, null)}
+}${P ? `\n/* PREFIX(tokens-config.js): 값은 :root의 --${P}* 변수, Tailwind 클래스는 아래 이름으로 연결 (클래스에는 PREFIX 없음) */\n@theme inline {\n${autoZero ? `  --spacing-0: var(--${P}spacing-0); /* 토큰에 0 단계가 없어도 p-0·m-0·gap-0 사용 */\n` : ""}${theme.map((t) => `  ${themeName(t)}: var(${varName(t)});`).join("\n")}\n}\n` : ""}
+${twOverrides.length ? `\n/* Tailwind 기본 색과 이름이 같은 semantic 클래스 → 토큰 값 사용 (bg-white 등 기본 클래스는 그대로) */\n@theme inline {\n${twOverrides.map((u) => `  ${u.twVar}: var(${u.varName});`).join("\n")}\n}\n` : ""}
 :root {
-${decl(vars, null)}
+${P ? decl(theme, null) + "\n" : ""}${P && autoZero ? `  --${P}spacing-0: 0px;\n` : ""}${decl(vars, null)}
 }
 `;
 
@@ -174,13 +203,13 @@ for (const [mode, how] of Object.entries(MODES)) {
 
 // semantic 색상 유틸리티 (클래스 = Figma 변수 경로, 속성 = Figma 용도)
 css += `\n/* semantic 색상 클래스 (Figma color/{그룹}/{이름} → {그룹}-{이름}) */\n`;
-css += utilities.map((u) => `@utility ${u.cls} { ${PROP[u.prop]}: var(${u.varName}); }`).join("\n") + "\n";
+css += utilities.filter((u) => !u.twVar).map((u) => `@utility ${u.cls} { ${PROP[u.prop]}: var(${u.varName}); }`).join("\n") + "\n";
 
 // 동적 클래스 safelist (클래스 이름을 조합해서 쓰는 useSpacing / useFontSize / useRadius)
 const inline = (pattern) => `@source inline('${pattern}');`;
 css += `
 /* 동적 클래스 (types/spacing.ts · fontSize.ts · radius.ts에서 조합하는 클래스) */
-${inline(`{${SPACING_PREFIXES.join(",")}}-{${keysOf("spacing").join(",")}}`)}
+${inline(`{${SPACING_PREFIXES.join(",")}}-{${(autoZero ? ["0", ...keysOf("spacing")] : keysOf("spacing")).join(",")}}`)}
 ${inline(`text-{${keysOf("fontSize").join(",")}}`)}
 ${inline(`rounded-{${keysOf("radius").join(",")}}`)}
 `;
@@ -237,7 +266,7 @@ function responsive() {
 }
 const ts = `// Auto-generated from @ui/style design-tokens.json — do not edit manually
 // Run: npm run tokens -w @ui/style
-// 클래스 이름은 PREFIX(@ui/style tokens-config.js)가 붙기 전 기준입니다.
+// PREFIX(@ui/style tokens-config.js)는 CSS 변수에만 붙고 클래스 이름에는 붙지 않습니다.
 
 ${valueScale("SPACING_SCALE", "spacing", "spacing: p-*, m-*, gap-* … (primitive number, 값 = 기본 화면)")}
 
