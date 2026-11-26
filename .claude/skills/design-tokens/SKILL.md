@@ -18,13 +18,15 @@ description: 피그마 Variables(tokens JSON 파일 또는 Figma URL)를 @ui/sty
 ### 1. 입력 확인 (규칙 0장)
 
 1. `packages/ui-style/src/tokens/figma-export/` 폴더와 그 안의 JSON 파일이 있는지 확인한다. 있으면 그 파일로 진행한다 (Figma URL도 받았다면 어느 쪽을 쓸지 묻는다).
+   - 새 프로젝트 변환 요청인데 파일이 `tokens.rules.json` `sources`의 기존 PDS_v2 파일과 같으면 변환하지 않고 교체 파일이나 Figma URL을 요청한다.
 2. 없으면 둘 중 하나를 요청하고 기다린다.
    - Figma에서 Variables를 tokens JSON으로 export해서 **사용자가 직접** `figma-export/`에 넣어 달라고 요청
    - 또는 Figma URL 요청
-3. 사용자가 JSON 파일을 넣었다면 파일을 확인한 뒤 분석한다. JSON 파일을 만들거나 옮기지 않는다.
+3. 사용자가 JSON 파일을 넣었다면 파일을 확인한 뒤 분석한다. Export 파일(`*.tokens.json`)을 만들거나 옮기지 않는다.
 4. Figma URL을 받았다면:
    - Figma 도구(`use_figma`) 사용 전 figma-use 스킬을 먼저 읽고, `create_session`으로 시작한다.
-   - Variables 전체(모든 컬렉션·모드)를 읽어 `packages/ui-style/src/tokens/variables-tokens.json` 하나로 만든다. (형식: 규칙 0장)
+   - Variables 전체(모든 컬렉션·모드)를 읽어 `packages/ui-style/src/tokens/figma-export/variables-tokens.json` 하나로 만든다. 폴더가 없으면 만든 뒤 생성한다. (형식: 규칙 0장)
+   - 폴더에 다른 프로젝트 Export 파일이 남아 있으면 지워 달라고 보고한다 (skill이 지우지 않음).
    - `tokens.rules.json`에 `"source": { "input": "variables-tokens" }`를 넣는다.
    - typography용 Text Styles(크기+굵기)도 함께 읽어 둔다 (규칙 4-5).
    - 편집 권한이 없거나 라이브러리 변수만 보이면 규칙 0장의 안내대로 다른 URL을 요청한다.
@@ -60,7 +62,7 @@ npm run build                    # 최종 빌드 (dist/style.css)
 ### 6. 컴포넌트 영향 확인 (규칙 4-7)
 
 ```bash
-npm run build -w @ui/vue     # 아이콘 생성 + vue-tsc
+npm run build -w @ui/vue     # 아이콘 생성 + vue-tsc 타입 검사
 ```
 
 - `types/color.ts`에 토큰에 없는 클래스가 있으면 그 역할을 `ColorToken`과 맵에서 뺀다 (규칙 2장 원칙 2). 다른 토큰으로 대신 연결하지 않는다.
@@ -85,7 +87,7 @@ npm run build -w @ui/vue     # 아이콘 생성 + vue-tsc
 ## 하지 않는 것
 
 - 디자인 토큰에 없는 값을 추측해서 만들거나 다른 값으로 대체하지 않는다.
-- `figma-export/`의 JSON 파일을 만들거나 옮기거나 고치지 않는다.
+- `figma-export/`의 Export 파일(`*.tokens.json`)을 만들거나 옮기거나 고치거나 지우지 않는다. (skill이 만드는 것은 `variables-tokens.json`뿐)
 - PDS_v2 결과를 바꾸는 코드·규칙 변경을 하지 않는다.
 - 비교표를 보여주기 전에 변환이나 규칙 작성을 시작하지 않는다.
 - 규칙 7장에 없는 질문을 하지 않는다. (반응형 mobile/pc 기준은 묻지 않는다 — mobile 고정)
@@ -97,8 +99,8 @@ npm run build -w @ui/vue     # 아이콘 생성 + vue-tsc
 | 파일 | 내용 |
 |---|---|
 | `tokens-convert-rule.md` (이 폴더) | 변환 규칙 — **항상 먼저 읽음** |
-| `packages/ui-style/src/tokens/figma-export/` | Figma Export JSON (사용자가 넣음) |
-| `packages/ui-style/src/tokens/variables-tokens.json` | Figma URL로 만든 Variables 파일 |
+| `packages/ui-style/src/tokens/figma-export/*.tokens.json` | Figma Export JSON (사용자가 넣음) |
+| `packages/ui-style/src/tokens/figma-export/variables-tokens.json` | Figma URL로 만든 Variables 파일 |
 | `packages/ui-style/src/tokens/tokens.rules.json` | 프로젝트별 변환 규칙 |
 | `packages/ui-style/src/tokens-config.js` | PREFIX · UNIT · MODES |
 | `packages/ui-style/scripts/convert-tokens.js`, `generate-tokens.js` | 변환 · 생성 코드 |

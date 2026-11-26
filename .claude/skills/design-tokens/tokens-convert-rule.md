@@ -13,13 +13,15 @@ design-tokens skill과 사람이 `tokens.rules.json`을 작성·수정할 때 �
 ## 0. skill 실행 순서
 
 1. `packages/ui-style/src/tokens/figma-export/` 폴더가 있는지, 안에 JSON 파일이 있는지 확인한다.
+   - 이 폴더의 JSON은 두 종류다: Figma Export 파일(`*.tokens.json`, 사용자가 넣음)과 Figma URL로 만든 `variables-tokens.json`. 어느 쪽을 읽을지는 `tokens.rules.json` `source.input`이 정한다.
    - JSON 파일이 있으면 그 파일로 진행한다. 사용자가 Figma URL을 함께 주면 URL을 쓸지 먼저 묻는다 (둘 중 하나만 입력으로 쓴다).
    - 단, 새 프로젝트 변환을 요청했는데 파일이 지금 `tokens.rules.json` `sources`의 파일(저장소 기본 PDS_v2 파일)과 같으면 변환하지 않는다. 새 프로젝트 JSON으로 교체하거나 Figma URL을 달라고 요청한다.
 2. 폴더가 없거나 JSON 파일이 없으면 둘 중 하나를 요청한다.
    - Figma에서 Variables를 tokens JSON으로 export해서 **사용자가 직접** `figma-export/` 폴더에 넣어 달라고 요청
    - 또는 Figma URL 요청
-3. 사용자가 `figma-export/`에 JSON 파일을 넣었다면, 파일을 확인한 뒤 분석한다. (skill이 JSON 파일을 만들거나 옮기지 않는다)
-   Figma URL을 받았다면 Figma MCP `use_figma`로 Variables를 읽어 `packages/ui-style/src/tokens/variables-tokens.json`을 생성한다. (Figma REST API는 쓰지 않는다)
+3. 사용자가 `figma-export/`에 JSON 파일을 넣었다면, 파일을 확인한 뒤 분석한다. (skill이 Export 파일을 만들거나 옮기지 않는다)
+   Figma URL을 받았다면 Figma MCP `use_figma`로 Variables를 읽어 `packages/ui-style/src/tokens/figma-export/variables-tokens.json`을 생성한다. `figma-export/` 폴더가 없으면 폴더를 만든 뒤 생성한다. (Figma REST API는 쓰지 않는다)
+   - 폴더에 다른 프로젝트의 Export 파일(`*.tokens.json`)이 남아 있으면 변환에는 쓰이지 않지만(`source.input`), 혼동되므로 지워 달라고 보고한다. skill이 지우지 않는다.
    (Figma에서 Variables를 내보내면 컬렉션·모드마다 JSON 파일이 따로 생기지만, URL로 읽으면 파일 하나로 만든다)
 4. `variables-tokens.json`은 **Figma Variables 전체(모든 컬렉션·모드)를 하나로 합친 파일**이다.
    - 컬렉션 이름·모드 이름이 파일 안에 들어 있으므로 4-1 컬렉션 판별이 필요 없다.
@@ -277,7 +279,7 @@ npm run build -w @ui/vue     # 아이콘 생성 + vue-tsc 타입 검사
 
 | 오류 | 처리 |
 |---|---|
-| 파일 없음 (`figma-export/…` 또는 `variables-tokens.json`) | `sources` 파일 이름 / `source.input` 확인 |
+| 파일 없음 (`figma-export/…` 또는 `figma-export/variables-tokens.json`) | `sources` 파일 이름 / `source.input` 확인 |
 | 색상 값 읽기 실패 (sRGB가 아니고 hex 없음) | Figma에서 색 공간을 sRGB로 바꿔 다시 export |
 | 규칙 없음 | 4-5 규칙으로 mappings 또는 ignore 추가 |
 | 중복 (같은 이름·모드 / 다른 변수가 같은 기본값 자리) | 규칙을 나누거나 한쪽 ignore |

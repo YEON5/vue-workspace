@@ -8,7 +8,7 @@ const TOKENS_DIR = path.resolve(__dirname, "../src/tokens");
 const EXPORT_DIR = path.join(TOKENS_DIR, "figma-export");
 const RULES = path.join(TOKENS_DIR, "tokens.rules.json");
 const OUTPUT = path.join(TOKENS_DIR, "design-tokens.json");
-const VARIABLES_FILE = path.join(TOKENS_DIR, "variables-tokens.json"); // Figma URL로 읽은 Variables (컬렉션·모드를 하나로 합친 파일)
+const VARIABLES_FILE = path.join(EXPORT_DIR, "variables-tokens.json"); // Figma URL로 읽은 Variables (컬렉션·모드를 하나로 합친 파일, figma-export 폴더 안)
 
 const rules = JSON.parse(fs.readFileSync(RULES, "utf-8"));
 const errors = [];
@@ -54,7 +54,7 @@ function resolvePath(figmaPath) {
 // ── 1. Figma Variables 읽기 ──
 // 입력은 둘 중 하나 (tokens.rules.json source.input)
 //   "figma-export" (기본): figma-export/의 컬렉션·모드별 파일 (sources에 파일 지정)
-//   "variables-tokens"   : variables-tokens.json 하나 = { "컬렉션": { "모드": { 변수 트리 } } } (컬렉션·모드 이름이 파일 안에 있어 sources 불필요)
+//   "variables-tokens"   : figma-export/variables-tokens.json 하나 = { "컬렉션": { "모드": { 변수 트리 } } } (컬렉션·모드 이름이 파일 안에 있어 sources 불필요)
 const variables = []; // { figmaPath, mode, token }
 function walk(node, prefix, collection, mode) {
   for (const [key, value] of Object.entries(node)) {
@@ -65,7 +65,7 @@ function walk(node, prefix, collection, mode) {
 }
 const INPUT = rules.source?.input ?? "figma-export";
 if (INPUT === "variables-tokens") {
-  if (!fs.existsSync(VARIABLES_FILE)) errors.push("파일 없음: variables-tokens.json (tokens.rules.json source.input = variables-tokens)");
+  if (!fs.existsSync(VARIABLES_FILE)) errors.push("파일 없음: figma-export/variables-tokens.json (tokens.rules.json source.input = variables-tokens)");
   else {
     const all = JSON.parse(fs.readFileSync(VARIABLES_FILE, "utf-8"));
     for (const [collection, modes] of Object.entries(all)) {
