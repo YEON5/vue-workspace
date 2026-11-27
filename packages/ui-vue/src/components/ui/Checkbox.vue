@@ -42,17 +42,17 @@ const wrapperClasses = computed(() =>
 const inputClasses = computed(() => {
   if (props.variant === 'basic') {
     return cn(
-      'peer relative size-[24px] shrink-0 appearance-none rounded',
+      'peer relative size-11 shrink-0 appearance-none rounded-min',
       'border bg-white',
       !isChecked.value && !props.disabled && borderColorMap['secondary'],                          // unchecked
       !isChecked.value && props.disabled && [bgColorMap['disabled'], borderColorMap['tertiary']],  // disabled
       isChecked.value && !props.disabled && [borderColorMap['primary'], bgColorMap['primary']],    // checked
-      isChecked.value && props.disabled && ['bg-mint-300', 'border-mint-300'],                     // checked & disabled
+      isChecked.value && props.disabled && [borderColorMap['primary'], bgColorMap['primary']],    // checked & disabled
     );
   }
   if (props.variant === 'single') {
     return cn(
-      'peer relative size-[24px] shrink-0 appearance-none border-none bg-transparent',
+      'peer relative size-11 shrink-0 appearance-none border-none bg-transparent',
     );
   }
   // box
@@ -61,7 +61,7 @@ const inputClasses = computed(() => {
     !isChecked.value && !props.disabled && borderColorMap['secondary'],                 // unchecked
     !isChecked.value && props.disabled && [bgColorMap['disabled'], borderColorMap['tertiary']],  // disabled
     isChecked.value && !props.disabled && borderColorMap['primary'],                    // checked
-    isChecked.value && props.disabled && 'border-mint-300',                             // checked & disabled
+    isChecked.value && props.disabled && borderColorMap['primary'],                    // checked & disabled
   );
 });
 
@@ -70,22 +70,22 @@ const iconClasses = computed(() => {
   if (props.variant === 'box') return 'hidden';
 
   return cn(
-    'absolute left-1/2 top-1/2 size-[24px] -translate-x-1/2 -translate-y-1/2',
+    'absolute left-1/2 top-1/2 size-11 -translate-x-1/2 -translate-y-1/2',
     props.variant === 'basic' && [
-      isChecked.value ? 'text-white' : 'text-gray-300', // unchecked
+      isChecked.value ? 'text-white' : 'text-gray-20', // unchecked
     ],
     props.variant === 'single' && [
-      !props.disabled && (isChecked.value ? colorMap['primary'] : 'text-gray-300'),
-      props.disabled && (isChecked.value ? 'text-mint-300' : 'text-gray-200'), // checked & disabled
+      !props.disabled && (isChecked.value ? colorMap['primary'] : 'text-gray-20'),
+      props.disabled && (isChecked.value ? colorMap['primary'] : 'text-gray-10'), // checked & disabled
     ],
   );
 });
 
 const textClasses = computed(() => {
-  let colorClass: string = colorMap['secondary']; // text 기본 색상 (아래에서 토큰 외 클래스 text-primary-30도 대입)
+  let colorClass: string = colorMap['secondary']; // text 기본 색상
 
   if (props.variant === 'box' && isChecked.value) {
-    colorClass = props.disabled ? 'text-mint-300' : colorMap['primary'];
+    colorClass = colorMap['primary'];
   } else if (props.disabled) {
     colorClass = colorMap['disabled'];
   }

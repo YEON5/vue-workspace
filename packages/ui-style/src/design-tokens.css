@@ -4,6 +4,15 @@
 /* static: 사용 여부와 관계없이 모든 토큰을 CSS 변수로 출력 (컴포넌트 <style>에서 var()로 참조) */
 @theme static {
   --spacing-*: initial; /* Tailwind 기본 간격 계산(p-14 = 3.5rem) 끄고 토큰 단계만 사용 */
+  --color-*: initial; /* Tailwind 기본 팔레트(gray-300, red-500 …) 끔. transparent·current는 그대로 */
+  --text-*: initial; /* 글자 크기 text-sm 등 (글자색 text-white 등은 그대로) */
+  --radius-*: initial; /* rounded-lg 등 (rounded-full·rounded-none은 그대로) */
+  --font-weight-*: initial; /* font-semibold 등 */
+  --color-white: #fff; /* white·black은 CSS 기본 색으로 유지 */
+  --color-black: #000;
+  --breakpoint-*: initial; /* Tailwind 기본 반응형 끄고 토큰 화면 너비만 */
+  --breakpoint-medium: 768px; /* medium: */
+  --breakpoint-large: 1280px; /* large: */
   --color-gray-0: #ffffff;
   --color-gray-5: #f4f5f6;
   --color-gray-10: #e6e8ea;

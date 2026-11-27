@@ -23,7 +23,7 @@ const accordionData = ref([
     title: 'multiple 제목4',
     content: 'multiple 내용4',
     icon: IMy, 
-    iconClass: 'size-[20px]',
+    iconClass: 'size-10',
   },
   {
     value: 'multipleImg',
@@ -118,7 +118,7 @@ const activeItem = ref<string[]>(['multipleA']);
         <AccordionItem value="multipleA">
           <AccordionHead>
             <template #prefix>
-              <IMy class="size-[20px]" />
+              <IMy class="size-10" />
             </template>
             multiple 제목1
           </AccordionHead>

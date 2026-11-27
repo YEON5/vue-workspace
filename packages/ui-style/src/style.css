@@ -46,7 +46,7 @@
 }
 
 @layer base {
-  /* html font-size: tokens-config.js UNIT이 "rem"이면 design-tokens.css에 62.5% 자동 추가 */
+  /* html font-size는 바꾸지 않음 (브라우저·Tailwind 기본 1rem = 16px, UNIT이 "rem"이면 토큰 값 ÷16) */
   body {
     font-family: "Pretendard Variable", "Pretendard", sans-serif;
     /* 토큰 클래스로 지정 (클래스에는 PREFIX가 붙지 않으므로 PREFIX를 켜도 그대로 동작) */

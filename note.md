@@ -91,17 +91,19 @@ npm run tokens -w @ui/style   # 토큰 변환·생성만
 
 - 피그마 플러그인이나 Claude 없이도 저장소 안에서 처리됩니다.
 - 디자인 토큰에 있는 값만 쓰고, 추측해서 만들거나 대체하지 않습니다.
+- 토큰에 그 카테고리(색상·간격·글자 크기·굵기·모서리·반응형)가 있으면 Tailwind 기본을 끄고 토큰만 쓰고, 없으면 Tailwind 기본을 씁니다. 꺼진 클래스는 ESLint(`npx eslint "packages/*/src/**/*.{vue,ts}"`)가 잡습니다.
+- 사용 규칙 원본: `.claude/skills/design-tokens/token-usage.md` (Claude Code·Antigravity가 자동으로 읽음)
 - 컴포넌트 props 타입이 토큰에서 만들어지므로 토큰에 없는 이름은 vue-tsc 오류가 납니다.
 
 **3.2 설정은 한 곳에서**
 
 | 바꿀 것 | 파일 |
 |---|---|
-| 클래스 접두사, 단위(px/rem), 다크·반응형 적용 방식 | `ui-style/src/tokens-config.js` |
+| CSS 변수 접두사, 단위(px/rem), 다크·반응형 적용 방식 | `ui-style/src/tokens-config.js` |
 | 피그마 경로 → 클래스 이름, 제외, typo 굵기 | `ui-style/src/tokens/tokens.rules.json` |
 | 컴포넌트 color 역할 → 클래스 | `ui-vue/src/types/color.ts` |
 
-`UNIT`은 `"px"`/`"rem"`만 바꾸면 됩니다. rem이면 `html { font-size: 62.5% }`가 자동으로 들어갑니다.
+`UNIT`은 `"px"`/`"rem"`만 바꾸면 됩니다. rem이면 값을 16으로 나눠 출력합니다 (1rem = 16px, html font-size는 바꾸지 않음).
 
 **3.3 모노레포 HMR**
 

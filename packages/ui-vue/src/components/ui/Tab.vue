@@ -42,7 +42,7 @@ const tabClasses = computed(() => {
     !isPill && TypoMap['body-md'],
 
     // line
-    !isPill && 'h-[48px] px-7',
+    !isPill && 'h-17 px-7',
     !isPill && (isSelected.value ? [colorMap['primary'], 'font-bold'] : colorMap['secondary']),
     // animated가 아닐 때 탭 자체의 하단 보더 처리
     !isPill && !isAnimated.value && [

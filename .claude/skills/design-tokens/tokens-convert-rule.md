@@ -12,9 +12,16 @@ design-tokens skill과 사람이 `tokens.rules.json`을 작성·수정할 때 �
 
 ## 0. skill 실행 순서
 
-1. `packages/ui-style/src/tokens/figma-export/` 폴더가 있는지, 안에 JSON 파일이 있는지 확인한다.
-   - 이 폴더의 JSON은 두 종류다: Figma Export 파일(`*.tokens.json`, 사용자가 넣음)과 Figma URL로 만든 `variables-tokens.json`. 어느 쪽을 읽을지는 `tokens.rules.json` `source.input`이 정한다.
-   - JSON 파일이 있으면 그 파일로 진행한다. 사용자가 Figma URL을 함께 주면 URL을 쓸지 먼저 묻는다 (둘 중 하나만 입력으로 쓴다).
+1. `packages/ui-style/src/tokens/figma-export/` 폴더가 있는지, 안에 JSON 파일이 있는지 확인하고 **파일 이름으로 입력 방식을 구분**한다.
+
+   | 폴더 안 파일 | 입력 방식 | `tokens.rules.json` |
+   |---|---|---|
+   | `*.tokens.json` (Figma Export, 사용자가 넣음) | 컬렉션·모드별 개별 파일 | `"source": { "input": "figma-export" }` + `sources` |
+   | `variables-tokens.json` (Figma URL로 skill이 만듦) | 전체를 합친 파일 하나 | `"source": { "input": "variables-tokens" }` (`sources` 없음) |
+   | 둘 다 있음 | 어느 쪽을 쓸지 사용자에게 확인 | 선택한 쪽으로 설정 |
+
+   - convert는 `source.input`에 해당하는 파일만 읽고 다른 쪽은 무시한다 (`input`이 없으면 `figma-export`).
+   - 사용자가 Figma URL을 함께 주면 URL을 쓸지 먼저 묻는다 (둘 중 하나만 입력으로 쓴다).
    - 단, 새 프로젝트 변환을 요청했는데 파일이 지금 `tokens.rules.json` `sources`의 파일(저장소 기본 PDS_v2 파일)과 같으면 변환하지 않는다. 새 프로젝트 JSON으로 교체하거나 Figma URL을 달라고 요청한다.
 2. 폴더가 없거나 JSON 파일이 없으면 둘 중 하나를 요청한다.
    - Figma에서 Variables를 tokens JSON으로 export해서 **사용자가 직접** `figma-export/` 폴더에 넣어 달라고 요청
@@ -67,9 +74,13 @@ design-tokens skill과 사람이 `tokens.rules.json`을 작성·수정할 때 �
 ## 2. 원칙
 
 1. **디자인 토큰에 있는 값만 쓴다.** 값을 추측해서 만들거나 다른 값으로 대체하지 않는다.
-   - 예외(디자인 값이 아닌 CSS 기본 동작): spacing `0`, `rounded-full`, `rounded-none`, `transparent`·`current`
+   - 예외(디자인 값이 아닌 CSS 기본 동작): spacing `0`, `rounded-full`, `rounded-none`, `transparent`·`current`, `white`·`black`
 2. **토큰에 없으면 쓰지 않는다.** 컴포넌트 역할(ui-vue `color.ts`)에 토큰에 없는 클래스가 있으면 그 역할을 뺀다. 다른 토큰으로 대신 연결하지 않는다.
-3. **Tailwind 기본 클래스는 사용할 수 있다.** 화면에서 class에 직접 쓰는 `flex`, `w-full`, `bg-white`, `bg-red-500` 등은 토큰이 아니라 확장으로 허용한다.
+3. **토큰에 그 카테고리가 있으면 Tailwind 기본을 끄고 토큰만 쓴다. 토큰에 그 카테고리가 없으면 Tailwind 기본을 쓴다.**
+   - 판단 단위는 값이 아니라 카테고리다. 카테고리 = 클래스를 만드는 토큰 종류: 색상(`color`·`semantic`), 간격, 글자 크기, 굵기, 모서리, 반응형(화면 너비 모드).
+   - 모서리 토큰이 있으면 토큰에 없는 `rounded-2xl`을 Tailwind로 대신 쓰지 않는다.
+   - `vars`(CSS 변수로만 출력되는 토큰: 그림자 조각, 자간 등)는 클래스 카테고리가 아니다 → `shadow-*`·`tracking-*`는 Tailwind 기본.
+   - 토큰 카테고리가 아닌 레이아웃·위치·표시(`flex`, `w-full`, `max-w-md`, `leading-*` …)는 Tailwind 기본. 임의 값은 크기만 허용하고 색상은 금지 (9장)
 4. **이름이 같으면 토큰 값이 이긴다.** 토큰 클래스와 Tailwind 기본 클래스 이름이 같아도 항상 토큰 변수 값이 적용되어야 한다.
 5. **조용히 틀리지 않는다.** 규칙에 맞지 않으면 오류로 멈추거나 경고로 알린다.
 
@@ -91,13 +102,13 @@ design-tokens skill과 사람이 `tokens.rules.json`을 작성·수정할 때 �
 
 | 카테고리 | 클래스 | 예 |
 |---|---|---|
-| `color.{그룹}.{단계}` | `bg-` · `text-` · `border-` 접두어 | `bg-primary-50`, `text-gray-90` |
+| `color.{그룹}.{단계}` | `bg-` · `text-` · `border-` 접두어 | `bg-primary-50`, `text-gray-90` (Tailwind 팔레트는 끔, `white`·`black`은 유지) |
 | `semantic.{그룹}.{이름}` | Figma 경로 그대로 | `text-basic`, `surface-elevated-01`, `button-primary-fill` |
 | `spacing.{단계}` | 모든 간격 유틸리티 | `p-9`, `gap-9`, `mt-9` (`0`은 자동) |
-| `radius.{이름}` | `rounded-` | `rounded-sm` (`rounded-full`은 Tailwind 기본) |
+| `radius.{이름}` | `rounded-` | `rounded-sm` (`rounded-full`·`rounded-none`은 Tailwind 기본) |
 | `fontSize.{그룹}-{크기}` | `text-` | `text-body-md` |
 | `fontWeight.{이름}` | `font-` | `font-bold` |
-| `vars.{이름}` | 클래스 없음 | `var(--gap-layout-h2-h3)` |
+| `vars.{이름}` | 클래스 없음 (Tailwind 기본 카테고리를 끄지 않음) | `var(--gap-layout-h2-h3)`, `var(--shadow-y-3)` |
 
 ### 3-3. 이름 규칙
 
@@ -149,6 +160,7 @@ design-tokens skill과 사람이 `tokens.rules.json`을 작성·수정할 때 �
 - 기본 모드: `value-set`, `light`, `small` (`tokens.rules.json` `defaultModes`. 반응형은 가장 작은 화면 = 모바일 기준)
 - 기본이 아닌 모드는 `tokens-config.js` `MODES`에 출력 방법을 지정한다: dark `{ selector: ".dark" }`, medium `{ media: "(min-width: 768px)" }`, large `{ media: "(min-width: 1280px)" }` (min-width 누적 적용)
 - 다크 선택자는 `.dark` 고정 (ui-vue `useColorMode`의 `DARK_CLASS`와 같아야 동작)
+- 반응형 접두어 = 화면 너비 모드 이름: `medium:`(≥768px), `large:`(≥1280px). Tailwind 기본 `sm:`~`2xl:`은 끈다. 다른 프로젝트는 그 모드 이름(예: `pc:`). 반응형 모드가 없는 프로젝트는 Tailwind 기본 `sm:`~`2xl:`을 그대로 쓴다
 - typography: font-size 이름 → font-weight 이름 (`tokens.rules.json` `typography`). 행간은 1.5 고정.
 
 ---
@@ -244,13 +256,15 @@ npm run build          # 또는 npm run tokens -w @ui/style
 
 ```bash
 npm run build -w @ui/vue     # 아이콘 생성 + vue-tsc 타입 검사
+npx eslint "packages/*/src/**/*.{vue,ts}"   # 꺼진 Tailwind 기본 클래스(팔레트·크기·반응형)·색상 임의 값 검사
 ```
 
 - `color.ts`에 토큰에 없는 클래스가 있으면 **그 역할을 자동으로 뺀다** (원칙 2). 뺀 역할 목록을 보고한다.
 - 뺀 역할을 쓰는 컴포넌트·화면(`color="..."`)을 찾아 목록으로 보고한다. 다른 역할로 바꾸지 않는다.
 - 타입으로 잡히지 않는 것도 찾는다: `.vue`·`.ts`의 class 문자열과 `style.css`·SCSS의 `var(--…)`를 `tokens.generated.ts` 클래스 목록·`design-tokens.css` 변수와 비교해, 없어진 토큰 클래스·변수를 보고한다.
   - `style.css`는 토큰을 `@apply` 클래스(`text-basic`, `text-body-md` …)로 쓴다. 클래스에는 PREFIX가 붙지 않으므로 PREFIX를 켜도 동작하고, 다른 프로젝트에 그 클래스가 없으면 빌드 오류로 드러난다. `var(--…)`로 토큰을 직접 쓰지 않는다.
-  - Tailwind 기본 클래스(`bg-white`, `flex` …)는 보고하지 않는다 (원칙 3).
+  - 항상 쓸 수 있는 것(`bg-white`, `rounded-full` …)과 토큰 카테고리가 아닌 Tailwind 기본 클래스(`flex`, `max-w-md` …)는 보고하지 않는다 (원칙 1·3).
+- ESLint `no-unknown-classes`·`no-restricted-classes` 오류(토큰이 바뀌어 없어진 색상·크기 클래스, Tailwind 팔레트, 색상 임의 값 등)는 위치와 함께 보고한다. 다른 토큰으로 바꾸지 않는다.
 
 ---
 
@@ -266,10 +280,11 @@ npm run build -w @ui/vue     # 아이콘 생성 + vue-tsc 타입 검사
 | 대문자 이름 | 소문자로 통일 |
 | 반응형 모드 값이 0 (Figma에서 비워 둔 값) | 기본 모드 값 사용 + 경고 (의도된 0은 rules `keepZero`) |
 | spacing에 0 단계 없음 | `0` 자동 추가 (safelist 포함, PREFIX가 있으면 `--pds-spacing-0`) |
-| font-size 이름이 Tailwind 기본과 같음 (`text-sm`) | Tailwind 기본 줄 높이를 붙이지 않음 |
+| Tailwind 기본 카테고리 | 토큰이 있는 카테고리는 기본값을 끔: 색상 `--color-*`(color 또는 semantic이 있을 때, `white`·`black`은 다시 정의), 간격 `--spacing-*`, 글자 크기 `--text-*`, 굵기 `--font-weight-*`, 모서리 `--radius-*`. `transparent`·`current`·`rounded-full`·`rounded-none`은 그대로. 이름이 Tailwind와 같아도(`text-sm`) 기본값·기본 줄 높이가 섞이지 않음 |
+| 반응형 접두어 | 토큰에 반응형 모드가 있으면 `--breakpoint-*: initial` 후 `MODES`의 min-width 모드를 모드 이름으로 정의 (`--breakpoint-medium: 768px` → `medium:`). 없으면 Tailwind 기본 `sm:`~`2xl:` 유지 |
 | semantic 클래스와 팔레트 클래스 이름이 같음 (`text-primary`) | semantic 유지, **겹친 팔레트 토큰에만** 컬렉션 이름을 붙임 (`text-daisyui-primary`) → 8장 보고 2번 |
-| semantic 클래스와 Tailwind 기본 색 이름이 같음 (`text-white`) | 그 클래스만 토큰 값을 쓰도록 지정. `bg-white` 등 Tailwind 기본 클래스는 그대로 |
-| `UNIT` = rem | 값 ÷10 rem + `html { font-size: 62.5% }` 자동 |
+| semantic 클래스와 Tailwind 기본 색 이름이 같음 (`text-white`) | 그 클래스만 토큰 값을 쓰도록 지정. `bg-white` 등은 그대로 (팔레트를 끈 경우 비교 대상은 `white`·`black`뿐) |
+| `UNIT` = rem | 값 ÷16 rem (`16px` → `1rem`, `14px` → `0.875rem`). html font-size는 바꾸지 않음 (브라우저·Tailwind 기본 1rem = 16px) |
 | 반복 그룹 이름 (`Color/Gray/color-gray-50`) | 자동 아님 → 3-3 mappings 패턴으로 처리 |
 | 토큰 클래스를 tailwind-merge가 모름 | `tokens.generated.ts`의 배경·테두리·글자색 클래스 목록, 글자 크기(`FONT_SIZE_SCALE`), 굵기(`FONT_WEIGHT_SCALE`), 모서리(`RADIUS_SCALE`)를 ui-vue `cn.ts`가 tailwind-merge 그룹으로 등록. 같은 속성끼리만 뒤의 것이 남음: `cn('bg-white', 'surface-elevated-01')` → `surface-elevated-01`, `cn('text-body-md', 'text-basic')` → 둘 다 유지 (크기·색은 다른 속성) |
 
@@ -298,8 +313,9 @@ npm run build -w @ui/vue     # 아이콘 생성 + vue-tsc 타입 검사
 
 1. 반응형 모드가 있고 화면 너비(px)가 JSON에 없을 때: 기준 너비 (반응형은 mobile 기준 고정이라 기준 방향은 묻지 않는다)
 2. JSON 입력이고 font-size 이름이 PDS_v2와 하나도 겹치지 않을 때: typography(크기별 굵기). Figma URL이면 Text Styles를 읽으므로 묻지 않는다.
+3. 입력이 둘 이상일 때 (0장 1번): `figma-export/`에 `*.tokens.json`과 `variables-tokens.json`이 함께 있거나, 파일이 있는데 Figma URL도 받았을 때 → 어느 쪽을 쓸지
 
-그 외는 모두 이 문서 규칙으로 자동 처리하고, 결과를 보고한다. 질문은 4-3 비교표를 보여준 뒤에 한다.
+그 외는 모두 이 문서 규칙으로 자동 처리하고, 결과를 보고한다. 질문 3은 입력을 정해야 하므로 가장 먼저 묻고, 질문 1·2는 4-3 비교표를 보여준 뒤에 한다.
 
 ---
 
@@ -311,3 +327,11 @@ npm run build -w @ui/vue     # 아이콘 생성 + vue-tsc 타입 검사
 4. **디자이너 확인 목록 (경고)**
    - 코드가 출력한 경고: 비워 둔 0 값, MODES에 없는 모드, 컬렉션 이름을 붙인 팔레트 (2번과 같음)
    - skill이 JSON을 보고 찾는 것: 이름 오타, 모드별 이름 불일치(예: light `graphic/80` ↔ dark `graphic/70`), 값이 같은 중복 변수
+
+---
+
+## 9. 개발 시 토큰 사용 규칙 (AI·개발자 공통)
+
+같은 폴더의 **`token-usage.md`**가 원본이다 (카테고리 규칙, 토큰만 쓰는 클래스, 항상 쓸 수 있는 것, Tailwind 기본, 임의 값, ESLint 검사).
+평소 작업에서도 자동으로 읽히도록 `.claude/rules/design-tokens.md`(Claude Code)와 `.agents/rules/design-tokens.md`(Antigravity)가 이 파일을 불러온다.
+규칙을 바꿀 때는 `token-usage.md`만 고친다.

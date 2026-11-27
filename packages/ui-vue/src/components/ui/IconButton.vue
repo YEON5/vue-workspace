@@ -20,9 +20,9 @@ const { spacingClasses } = useSpacing(props);
 const { radiusClasses } = useRadius(props);
 
 const sizeMap: Record<IconButtonSize, string> = {
-  sm: 'size-[24px]',
-  md: 'size-[32px]',
-  lg: 'size-[40px]',
+  sm: 'size-11',
+  md: 'size-13',
+  lg: 'size-15',
 };
 
 const classes = computed(() =>

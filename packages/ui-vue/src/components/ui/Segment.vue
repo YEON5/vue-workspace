@@ -20,7 +20,7 @@ provide('segmentModel', modelValue);
 provide('segmentAnimated', computed(() => props.animated));
 
 const trackClasses = computed(() =>
-  cn('relative inline-flex w-full rounded-sm surface-neutral-subtle p-[6px]', props.class)
+  cn('relative inline-flex w-full rounded-sm surface-neutral-subtle p-4', props.class)
 );
 
 // animated 모드 - 선택된 SegmentItem의 위치/크기를 측정해 indicator 이동

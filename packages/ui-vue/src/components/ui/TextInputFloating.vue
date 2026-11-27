@@ -165,7 +165,7 @@ const inputClasses = computed(() =>
     @focusout="handleFocusOut"
   >
     <label v-if="label" :for="internalId" :class="labelClasses">
-      {{ label }}<span v-if="required" class="text-body-md text-danger ml-[2px]">*</span>
+      {{ label }}<span v-if="required" class="text-body-md text-danger ml-2">*</span>
     </label>
 
     <input
@@ -194,7 +194,7 @@ const inputClasses = computed(() =>
         aria-label="입력 내용 지우기"
         @click="handleClear"
       >
-        <IInputDelete class="size-[20px]" aria-hidden="true" />
+        <IInputDelete class="size-10" aria-hidden="true" />
       </IconButton>
 
       <!-- input 안에 버튼 및 내용 추가 slot -->

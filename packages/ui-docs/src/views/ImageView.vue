@@ -37,7 +37,7 @@ const imgData = ref<ImgList[]>([
           object-fit="cover"
           width="310px"
           ratio="310/167"
-          class="bg-slate-400"
+          class="bg-gray-40"
         />
       </ScrollArea>
       

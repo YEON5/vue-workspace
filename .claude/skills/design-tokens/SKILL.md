@@ -7,7 +7,7 @@ description: 피그마 Variables(tokens JSON 파일 또는 Figma URL)를 @ui/sty
 
 ## 실행 전 필수
 
-1. **같은 폴더의 `tokens-convert-rule.md`를 먼저 읽는다.**
+1. **같은 폴더의 `token-usage.md`(토큰 사용 규칙)를 먼저 읽고, 이어서 `tokens-convert-rule.md`(변환 규칙)를 읽는다.**
 2. 이후 모든 단계는 `tokens-convert-rule.md`의 규칙을 따른다. 이 SKILL.md는 실행 흐름만 담고 있으며, 내용이 다르면 **`tokens-convert-rule.md`가 우선**한다.
 3. 기준은 **PDS_v2**다. PDS_v2 결과(`design-tokens.css`, `tokens.generated.ts`)를 바꾸는 변경은 하지 않는다.
 
@@ -17,7 +17,10 @@ description: 피그마 Variables(tokens JSON 파일 또는 Figma URL)를 @ui/sty
 
 ### 1. 입력 확인 (규칙 0장)
 
-1. `packages/ui-style/src/tokens/figma-export/` 폴더와 그 안의 JSON 파일이 있는지 확인한다. 있으면 그 파일로 진행한다 (Figma URL도 받았다면 어느 쪽을 쓸지 묻는다).
+1. `packages/ui-style/src/tokens/figma-export/` 폴더와 그 안의 JSON 파일이 있는지 확인하고, 파일 이름으로 입력 방식을 구분한다 (규칙 0장 표).
+   - `*.tokens.json` → `source.input: "figma-export"` (개별 파일)
+   - `variables-tokens.json` → `source.input: "variables-tokens"` (URL 통합 파일)
+   - 둘 다 있으면 어느 쪽을 쓸지 확인한다. Figma URL도 받았다면 어느 쪽을 쓸지 묻는다.
    - 새 프로젝트 변환 요청인데 파일이 `tokens.rules.json` `sources`의 기존 PDS_v2 파일과 같으면 변환하지 않고 교체 파일이나 Figma URL을 요청한다.
 2. 없으면 둘 중 하나를 요청하고 기다린다.
    - Figma에서 Variables를 tokens JSON으로 export해서 **사용자가 직접** `figma-export/`에 넣어 달라고 요청
@@ -40,7 +43,7 @@ description: 피그마 Variables(tokens JSON 파일 또는 Figma URL)를 @ui/sty
 ### 3. 질문 (규칙 7장)
 
 - 묻는 것은 규칙 7장 항목뿐이다 (반응형 화면 너비가 JSON에 없을 때, JSON 입력인데 typography 기준이 없을 때). 반응형은 mobile 기준 고정이므로 기준 방향은 묻지 않는다.
-- 질문은 비교표를 보여준 뒤, 한 번에 모아서 한다.
+- 질문은 비교표를 보여준 뒤, 한 번에 모아서 한다. 단, 입력 선택(파일이 둘 다 있거나 URL도 받았을 때)은 1단계에서 먼저 묻는다.
 
 ### 4. 모드와 규칙 작성 (규칙 3장, 4-4 ~ 4-5)
 
@@ -63,11 +66,13 @@ npm run build                    # 최종 빌드 (dist/style.css)
 
 ```bash
 npm run build -w @ui/vue     # 아이콘 생성 + vue-tsc 타입 검사
+npx eslint "packages/*/src/**/*.{vue,ts}"   # 꺼진 Tailwind 기본 클래스(팔레트·크기·반응형)·색상 임의 값 검사
 ```
 
 - `types/color.ts`에 토큰에 없는 클래스가 있으면 그 역할을 `ColorToken`과 맵에서 뺀다 (규칙 2장 원칙 2). 다른 토큰으로 대신 연결하지 않는다.
 - 뺀 역할을 쓰는 곳을 찾아 보고한다 (바꾸지 않음).
 - class 문자열·`style.css`의 `@apply` 클래스·SCSS의 `var(--…)`를 생성 결과와 비교해 없어진 토큰 클래스·변수를 보고한다.
+- ESLint `no-unknown-classes`·`no-restricted-classes` 오류(토큰이 바뀌어 없어진 색상·크기 클래스, Tailwind 팔레트, 색상 임의 값 등)는 위치와 함께 보고한다. 다른 토큰으로 바꾸지 않는다.
 - 원래 있던 오류와 새로 생긴 오류를 구분해서 처리한다.
 
 ### 7. PDS_v2 회귀 확인 (규칙 1-1)
@@ -87,18 +92,19 @@ npm run build -w @ui/vue     # 아이콘 생성 + vue-tsc 타입 검사
 ## 하지 않는 것
 
 - 디자인 토큰에 없는 값을 추측해서 만들거나 다른 값으로 대체하지 않는다.
-- `figma-export/`의 Export 파일(`*.tokens.json`)을 만들거나 옮기거나 고치거나 지우지 않는다. (skill이 만드는 것은 `variables-tokens.json`뿐)
+- 사용자가 넣은 `figma-export/*.tokens.json`은 만들거나 옮기거나 고치거나 지우지 않는다. Figma URL 입력 시에만 `figma-export/variables-tokens.json`을 생성한다 (폴더가 없으면 생성).
 - PDS_v2 결과를 바꾸는 코드·규칙 변경을 하지 않는다.
 - 비교표를 보여주기 전에 변환이나 규칙 작성을 시작하지 않는다.
 - 규칙 7장에 없는 질문을 하지 않는다. (반응형 mobile/pc 기준은 묻지 않는다 — mobile 고정)
 - 클래스에 PREFIX를 붙이지 않는다. PREFIX는 CSS 변수에만 붙는다.
+- 토큰에 있는 카테고리의 Tailwind 기본(팔레트·크기 스케일·반응형)을 다시 열지 않는다 (규칙 2장 원칙 3).
 - `style.css`에 토큰을 `var(--…)`로 직접 쓰지 않는다. `@apply` 클래스로 쓴다.
 
 ## 관련 파일
 
 | 파일 | 내용 |
 |---|---|
-| `tokens-convert-rule.md` (이 폴더) | 변환 규칙 — **항상 먼저 읽음** |
+| `tokens-convert-rule.md` (이 폴더) | 변환 규칙 — `token-usage.md` 다음에 읽음 |
 | `packages/ui-style/src/tokens/figma-export/*.tokens.json` | Figma Export JSON (사용자가 넣음) |
 | `packages/ui-style/src/tokens/figma-export/variables-tokens.json` | Figma URL로 만든 Variables 파일 |
 | `packages/ui-style/src/tokens/tokens.rules.json` | 프로젝트별 변환 규칙 |
@@ -107,3 +113,5 @@ npm run build -w @ui/vue     # 아이콘 생성 + vue-tsc 타입 검사
 | `packages/ui-vue/src/types/tokens.generated.ts` | 생성 결과 (토큰 목록·값) |
 | `packages/ui-vue/src/types/color.ts` | 컴포넌트 색상 역할 |
 | `packages/ui-style/tokens_note.md` | 사용 설명서 |
+| `token-usage.md` (이 폴더) | 개발 시 토큰 사용 규칙 — **가장 먼저 읽음** (원본) |
+| `.claude/rules/design-tokens.md` · `.agents/rules/design-tokens.md` | `token-usage.md`를 평소 작업에서도 자동으로 읽게 하는 참조 파일 |

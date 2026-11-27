@@ -47,20 +47,20 @@ import { Button, Container, Divider, Flex, IArrowRightS, IconButton, IMy, Sectio
 
       <Flex align="center" gap="10">
         <IconButton size="sm" aria-label="내 정보 sm">
-          <IMy class="size-[16px]" aria-hidden="true" />
+          <IMy class="size-9" aria-hidden="true" />
         </IconButton>
         <IconButton size="md" aria-label="내 정보 md">
-          <IMy class="size-[24px]" aria-hidden="true" />
+          <IMy class="size-11" aria-hidden="true" />
         </IconButton>
         <IconButton size="lg" aria-label="내 정보 lg">
-          <IMy class="size-[24px]" aria-hidden="true" />
+          <IMy class="size-11" aria-hidden="true" />
         </IconButton>
         <IconButton size="md" disabled aria-label="내 정보 disabled">
-          <IMy class="size-[24px]" aria-hidden="true" />
+          <IMy class="size-11" aria-hidden="true" />
         </IconButton>
         <!-- hover 배경이 필요하면 쓰는 쪽에서 class로 지정 -->
         <IconButton size="lg" rounded="full" class="hover:action-neutral-hover" aria-label="내 정보 hover">
-          <IMy class="size-[24px]" aria-hidden="true" />
+          <IMy class="size-11" aria-hidden="true" />
         </IconButton>
       </Flex>
 

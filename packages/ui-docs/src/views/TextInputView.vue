@@ -135,7 +135,7 @@ const bizNum1Id = useId()
                 aria-label="검색"
                 @click="handleSearch"
               >
-                <ISearch class="size-[24px]" aria-hidden="true" />
+                <ISearch class="size-11" aria-hidden="true" />
               </IconButton>
             </template>
           </TextInput>
@@ -235,7 +235,7 @@ const bizNum1Id = useId()
                   aria-label="주소 검색"
                   @click="handleSearch"
                 >
-                  <ISearch class="size-[24px]" aria-hidden="true" />
+                  <ISearch class="size-11" aria-hidden="true" />
                 </IconButton>
               </template>
             </TextInput>
@@ -317,7 +317,7 @@ const bizNum1Id = useId()
 
         <FormGroup label="사업자등록번호" :input-id="bizNum1Id">
           <Flex align="center" gap="5">
-            <TextInput :id="bizNum1Id" v-model="formData.bizNum1" class="w-[80px]" align="center" :max-length="3" :clearable="false" aria-label="사업자등록번호 첫번째" />
+            <TextInput :id="bizNum1Id" v-model="formData.bizNum1" class="w-21" align="center" :max-length="3" :clearable="false" aria-label="사업자등록번호 첫번째" />
             <span>-</span>
             <TextInput v-model="formData.bizNum2" class="w-[70px]" align="center" :max-length="2" :clearable="false" aria-label="사업자등록번호 두번째" />
             <span>-</span>

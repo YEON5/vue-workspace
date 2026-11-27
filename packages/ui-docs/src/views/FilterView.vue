@@ -40,7 +40,7 @@ const selectedFilter = ref<string[]>(['Filter11']);
           :icon-align="filter.iconAlign"
         >
           <template v-if="filter.icon" #icon>
-            <component :is="filter.icon" class="size-[16px] ml-3" />
+            <component :is="filter.icon" class="size-9 ml-3" />
           </template>
           {{ filter.label }}
         </Filter>
@@ -56,7 +56,7 @@ const selectedFilter = ref<string[]>(['Filter11']);
           :icon-align="filter.iconAlign"
         >
           <template v-if="filter.icon" #icon>
-            <component :is="filter.icon" class="size-[16px] ml-3" />
+            <component :is="filter.icon" class="size-9 ml-3" />
           </template>
           {{ filter.label }}
         </Filter>

@@ -14,7 +14,8 @@ figma-export/*.tokens.json
 
 - 디자인 토큰에 **있는 값만** 씁니다. 값을 추측해서 만들거나 다른 값으로 대체하지 않습니다.
 - 토큰에 없는 이름은 컴포넌트에서 **쓰지 않습니다** (예: 프로젝트에 `text-subtler`가 없으면 color.ts의 `tertiary` 역할을 뺌).
-- 토큰이 아닌 Tailwind 기본 클래스(`flex`, `w-full`, `bg-red-500` …)는 class에 직접 써서 자유롭게 확장해도 됩니다. 토큰 이름과 같은 Tailwind 기본 이름은 토큰 값이 우선합니다.
+- **토큰에 그 카테고리가 있으면 Tailwind 기본을 끄고 토큰만 씁니다. 토큰에 그 카테고리가 없으면 Tailwind 기본을 씁니다.** 판단 단위는 값이 아니라 카테고리(색상·간격·글자 크기·굵기·모서리·반응형)입니다. PDS_v2는 모두 토큰이 있어 `text-gray-300`, `text-sm`, `rounded-2xl`, `font-semibold`, `md:`가 없습니다. 아래 "Tailwind 기본 카테고리" 참고.
+- 토큰 카테고리가 아닌 레이아웃·위치·표시(`flex`, `w-full`, `max-w-md` …)는 Tailwind 기본을 씁니다. 토큰 이름과 같은 Tailwind 기본 이름은 토큰 값이 우선합니다.
 - 조용히 틀리는 일이 없도록, 규칙에 맞지 않으면 **오류로 멈추고 무엇을 고칠지 출력**합니다.
 
 ---
@@ -58,6 +59,21 @@ packages/ui-style/
 dev 중에는 `figma-export/`, `tokens.rules.json`, `tokens-config.js`를 저장하면 자동으로 다시 생성됩니다. 오류가 나도 감시는 계속되고, 고쳐서 저장하면 다시 생성됩니다.
 
 ---
+
+## Claude Code skill로 변환하기 (design-tokens)
+
+규칙 작성·빌드·오류 수정·보고를 skill이 대신 진행합니다 (`.claude/skills/design-tokens/`). Claude Code 새 세션에서 아래 중 하나로 실행합니다.
+
+| 방법 | 입력 |
+|---|---|
+| 슬래시 명령 | `/design-tokens` |
+| 새 프로젝트 | `새 프로젝트 디자인 토큰 변환해줘` |
+| Figma URL | `이 피그마 변수로 디자인 토큰 적용해줘 https://www.figma.com/design/...` |
+| 같은 프로젝트 갱신 | `피그마 토큰 바뀐 거 갱신해줘` (figma-export 파일을 새 Export로 덮어쓴 뒤) |
+
+- 새 프로젝트는 `figma-export/`의 PDS_v2 파일을 새 Export 파일로 바꾼 뒤 실행합니다 (PDS_v2 파일이 그대로면 skill이 멈추고 교체를 요청).
+- Figma URL은 Claude Code에 Figma MCP가 연결되어 있고 그 파일의 편집 권한이 있어야 합니다. skill이 `figma-export/variables-tokens.json`을 만듭니다.
+- 진행 순서: 입력 확인 → PDS_v2 컬렉션 비교표 → 최소 질문 → 규칙·모드 작성 → 빌드 → 컴포넌트 영향 확인(vue-tsc·ESLint) → 보고.
 
 ## 피그마 토큰을 바꿨을 때
 
@@ -126,9 +142,9 @@ dev 중에는 `figma-export/`, `tokens.rules.json`, `tokens-config.js`를 저장
 | UNIT | 토큰 값 | html font-size |
 |---|---|---|
 | `"px"` (현재) | `16px` | 출력 안 함 (브라우저 기본 16px) |
-| `"rem"` | `1.6rem` | `62.5%` 자동 추가 (1rem = 10px) |
+| `"rem"` | `1rem` (16px ÷ 16) | 출력 안 함 (브라우저·Tailwind 기본 1rem = 16px) |
 
-rem으로 바꾸면 토큰이 아닌 Tailwind 기본 rem 클래스도 1rem = 10px 기준이 됩니다 (`max-w-xs` 320px → 200px).
+어느 쪽이든 html font-size를 바꾸지 않으므로 Tailwind 기본 클래스와 외부 라이브러리(달력·에디터 등) 크기가 틀어지지 않습니다.
 
 **MODES (PDS_v2)**
 
@@ -159,7 +175,10 @@ const MODES = {
       - 텍스트 용도가 있고 면 채우기가 없으면 글자색이 기본 (글자·아이콘용)
    3. 용도 미지정(ALL_SCOPES)이면 이름으로 추정: 그룹 `text`·`icon`·`link` → 글자색, `border`·`divider` → 테두리, 이름에 `border`가 있으면 테두리 (`button-secondary-border`)
    4. 그래도 모르면 배경 기본 + `border-`·`text-` 접두어 형태도 함께 생성
-3. **primitive 팔레트**는 접두어 형태: `bg-primary-50`, `text-gray-90` (시맨틱 변수가 없을 때만 사용)
+3. **primitive 팔레트**는 접두어 형태: `bg-primary-50`, `text-gray-90` (시맨틱 변수가 없을 때만 사용). 다크모드에서 바뀌지 않습니다.
+   - 토큰에 색상이 있으므로 **Tailwind 기본 팔레트(`gray-300`, `red-500`, `slate-400` …)는 꺼져 있습니다.** `gray-30`(PDS)과 `gray-300`(Tailwind)은 다른 색이니 주의합니다.
+   - `white`·`black`(`bg-white`, `text-black`)과 `transparent`·`current`는 항상 쓸 수 있습니다.
+   - 색상 임의 값(`bg-[#fff]`)은 쓰지 않습니다 (ESLint 오류).
 4. **이름이 겹쳐도 항상 토큰 값**: semantic(Figma 경로) 이름은 그대로 두고
    - 팔레트 토큰과 겹치면 그 팔레트 토큰에 컬렉션 이름을 붙임 (`text-daisyui-primary`)
    - Tailwind 기본 색과 겹치면(`text-white`) 그 클래스만 토큰 값을 쓰도록 지정 (`.text-white { color: var(--color-text-white) }`). `bg-white` 등 Tailwind 기본 클래스는 그대로 사용 가능
@@ -204,13 +223,52 @@ const MODES = {
 ### Radius
 
 `rounded-min`(4px), `rounded-xs`(6px), `rounded-sm`(8px), `rounded-md`(10px), `rounded-lg`(12px), `rounded-xl`(14px), `rounded-max`(16px)
-`rounded-full`은 Tailwind 기본 클래스를 씁니다 (Figma `radius/full`은 제외).
+`rounded-full`·`rounded-none`은 Tailwind 기본 클래스를 씁니다 (Figma `radius/full`은 제외). Tailwind 기본 `rounded`, `rounded-2xl` 등은 꺼져 있습니다.
 
 ### Font size · Font weight · Typo
 
 - 글자 크기 `text-{이름}`, 굵기 `font-{이름}` (예: `text-display-lg font-bold`). 화면 너비별 값은 자동 적용.
-- 글자 크기 이름이 Tailwind 기본(`text-sm`, `text-4xl` …)과 같아도 Tailwind 기본 줄 높이는 붙지 않습니다.
-- 행간은 1.5 고정 (`leading-normal`). 컴포넌트에서는 Typo `variant`를 씁니다 (ui-vue `component_note.md`).
+- Tailwind 기본 글자 크기(`text-sm`, `text-base` …)와 굵기(`font-semibold` …)는 꺼져 있습니다. 토큰 이름이 Tailwind와 같으면 토큰 값입니다 (`font-bold` = 600).
+- 행간은 기본 1.5 고정 (`leading-normal`). Tailwind `leading-*`도 필요하면 쓸 수 있습니다. 컴포넌트에서는 Typo `variant`를 씁니다 (ui-vue `component_note.md`).
+
+### 반응형
+
+Tailwind 기본 `sm:` `md:` `lg:` `xl:` `2xl:`은 꺼져 있고, 화면 너비 모드 이름을 씁니다 (`tokens-config.js` `MODES`).
+
+| 접두어 | 너비 |
+|---|---|
+| `medium:` | ≥768px |
+| `large:` | ≥1280px |
+
+예: `flex-col medium:flex-row`. 토큰 값(글자 크기·간격 등)도 같은 너비에서 바뀝니다. 토큰에 반응형 모드가 없는 프로젝트는 Tailwind 기본 `sm:`~`2xl:`을 그대로 씁니다.
+
+### Tailwind 기본 카테고리
+
+토큰에 그 카테고리가 있으면 Tailwind 기본을 끄고, 없으면 그대로 둡니다 (`generate-tokens.js`가 자동 처리). PDS_v2 기준:
+
+| 카테고리 | PDS_v2 토큰 | 꺼진 Tailwind 기본 | 대신 쓰는 것 |
+|---|---|---|---|
+| 색상 | 있음 | 팔레트 `gray-300` `red-500` … | semantic(`text-basic` …), 팔레트(`gray-30` …) |
+| 간격 | 있음 | 숫자 `p-14`(3.5rem 계산) … | 단계 `p-9` … |
+| 글자 크기 | 있음 | `text-sm` `text-base` … | `text-body-md` … |
+| 굵기 | 있음 | `font-semibold` … | `font-regular` `font-medium` `font-bold` |
+| 모서리 | 있음 | `rounded` `rounded-2xl` … | `rounded-min` … `rounded-max` |
+| 반응형 | 있음 | `sm:` `md:` `lg:` `xl:` `2xl:` | `medium:` `large:` |
+
+| 항상 쓸 수 있음 | Tailwind 기본 (토큰 카테고리 아님) |
+|---|---|
+| `p-0` 등 `0`, `rounded-none`, `rounded-full`, `transparent`, `current`, `white`, `black` | 레이아웃·위치(`flex`, `grid`, `w-full`, `w-1/2`, `w-screen`, `h-auto`, `w-px`), 이름 너비(`max-w-md`, `w-xl`), 행간 `leading-*`, 자간 `tracking-*`, 그림자 `shadow-*`, 상태 접두어(`hover:`) |
+
+- 그림자·자간 토큰은 CSS 변수(`--shadow-y-3`, `--letter-spacing-1`)로만 나오고 클래스 카테고리가 아니라서 Tailwind 기본을 끄지 않습니다.
+- 임의 값: 크기는 허용(`w-[240px]`, 토큰에 같은 값이 있으면 토큰 클래스: `p-[16px]` 대신 `p-9`), 색상은 금지(`bg-[#fff]`).
+
+꺼진 클래스를 쓰면 Tailwind는 경고 없이 무시하므로 ESLint로 검사합니다 (루트 `eslint.config.mjs`): 꺼진 클래스는 `better-tailwindcss/no-unknown-classes`, 색상 임의 값은 `better-tailwindcss/no-restricted-classes` 오류.
+
+```bash
+npx eslint "packages/*/src/**/*.{vue,ts}"
+```
+
+`p-4`처럼 존재하지만 기대와 값이 다른 클래스는 ESLint가 잡지 못합니다. 간격은 단계 번호이므로(`p-9` = 16px, `p-4` = 6px) 위 Spacing 표나 `tokens.generated.ts`로 확인합니다. AI·개발자 공통 사용 규칙은 `.claude/skills/design-tokens/token-usage.md`에 있습니다 (Claude Code·Antigravity가 자동으로 읽음).
 
 ### 크기 줄임말
 
@@ -263,12 +321,12 @@ export const BACKGROUND_COLOR_CLASSES / BORDER_COLOR_CLASSES / TEXT_COLOR_CLASSE
 
 ## 다른 프로젝트에 적용할 때
 
-1. 새 프로젝트의 Figma Export JSON을 `figma-export/`에 넣습니다.
+1. 새 프로젝트의 Figma Export JSON을 `figma-export/`에 넣습니다 (또는 design-tokens skill에 Figma URL을 주면 `figma-export/variables-tokens.json`을 만듭니다).
 2. `tokens.rules.json`을 새로 맞춥니다: `sources`(컬렉션 이름·모드·파일), `defaultModes`, `mappings`, `ignore`, `typography`. convert 오류 목록을 따라가면 됩니다.
 3. `tokens-config.js` `MODES`에 새 모드를 추가합니다 (경고로 알려줌).
-4. `npm run tokens` 후 ui-vue `vue-tsc`를 실행해 타입 오류를 확인합니다.
+4. `npm run tokens` 후 ui-vue `vue-tsc`와 `npx eslint "packages/*/src/**/*.{vue,ts}"`를 실행해 오류를 확인합니다.
    - color.ts: 토큰에 없는 클래스 → 해당 역할 삭제
    - typography: 토큰에 없는 크기·굵기 → generate 오류로 알려줌
 5. 디자인 데이터 문제(이름 오타, 모드별 이름 불일치, 비워 둔 0 값)는 디자이너에게 확인합니다.
 
-**주의**: 컴포넌트 안에 클래스를 직접 쓴 곳(예: `'surface-elevated-01'`)은 타입 검사가 되지 않습니다. 토큰에 없으면 화면에서만 빠지므로 ui-docs에서 확인합니다.
+**주의**: 컴포넌트 안에 클래스를 직접 쓴 곳(예: `'surface-elevated-01'`)은 타입 검사가 되지 않습니다. class 속성·`cn()` 안의 클래스는 ESLint가 잡고, 스크립트 변수에 넣은 문자열은 잡지 못하므로 ui-docs에서 확인합니다.

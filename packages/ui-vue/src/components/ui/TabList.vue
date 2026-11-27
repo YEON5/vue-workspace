@@ -252,7 +252,7 @@ function handleKeydown(e: KeyboardEvent) {
         'absolute left-0 z-0',
         bgColorMap['primary'],
         // line: 하단 2px 언더바 / pill: 탭 크기만큼 채우는 알약 배경
-        isPill ? 'top-0 rounded-full' : 'bottom-0 h-[2px]',
+        isPill ? 'top-0 rounded-full' : 'bottom-0 h-2',
         // JS 모션 모드에서는 CSS transition을 끔 (rAF가 직접 값을 갱신)
         ready && !useJsMotion && 'transition-[transform,width,height] duration-200 ease-out',
       )"

@@ -18,9 +18,9 @@ const itemClasses = computed(() =>
   cn(
     'relative flex flex-col',
     textClass.value,
-    type === 'dot' && 'bullet-dot pl-[10px]',
-    type === 'hyphen' && 'bullet-hyphen pl-[10px]',
-    type === 'number' && ['bullet-number pl-[16px]', '[counter-increment:bullet-idx]'],
+    type === 'dot' && 'bullet-dot pl-6',
+    type === 'hyphen' && 'bullet-hyphen pl-6',
+    type === 'number' && ['bullet-number pl-9', '[counter-increment:bullet-idx]'],
     colorMap['body'],
     props.class,
   )

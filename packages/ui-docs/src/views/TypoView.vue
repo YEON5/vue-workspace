@@ -31,22 +31,22 @@ function spec(v: TypoToken, column: string) {
       <!-- variant별 크기·굵기·행간 (tokens.generated.ts 값, 화면 너비별 값은 RESPONSIVE) -->
       <!-- 좁은 화면에서는 줄바꿈 대신 가로 스크롤 -->
       <div class="overflow-x-auto">
-      <table class="w-full text-left whitespace-nowrap">
-        <thead>
-          <tr class="border-b">
-            <th class="py-5 pr-10"><Typo as="span" variant="label-md" color="caption">예시</Typo></th>
-            <th class="py-5 pr-10"><Typo as="span" variant="label-md" color="caption">variant</Typo></th>
-            <th v-for="c in columns" :key="c" class="py-5 pr-10"><Typo as="span" variant="label-md" color="caption">{{ c }}</Typo></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="v in variants" :key="v" class="border-b">
-            <td class="py-5 pr-10"><Typo as="span" :variant="v">가나다 Aa</Typo></td>
-            <td class="py-5 pr-10"><Typo as="span" variant="body-sm">{{ v }}</Typo></td>
-            <td v-for="c in columns" :key="c" class="py-5 pr-10"><Typo as="span" variant="body-sm">{{ spec(v, c) }}</Typo></td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="w-full text-left whitespace-nowrap">
+          <thead>
+            <tr class="border-b">
+              <th class="py-5 pr-10"><Typo as="span" variant="label-md" color="caption">예시</Typo></th>
+              <th class="py-5 pr-10"><Typo as="span" variant="label-md" color="caption">variant</Typo></th>
+              <th v-for="c in columns" :key="c" class="py-5 pr-10"><Typo as="span" variant="label-md" color="caption">{{ c }}</Typo></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="v in variants" :key="v" class="border-b">
+              <td class="py-5 pr-10"><Typo as="span" :variant="v">가나다 Aa</Typo></td>
+              <td class="py-5 pr-10"><Typo as="span" variant="body-sm">{{ v }}</Typo></td>
+              <td v-for="c in columns" :key="c" class="py-5 pr-10"><Typo as="span" variant="body-sm">{{ spec(v, c) }}</Typo></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <Divider type="thin" my="17" />

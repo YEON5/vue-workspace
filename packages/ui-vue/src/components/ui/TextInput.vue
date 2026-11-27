@@ -61,7 +61,7 @@ const wrapperClasses = computed(() =>
 
 const inputClasses = computed(() =>
   cn(
-    'w-full h-[56px] px-9 border rounded-sm outline-hidden transition-colors',
+    'w-full h-18 px-9 border rounded-sm outline-hidden transition-colors',
     TypoMap['label-md'],
 
     // 기본 스타일 (비활성화가 아닐 때만 DOM에 노출)
@@ -126,7 +126,7 @@ const inputClasses = computed(() =>
         aria-label="입력 내용 지우기"
         @click="handleClear"
       >
-        <IInputDelete class="size-[20px]" aria-hidden="true" />
+        <IInputDelete class="size-10" aria-hidden="true" />
       </IconButton>
 
       <!-- input 안에 버튼 및 내용 추가 slot -->

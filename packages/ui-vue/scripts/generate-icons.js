@@ -67,7 +67,8 @@ function generate() {
         fs.writeFileSync(filePath, converted, 'utf-8');
         console.log(`🎨 currentColor 변환: ${file}`);
       }
-      exportsContent += `export { default as ${componentName} } from '../assets/icons/${file}';\n`;
+      // ?component: vite/client의 *.svg(string) 타입 대신 컴포넌트 타입으로 잡히게 함
+      exportsContent += `export { default as ${componentName} } from '../assets/icons/${file}?component';\n`;
     }
   });
 

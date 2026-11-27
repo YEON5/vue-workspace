@@ -52,7 +52,7 @@ function apply() {
   document.documentElement.classList.toggle(DARK_CLASS, isDark);
 
   // 강제로 스타일을 계산시켜 transition 없이 새 색이 먼저 적용되게 한 뒤 원복
-  window.getComputedStyle(document.body).opacity;
+  void window.getComputedStyle(document.body).opacity; // void: 값을 읽기만 하는 의도된 식 (no-unused-expressions)
   document.head.removeChild(style);
 }
 

@@ -11,8 +11,8 @@ const PREFIX = ""; // 문자열 필요시 원하는 문자열 넣기
 const PREFIX_DASH = PREFIX ? `${PREFIX}-` : "";
 
 // "rem" | "px" — 이 값만 바꾸면 됨 (npm run tokens / dev 중이면 자동 반영)
-// rem: 토큰 값을 rem으로 출력(16px → 1.6rem) + html { font-size: 62.5% } 자동 추가 (1rem = 10px)
-// px:  토큰 값을 px로 출력, html font-size는 브라우저 기본(16px)
+// rem: 토큰 값을 rem으로 출력, 브라우저·Tailwind 기본 1rem = 16px 기준 (16px → 1rem, 14px → 0.875rem)
+// px:  토큰 값을 px로 출력 (html font-size는 어느 쪽이든 바꾸지 않음)
 const UNIT = "px";
 
 // ─────────────────────────────────────────────────────────

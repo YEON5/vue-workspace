@@ -64,7 +64,7 @@ function toHex(c) {
 function toCss(type, v) {
   if (type === "color") return toHex(v);
   if (type === "dimension") {
-    if (UNIT === "rem" && v.unit === "px") return `${v.value / 10}rem`; // html { font-size: 62.5% } 기준
+    if (UNIT === "rem" && v.unit === "px") return `${v.value / 16}rem`; // 브라우저·Tailwind 기본 1rem = 16px 기준
     return `${v.value}${v.unit}`;
   }
   return String(v);
@@ -151,10 +151,13 @@ const twColors = (() => {
   } catch { return new Set(); }
 })();
 const ownColors = new Set(list.filter((t) => t.category === "color").map((t) => t.key));
+// 토큰에 색상이 있으면 Tailwind 기본 팔레트를 끄므로(아래 twScaleOff) Tailwind 색은 white·black만 남음
+const hasColor = list.some((t) => t.category === "color" || t.category === "semantic");
+const twLiveColors = hasColor ? new Set(["white", "black"]) : twColors;
 const TW_NAMESPACE = { bg: "background-color", text: "text-color", border: "border-color" };
 const twOverrides = utilities.filter((u) => {
   const m = u.cls.match(/^(bg|text|border)-(.+)$/);
-  return m && TW_NAMESPACE[m[1]] && twColors.has(m[2]) && !ownColors.has(m[2]);
+  return m && TW_NAMESPACE[m[1]] && twLiveColors.has(m[2]) && !ownColors.has(m[2]);
 });
 for (const u of twOverrides) u.twVar = `--${TW_NAMESPACE[u.cls.split("-")[0]]}-${u.cls.slice(u.cls.indexOf("-") + 1)}`;
 
@@ -170,9 +173,26 @@ const changedIn = (mode) => list.filter((t) => resolve(t, mode) !== resolve(t, n
 
 // ── design-tokens.css ──
 const hasSpacing = theme.some((t) => t.category === "spacing");
-// font-size 이름이 Tailwind 기본(text-sm, text-4xl …)과 같으면 Tailwind 기본 line-height가 함께 붙음 → 끔
-const TW_TEXT = ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl", "8xl", "9xl"];
-const twTextLineHeights = list.filter((t) => t.category === "fontSize" && TW_TEXT.includes(t.key)).map((t) => `  --text-${t.key}--line-height: initial;\n`).join("");
+const has = (category) => theme.some((t) => t.category === category);
+// 토큰에 그 카테고리가 있으면 Tailwind 기본을 끄고 토큰만, 없으면 Tailwind 기본을 그대로 (간격은 위 hasSpacing, 반응형은 아래 breakpoints)
+// Tailwind 이름과 겹쳐도(text-sm, rounded-md) 기본값·기본 줄 높이가 섞이지 않음
+const twScaleOff = [
+  hasColor && "  --color-*: initial; /* Tailwind 기본 팔레트(gray-300, red-500 …) 끔. transparent·current는 그대로 */\n",
+  has("fontSize") && "  --text-*: initial; /* 글자 크기 text-sm 등 (글자색 text-white 등은 그대로) */\n",
+  has("radius") && "  --radius-*: initial; /* rounded-lg 등 (rounded-full·rounded-none은 그대로) */\n",
+  has("fontWeight") && "  --font-weight-*: initial; /* font-semibold 등 */\n",
+].filter(Boolean).join("");
+// white·black은 CSS 기본 색으로 유지 (bg-white, text-black). PREFIX가 있으면 :root에 내보내지 않도록 @theme inline으로
+const keepColors = hasColor ? "  --color-white: #fff; /* white·black은 CSS 기본 색으로 유지 */\n  --color-black: #000;\n" : "";
+// 반응형: Tailwind 기본 sm·md·lg·xl·2xl 대신 토큰 화면 너비 모드 이름 (tokens-config.js MODES의 min-width)
+// 토큰에 반응형 모드가 없으면 Tailwind 기본 반응형을 그대로 둠 (크기 스케일과 같은 규칙)
+const dataModes = new Set(list.flatMap((t) => Object.keys(t.token.$extensions?.modes ?? {})));
+const breakpoints = Object.entries(MODES)
+  .filter(([m]) => dataModes.has(m))
+  .map(([m, how]) => [m, how.media?.match(/min-width:\s*([\d.]+\w+)/)?.[1]])
+  .filter(([, w]) => w)
+  .map(([m, w]) => `  --breakpoint-${m}: ${w}; /* ${m}: */\n`)
+  .join("");
 const keysOf = (category) => list.filter((t) => t.category === category).map((t) => t.key);
 const autoZero = hasSpacing && !byPath.has("spacing.0"); // spacing 0 자동 추가 (safelist에도 포함)
 
@@ -181,8 +201,8 @@ let css = `/* Auto-generated from design-tokens.json — do not edit manually */
 
 /* static: 사용 여부와 관계없이 모든 토큰을 CSS 변수로 출력 (컴포넌트 <style>에서 var()로 참조) */
 @theme static {
-${hasSpacing ? "  --spacing-*: initial; /* Tailwind 기본 간격 계산(p-14 = 3.5rem) 끄고 토큰 단계만 사용 */\n" : ""}${autoZero && !P ? `  --spacing-0: 0px; /* 토큰에 0 단계가 없어도 p-0·m-0·gap-0 사용 */\n` : ""}${twTextLineHeights}${P ? "" : decl(theme, null)}
-}${P ? `\n/* PREFIX(tokens-config.js): 값은 :root의 --${P}* 변수, Tailwind 클래스는 아래 이름으로 연결 (클래스에는 PREFIX 없음) */\n@theme inline {\n${autoZero ? `  --spacing-0: var(--${P}spacing-0); /* 토큰에 0 단계가 없어도 p-0·m-0·gap-0 사용 */\n` : ""}${theme.map((t) => `  ${themeName(t)}: var(${varName(t)});`).join("\n")}\n}\n` : ""}
+${hasSpacing ? "  --spacing-*: initial; /* Tailwind 기본 간격 계산(p-14 = 3.5rem) 끄고 토큰 단계만 사용 */\n" : ""}${autoZero && !P ? `  --spacing-0: 0px; /* 토큰에 0 단계가 없어도 p-0·m-0·gap-0 사용 */\n` : ""}${twScaleOff}${P ? "" : keepColors}${breakpoints ? "  --breakpoint-*: initial; /* Tailwind 기본 반응형 끄고 토큰 화면 너비만 */\n" : ""}${P ? "" : breakpoints}${P ? "" : decl(theme, null)}
+}${P ? `\n/* PREFIX(tokens-config.js): 값은 :root의 --${P}* 변수, Tailwind 클래스는 아래 이름으로 연결 (클래스에는 PREFIX 없음) */\n@theme inline {\n${keepColors}${breakpoints}${autoZero ? `  --spacing-0: var(--${P}spacing-0); /* 토큰에 0 단계가 없어도 p-0·m-0·gap-0 사용 */\n` : ""}${theme.map((t) => `  ${themeName(t)}: var(${varName(t)});`).join("\n")}\n}\n` : ""}
 ${twOverrides.length ? `\n/* Tailwind 기본 색과 이름이 같은 semantic 클래스 → 토큰 값 사용 (bg-white 등 기본 클래스는 그대로) */\n@theme inline {\n${twOverrides.map((u) => `  ${u.twVar}: var(${u.varName});`).join("\n")}\n}\n` : ""}
 :root {
 ${P ? decl(theme, null) + "\n" : ""}${P && autoZero ? `  --${P}spacing-0: 0px;\n` : ""}${decl(vars, null)}
@@ -214,8 +234,6 @@ ${inline(`text-{${keysOf("fontSize").join(",")}}`)}
 ${inline(`rounded-{${keysOf("radius").join(",")}}`)}
 `;
 
-// UNIT = rem: 1rem = 10px 기준으로 값을 나눴으므로 html font-size를 62.5%(10px)로 (px이면 출력 안 함)
-if (UNIT === "rem") css += `\n/* tokens-config.js UNIT = rem → 1rem = 10px */\n@layer base {\n  html { font-size: 62.5%; }\n}\n`;
 
 fs.writeFileSync(OUTPUT_CSS, css);
 console.log("✓ design-tokens.css generated");

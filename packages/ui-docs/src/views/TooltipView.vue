@@ -11,7 +11,7 @@ import { Container, Divider, IconButton, IMy, Section, Tooltip, TooltipContent, 
       <!-- 아이콘 버튼: 이름은 aria-label, 보충 설명은 tooltip -->
       <Tooltip placement="top-start">
         <TooltipTrigger :as="IconButton" aria-label="툴팁 내용">
-          <IMy class="size-[32px]" />
+          <IMy class="size-13" />
         </TooltipTrigger>
         <TooltipContent arrow class="max-w-[150px]">1회 이체 한도는 최대 1천만원입니다.</TooltipContent>
       </Tooltip>

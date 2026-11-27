@@ -35,7 +35,7 @@ const sizeMap: Record<ButtonSize, string> = {
   sm:  `h-13 px-5 ${TypoMap['label-sm']} rounded-min`,
   md:  `h-15 px-7 ${TypoMap['label-md']} rounded-sm`,
   lg:  `h-17 px-10 ${TypoMap['label-lg']} rounded-sm`,
-  cta: `flex-1 h-[56px] ${TypoMap['label-lg']} rounded-lg`,
+  cta: `flex-1 h-18 ${TypoMap['label-lg']} rounded-lg`,
 };
 
 // style

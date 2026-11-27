@@ -2,7 +2,7 @@
 import type { Component } from 'vue';
 
 export interface HeaderBtn {
-  icon: Component | object | any; // 페이지안에 setHeader svg 타입충돌 막기 위해 any 추가
+  icon: Component;
   action: () => void;
   label: string; // 접근성
   iconClass?: string
@@ -50,7 +50,7 @@ const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
           >
             <component 
               :is="btn.icon" 
-              class="size-[24px]" 
+              class="size-11" 
               :class="btn.iconClass"
             />
           </button>
@@ -63,7 +63,7 @@ const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
         :class="[
           'text-body-lg font-medium text-bolder truncate',
           align === 'center'
-            ? 'absolute z-50 inset-x-0 mx-auto text-center px-[80px] pointer-events-none'
+            ? 'absolute z-50 inset-x-0 mx-auto text-center px-21 pointer-events-none'
             : 'flex-1 min-w-0 text-left',
         ]"
       >
@@ -85,7 +85,7 @@ const normalizeBtn = (btns?: HeaderBtn | HeaderBtn[]) => {
           >
             <component
               :is="btn.icon"
-              class="size-[24px]" 
+              class="size-11" 
               :class="btn.iconClass"
             />
           </button>

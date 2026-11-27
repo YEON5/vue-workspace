@@ -52,7 +52,7 @@ const lottieConfig = computed(() => {
         <component
           :is="icon"
           v-if="icon"
-          class="size-[80px]"
+          class="size-21"
           :class="iconClass"
         />
         <Lottie 

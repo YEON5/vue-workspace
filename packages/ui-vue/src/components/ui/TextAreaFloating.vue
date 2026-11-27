@@ -94,15 +94,15 @@ const labelClasses = computed(() =>
     'absolute left-9 transition-all duration-200 pointer-events-none',
     labelColorClass.value,
     isFloated.value
-      ? cn('top-[8px]', TypoMap['label-xs']) 
-      : cn('top-[12px]', TypoMap['label-md']), 
+      ? cn('top-5', TypoMap['label-xs']) 
+      : cn('top-7', TypoMap['label-md']), 
   )
 );
 const wrapperClasses = computed(() => cn('flex flex-col gap-5', props.class));
 const textareaClasses = computed(() =>
   cn(
     'block w-full px-9 border rounded-sm outline-hidden transition-colors',
-    props.label ? 'pt-[28px] pb-[12px]' : 'py-[12px]', 
+    props.label ? 'pt-12 pb-7' : 'py-7', 
     TypoMap['label-md'],
 
     // 기본 스타일
@@ -147,7 +147,7 @@ const textCount = computed(() => modelValue.value.length);
       @focusout="handleFocusOut"
     >
       <label v-if="label" :for="internalId" :class="labelClasses">
-        {{ label }}<span v-if="required" class="text-body-lg text-danger ml-[2px]">*</span>
+        {{ label }}<span v-if="required" class="text-body-lg text-danger ml-2">*</span>
       </label>
 
       <textarea

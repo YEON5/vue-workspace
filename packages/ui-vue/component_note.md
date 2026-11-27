@@ -91,8 +91,12 @@
 <div class="surface-elevated-01 border border-neutral-light rounded-sm p-9 flex gap-5">
 ```
 
-- **토큰 클래스**: 색상(`surface-*`, `text-*`, `border-*` …), 간격(`p-9`), 모서리(`rounded-sm`), 글자(`text-body-md`, `font-bold`)
-- **Tailwind 기본 클래스**: 토큰에 없는 레이아웃·보조 스타일(`flex`, `w-full`, `grid-cols-2` …)은 자유롭게 사용
+- **규칙**: 토큰에 그 카테고리가 있으면 Tailwind 기본을 끄고 토큰만, 없으면 Tailwind 기본을 씁니다. 자세한 내용은 `.claude/skills/design-tokens/token-usage.md`.
+- **토큰 클래스**: 색상(`surface-*`, `text-*`, `border-*` …, 팔레트 `gray-30` …), 간격(`p-9`), 모서리(`rounded-sm`), 글자(`text-body-md`, `font-bold`), 반응형(`medium:`, `large:`)
+- **꺼진 Tailwind 기본**: 팔레트(`text-gray-300`, `bg-red-500`), 글자 크기(`text-sm`), 굵기(`font-semibold`), 모서리(`rounded-2xl`), 반응형(`md:`)
+- **항상 사용 가능**: `p-0` 등 `0`, `rounded-none`, `rounded-full`, `bg-transparent`, `text-current`, `bg-white`, `text-black`
+- **Tailwind 기본 클래스**: 토큰 카테고리가 아닌 레이아웃·보조 스타일(`flex`, `w-full`, `grid-cols-2`, `max-w-md`, `shadow-*` …)은 자유롭게 사용
+- 색상 임의 값(`bg-[#fff]`)은 쓰지 않습니다. 작업 후 `npx eslint <파일>`로 확인합니다.
 - 직접 쓴 클래스는 타입 검사가 되지 않습니다. 컴포넌트 공통 값은 가능하면 color.ts 등의 맵을 거쳐 씁니다.
 - 임의 값(`size-[32px]`)이 토큰 단계와 같으면 토큰 클래스로 바꿉니다 (`size-13`). VS Code Tailwind 확장이 제안해 줍니다.
 - 클래스 병합은 `cn()`을 씁니다. 토큰 클래스가 등록돼 있어 `text-body-md`(크기)와 `text-basic`(색)을 구분합니다.
@@ -112,7 +116,7 @@ toggle();           // 라이트 ↔ 다크
 - 선택한 모드는 localStorage(`color-mode`)에 저장됩니다.
 - `AppLayout.vue`에서 앱 시작 시 한 번 호출합니다. 토글 버튼을 둘 경우의 코드는 AppLayout에 주석으로 있습니다.
 - 모드를 바꾸는 순간에는 transition을 꺼서 헤더·본문이 동시에 바뀝니다.
-- 다크모드에서 색이 안 바뀌는 곳은 토큰이 아닌 고정 색(`bg-white`, `#fff`)을 쓴 곳입니다 → 토큰 클래스로 교체.
+- 다크모드에서 바뀌는 것은 semantic 색뿐입니다. 색이 안 바뀌는 곳은 고정 색(`bg-white`, `#fff`)이나 팔레트(`gray-30`)를 쓴 곳입니다 → 필요하면 semantic 클래스로 교체.
 
 ---
 
